@@ -46,6 +46,16 @@ One person from your project will set up the repository. That one person should 
 
 9. Once each partner clones down the repo, they need to run `npm install` to install the dependencies on their machine.
 
+## Github Pages setup
+
+1. Visit your repository on Github
+
+2. Go to Settings
+
+3. Under the Github Pages section of Options, select 'master' as your source
+
+Now when you `npm run build`, commit and push to master, you should be able to see your application at <https://your-github-username.github.io/quantified-self>.
+
 ## Run the Server
 
 To see your code in action, you need to fire up a development server. Use the command:
