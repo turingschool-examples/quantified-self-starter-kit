@@ -54,7 +54,7 @@ One person from your project will set up the repository. That one person should 
 
 3. Under the Github Pages section of Options, select 'master' as your source
 
-Now when you `npm run build`, commit and push to master, you should be able to see your application at <https://your-github-username.github.io/quantified-self>.
+Be sure to `npm run build` and commit before each push to master. A few seconds after you push up, you should be able to see your application at <https://your-github-username.github.io/quantified-self>.
 
 ## Run the Server
 
@@ -128,7 +128,7 @@ So now we have two files that can share code between each other, but we have to 
 
 ### Test Files
 
-Near the end of game time, you will have multiple objects for your game that are tested separately with individual test files. The `test/index.js` file serves as an "entry point" for mocha to load all of the tests you write.
+Near the end of quantified self, you will have multiple objects for your project that are tested separately with individual test files. The `test/index.js` file serves as an "entry point" for mocha to load all of the tests you write.
 
 Test file organization is a bit different from development files. If we want to test the `food.js` file from above, then this is how we would do it. For each object file (in this case `food.js`), we want to have a corresponding test file. So in the `test` directory, we would create a new file called `test/food-test.js`. Here is what that file would look like:
 
