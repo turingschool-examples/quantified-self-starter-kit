@@ -5,5 +5,22 @@
 .input-description {
   font-size: 12px;
   color: red;
-  text-align: right;
+  text-align: center;
+}
+
+.input-box {
+  width: 350px;
+}
+
+th {
+  background-color: grey;
+}
+
+#add-food {
+  margin-right: 180px;
+  float: right;
+}
+
+.table {
+  width: 350px;
 }
