@@ -4,7 +4,7 @@
   "description": "Starter kit for Turing School's BEE M4 Quantified Self Project",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline",
     "build": "./node_modules/webpack/bin/webpack.js",
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register"
   },

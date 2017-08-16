@@ -6,7 +6,210 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
 <body>
-  <h1> Hello World! </h1>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4">
+        <h2>Foods</h2>
+        <button type="button" class="btn btn-outline-success">Create New</button>
+        <hr/>
+        <h3>Add Selected To</h3>
+        <div class="btn-group" role="group" aria-label="Meal Selection">
+          <button type="button" class="btn btn-outline-info">Breakfast</button>
+          <button type="button" class="btn btn-outline-info">Lunch</button>
+          <button type="button" class="btn btn-outline-info">Dinner</button>
+          <button type="button" class="btn btn-outline-info">Snacks</button>
+        </div>
+        <hr/>
+        <div class="input-group">
+          <div class="input-group-addon">Search by Name:</div>
+          <input type="text" class="form-control" placeholder="Food Name" aria-label="Search by Food Name">
+        </div>
+        <table class="table">
+          <thead class="thead-default">
+            <tr>
+              <th><button type="button" class="btn btn-outline-secondary btn-sm">All</button></th>
+              <th>Name</th>
+              <th>Calories</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" value=""></td>
+              <td>Banana</td>
+              <td>34</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" value=""></td>
+              <td>French Silk Pie</td>
+              <td>340</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" value=""></td>
+              <td>Orange</td>
+              <td>34</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-8">
+        <div class="container">
+          <h1>Main Diary</h1>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h2>Breakfast</h2>
+              <table class="table">
+                <thead class="thead-default">
+                  <tr>
+                    <th>Name</th>
+                    <th>Calories</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Banana</td>
+                    <td class="number">34</td>
+                  </tr>
+                  <tr>
+                    <td>French Silk Pie</td>
+                    <td class="number">340</td>
+                  </tr>
+                </tbody>
+                <tfoot class="thead-inverse">
+                  <tr>
+                    <th>Total Calories</th>
+                    <th>374</th>
+                  </tr>
+                  <tr>
+                    <th>Remaining Calories</th>
+                    <th><span class="remaining positive">26</span></th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="col">
+              <h2>Lunch</h2>
+              <table class="table">
+                <thead class="thead-default">
+                  <tr>
+                    <th>Name</th>
+                    <th>Calories</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Banana</td>
+                    <td class="number">34</td>
+                  </tr>
+                  <tr>
+                    <td>French Silk Pie</td>
+                    <td class="number">340</td>
+                  </tr>
+                </tbody>
+                <tfoot class="thead-inverse">
+                  <tr>
+                    <th>Total Calories</th>
+                    <th>374</th>
+                  </tr>
+                  <tr>
+                    <th>Remaining Calories</th>
+                    <th><span class="remaining negative">26</span></th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h2>Dinner</h2>
+              <table class="table">
+                <thead class="thead-default">
+                  <tr>
+                    <th>Name</th>
+                    <th>Calories</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Banana</td>
+                    <td class="number">34</td>
+                  </tr>
+                  <tr>
+                    <td>French Silk Pie</td>
+                    <td class="number">340</td>
+                  </tr>
+                </tbody>
+                <tfoot class="thead-inverse">
+                  <tr>
+                    <th>Total Calories</th>
+                    <th>374</th>
+                  </tr>
+                  <tr>
+                    <th>Remaining Calories</th>
+                    <th><span class="remaining positive">26</span></th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="col">
+              <h2>Snacks</h2>
+              <table class="table">
+                <thead class="thead-default">
+                  <tr>
+                    <th>Name</th>
+                    <th>Calories</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Banana</td>
+                    <td class="number">34</td>
+                  </tr>
+                  <tr>
+                    <td>French Silk Pie</td>
+                    <td class="number">340</td>
+                  </tr>
+                </tbody>
+                <tfoot class="thead-inverse">
+                  <tr>
+                    <th>Total Calories</th>
+                    <th>374</th>
+                  </tr>
+                  <tr>
+                    <th>Remaining Calories</th>
+                    <th><span class="remaining positive">26</span></th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col"></div>
+            <div class="col">
+              <h2>Totals</h2>
+              <table class="table">
+                <tfoot class="thead-inverse">
+                  <tr>
+                    <th>Goal Calories</th>
+                    <th>2000</th>
+                  </tr>
+                  <tr>
+                    <th>Calories Consumed</th>
+                    <th>2073</th>
+                  </tr>
+                  <tr>
+                    <th>Remaining Calories</th>
+                    <th><span class="remaining positive">26</span></th>
+                  </tr>
+                </tfoot>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
