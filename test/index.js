@@ -1,0 +1,1 @@
+const exampleTest = require('./example-test')
