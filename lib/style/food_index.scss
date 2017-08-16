@@ -1,3 +1,9 @@
+$width: 350px;
+
+th {
+  background-color: grey;
+}
+
 .page-header {
   font-size: 20px;
 }
@@ -9,18 +15,14 @@
 }
 
 .input-box {
-  width: 350px;
+  width: $width;
 }
 
-th {
-  background-color: grey;
+.table {
+  width: $width;
 }
 
 #add-food {
   margin-right: 180px;
   float: right;
-}
-
-.table {
-  width: 350px;
 }
