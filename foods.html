@@ -6,6 +6,53 @@
 </head>
 <body>
 
+  <h1>Manage Foods</h1>
+
+  <form name="new_foods" method="post" action="">
+      <p>
+          <label for="food_name">Name</label>
+          <input type="text" name="food_name" id="food_name" />
+      </p>
+      <p>
+          <label for="food_calories">Calories</label>
+          <input type="text" name="food_calories" id="food_calories" />
+      </p>
+      <p>
+          <input type="submit" name="add_food" id="submit" value="Add Food" />
+      </p>
+  </form>
+
+  <section>
+    <div class="tbl-header">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Calories</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="tbl-content">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+          <tr>
+            <td>Banana</td>
+            <td>AUSTRALIAN COMPANY </td>
+          </tr>
+          <tr>
+            <td>AAD</td>
+            <td>AUSENCO</td>
+          </tr>
+          <tr>
+            <td>AAX</td>
+            <td>ADELAIDE</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
   <script src="main.bundle.js"></script>
 </body>
 </html>

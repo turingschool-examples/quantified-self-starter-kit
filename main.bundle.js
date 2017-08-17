@@ -44,7 +44,11 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	__webpack_require__(1);
+=======
+	var sheets = __webpack_require__(1);
+>>>>>>> master
 
 /***/ }),
 /* 1 */
@@ -62,8 +66,13 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
+<<<<<<< HEAD
 			module.hot.accept("!!../../node_modules/css-loader/index.js!./index.css", function() {
 				var newContent = require("!!../../node_modules/css-loader/index.js!./index.css");
+=======
+			module.hot.accept("!!../node_modules/css-loader/index.js!./styles.css", function() {
+				var newContent = require("!!../node_modules/css-loader/index.js!./styles.css");
+>>>>>>> master
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -81,7 +90,11 @@
 
 
 	// module
+<<<<<<< HEAD
 	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  color: blue;\n}\n\n.col-food {\n  width: 50%;\n  float: left;\n}\n\n.col-diary {\n  width: 50%;\n  float: left;\n}\n", ""]);
+=======
+	exports.push([module.id, ".tbl-header{\n  background-color: rgba(255,255,255,0.3);\n }\n.tbl-content{\n  height:300px;\n  overflow-x:auto;\n  margin-top: 0px;\n  border: 1px solid rgba(255,255,255,0.3);\n}", ""]);
+>>>>>>> master
 
 	// exports
 
