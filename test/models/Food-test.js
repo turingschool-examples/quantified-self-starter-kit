@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const Food = require('../lib/Food.js')
+const Food = require('../../lib/models/Food.js')
 
 describe('Food', () => {
   context('when created', () => {

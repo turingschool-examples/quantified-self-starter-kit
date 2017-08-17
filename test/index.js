@@ -1,2 +1,2 @@
-const foodClassTest = require('./Food-test')
-const mealClassTest = require('./Meal-test')
+const foodClassTest = require('./models/Food-test')
+const mealClassTest = require('./models/Meal-test')

@@ -1,6 +1,6 @@
 const assert = require('chai').assert
-const Meal = require('../lib/Meal.js')
-const Food = require('../lib/Food.js');
+const Meal = require('../../lib/models/Meal.js')
+const Food = require('../../lib/models/Food.js');
 
 describe('meal', () => {
   context('when created', () => {
