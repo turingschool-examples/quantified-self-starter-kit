@@ -138,7 +138,7 @@ Test file organization is a bit different from development files. If we want to 
 var chai = require('chai');
 var assert = chai.assert;
 
-var Food = require('../lib/food');
+var Food = require('../lib/models/food');
 
 describe('Food', function() {
   context('can create a new food', function() {
