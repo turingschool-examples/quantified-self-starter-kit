@@ -1,1 +1,1 @@
-const exampleTest = require('./example-test')
+const foodClassTest = require('./Food-test')
