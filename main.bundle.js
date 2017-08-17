@@ -44,11 +44,8 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 	__webpack_require__(1);
-=======
-	var sheets = __webpack_require__(1);
->>>>>>> master
+	var sheets = __webpack_require__(5);
 
 /***/ }),
 /* 1 */
@@ -66,13 +63,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-<<<<<<< HEAD
 			module.hot.accept("!!../../node_modules/css-loader/index.js!./index.css", function() {
 				var newContent = require("!!../../node_modules/css-loader/index.js!./index.css");
-=======
-			module.hot.accept("!!../node_modules/css-loader/index.js!./styles.css", function() {
-				var newContent = require("!!../node_modules/css-loader/index.js!./styles.css");
->>>>>>> master
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -90,11 +82,7 @@
 
 
 	// module
-<<<<<<< HEAD
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  color: blue;\n}\n\n.col-food {\n  width: 50%;\n  float: left;\n}\n\n.col-diary {\n  width: 50%;\n  float: left;\n}\n", ""]);
-=======
-	exports.push([module.id, ".tbl-header{\n  background-color: rgba(255,255,255,0.3);\n }\n.tbl-content{\n  height:300px;\n  overflow-x:auto;\n  margin-top: 0px;\n  border: 1px solid rgba(255,255,255,0.3);\n}", ""]);
->>>>>>> master
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\n.col-food {\n  width: 50%;\n  float: left;\n  padding-right: 30px;\n  padding-left: 20px;\n}\n\n.col-diary {\n  width: 50%;\n  float: left;\n  padding-right: 30px;\n  padding-left: 20px;\n}\n\nh1 {\n  margin-left: 25px;\n  font-family: 'Yantramanav', sans-serif;\n}\n\n#header {\n  font-family: 'Zilla Slab Highlight', cursive;\n  font-size: 3em;\n  text-shadow: 2px 2px red;\n  text-align: center;\n}\n\nh3 {\n  font-family: 'Yantramanav', sans-serif;\n}\n\ntable {\n  width: 100%;\n  align-self: center;\n  border: 3px dashed red;\n  border-radius: 6px;\n}\n\nth {\n  font-weight: 700;\n  text-align: center;\n  font-family: 'Yantramanav', sans-serif;\n}\n\ntd {\n  text-align: center;\n}\n", ""]);
 
 	// exports
 
@@ -405,6 +393,46 @@
 		if(oldSrc)
 			URL.revokeObjectURL(oldSrc);
 	}
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(6);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../node_modules/css-loader/index.js!./styles.css", function() {
+				var newContent = require("!!../node_modules/css-loader/index.js!./styles.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".tbl-header{\n  background-color: rgba(255,255,255,0.3);\n }\n.tbl-content{\n  height:300px;\n  overflow-x:auto;\n  margin-top: 0px;\n  border: 1px solid rgba(255,255,255,0.3);\n}\n", ""]);
+
+	// exports
 
 
 /***/ })
