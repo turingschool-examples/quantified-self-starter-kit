@@ -20,6 +20,13 @@ h1 {
   margin-left: 25px;
 }
 
+#header {
+  font-family: 'Zilla Slab Highlight', cursive;
+  font-size: 3em;
+  text-shadow: 2px 2px red;
+  text-align: center;
+}
+
 table {
   width: 100%;
   align-self: center;
