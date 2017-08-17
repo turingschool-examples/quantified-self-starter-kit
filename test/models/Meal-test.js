@@ -64,4 +64,63 @@ describe('meal', () => {
       assert.equal(myMeal.remainingCalories, 400 - myFood.calories);
     });
   });
+
+  context('when food is removed', () => {
+    it('it no longer lists that food', () => {
+      const myMeal = new Meal({name: "Breakfast", foods: []});
+      const myFood = new Food({name: "Test", calories: 100});
+      myMeal.addFood(myFood);
+
+      assert.equal(myMeal.foods.length, 1);
+
+      myMeal.removeFood(myFood);
+
+      assert.equal(myMeal.foods.length, 0);
+    });
+
+    it('it decreases totalCalories', () => {
+      const myMeal = new Meal({name: "Breakfast", foods: []});
+      const myFood = new Food({name: "Test", calories: 100});
+
+      myMeal.addFood(myFood);
+
+      assert.equal(myMeal.totalCalories, myFood.calories);
+
+      myMeal.removeFood(myFood);
+
+      assert.equal(myMeal.totalCalories, 0);
+    });
+
+    it('it increases remainingCalories', () => {
+      const myMeal = new Meal({name: "Breakfast", foods: []});
+      const myFood = new Food({name: "Test", calories: 100});
+      myMeal.addFood(myFood);
+
+      assert.equal(myMeal.remainingCalories, 400 - myFood.calories);
+
+      myMeal.removeFood(myFood);
+
+      assert.equal(myMeal.remainingCalories, 400);
+    });
+  });
+
+  describe('.remainingCalSign()', () => {
+    context('when remainingCalories is greater than or equal to Zero', () => {
+      it('it returns "positive"', () =>{
+        const myMeal = new Meal({name: "Breakfast", foods: []});
+        assert.isAtLeast(myMeal.remainingCalories, 0);
+        assert.equal(myMeal.remainingCalSign(), 'positive');
+      });
+    });
+
+    context('when remainingCalories is below zero', () => {
+      it('it returns "negative"', () =>{
+        const myMeal = new Meal({name: "Breakfast", foods: []});
+        myMeal.remainingCalories = -1;
+        assert.isBelow(myMeal.remainingCalories, 0);
+        assert.equal(myMeal.remainingCalSign(), 'negative');
+      });
+    });
+  });
+
 })
