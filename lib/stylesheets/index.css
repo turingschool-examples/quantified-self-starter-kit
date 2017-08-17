@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+.col-food {
+  width: 50%;
+  float: left;
+}
+
+.col-diary {
+  width: 50%;
+  float: left;
+}
