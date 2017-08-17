@@ -30,77 +30,79 @@ describe('meal', () => {
     })
   });
 
-  context('when food is added', () => {
-    it('it can hold food', () => {
-      const myMeal = new Meal({name: "Breakfast", foods: []});
-      const myFood = new Food({name: "Test", calories: 100});
+  describe('.addFood()', () => {
+    context('when food is added', () => {
+      it('it can hold food', () => {
+        const myMeal = new Meal({name: "Breakfast", foods: []});
+        const myFood = new Food({name: "Test", calories: 100});
 
-      assert.equal(myMeal.foods.length, 0);
+        assert.equal(myMeal.foods.length, 0);
 
-      myMeal.addFood(myFood);
+        myMeal.addFood(myFood);
 
-      assert.equal(myMeal.foods.length, 1);
+        assert.equal(myMeal.foods.length, 1);
+      });
+
+      it('it increases totalCalories', () => {
+        const myMeal = new Meal({name: "Breakfast", foods: []});
+        const myFood = new Food({name: "Test", calories: 100});
+
+        assert.equal(myMeal.totalCalories, 0);
+
+        myMeal.addFood(myFood);
+
+        assert.equal(myMeal.totalCalories, myFood.calories);
+      });
+
+      it('it decreases remainingCalories', () => {
+        const myMeal = new Meal({name: "Breakfast", foods: []});
+        const myFood = new Food({name: "Test", calories: 100});
+
+        assert.equal(myMeal.remainingCalories, 400);
+
+        myMeal.addFood(myFood);
+
+        assert.equal(myMeal.remainingCalories, 400 - myFood.calories);
+      });
     });
 
-    it('it increases totalCalories', () => {
-      const myMeal = new Meal({name: "Breakfast", foods: []});
-      const myFood = new Food({name: "Test", calories: 100});
+    context('when food is removed', () => {
+      it('it no longer lists that food', () => {
+        const myMeal = new Meal({name: "Breakfast", foods: []});
+        const myFood = new Food({name: "Test", calories: 100});
+        myMeal.addFood(myFood);
 
-      assert.equal(myMeal.totalCalories, 0);
+        assert.equal(myMeal.foods.length, 1);
 
-      myMeal.addFood(myFood);
+        myMeal.removeFood(myFood);
 
-      assert.equal(myMeal.totalCalories, myFood.calories);
-    });
+        assert.equal(myMeal.foods.length, 0);
+      });
 
-    it('it decreases remainingCalories', () => {
-      const myMeal = new Meal({name: "Breakfast", foods: []});
-      const myFood = new Food({name: "Test", calories: 100});
+      it('it decreases totalCalories', () => {
+        const myMeal = new Meal({name: "Breakfast", foods: []});
+        const myFood = new Food({name: "Test", calories: 100});
 
-      assert.equal(myMeal.remainingCalories, 400);
+        myMeal.addFood(myFood);
 
-      myMeal.addFood(myFood);
+        assert.equal(myMeal.totalCalories, myFood.calories);
 
-      assert.equal(myMeal.remainingCalories, 400 - myFood.calories);
-    });
-  });
+        myMeal.removeFood(myFood);
 
-  context('when food is removed', () => {
-    it('it no longer lists that food', () => {
-      const myMeal = new Meal({name: "Breakfast", foods: []});
-      const myFood = new Food({name: "Test", calories: 100});
-      myMeal.addFood(myFood);
+        assert.equal(myMeal.totalCalories, 0);
+      });
 
-      assert.equal(myMeal.foods.length, 1);
+      it('it increases remainingCalories', () => {
+        const myMeal = new Meal({name: "Breakfast", foods: []});
+        const myFood = new Food({name: "Test", calories: 100});
+        myMeal.addFood(myFood);
 
-      myMeal.removeFood(myFood);
+        assert.equal(myMeal.remainingCalories, 400 - myFood.calories);
 
-      assert.equal(myMeal.foods.length, 0);
-    });
+        myMeal.removeFood(myFood);
 
-    it('it decreases totalCalories', () => {
-      const myMeal = new Meal({name: "Breakfast", foods: []});
-      const myFood = new Food({name: "Test", calories: 100});
-
-      myMeal.addFood(myFood);
-
-      assert.equal(myMeal.totalCalories, myFood.calories);
-
-      myMeal.removeFood(myFood);
-
-      assert.equal(myMeal.totalCalories, 0);
-    });
-
-    it('it increases remainingCalories', () => {
-      const myMeal = new Meal({name: "Breakfast", foods: []});
-      const myFood = new Food({name: "Test", calories: 100});
-      myMeal.addFood(myFood);
-
-      assert.equal(myMeal.remainingCalories, 400 - myFood.calories);
-
-      myMeal.removeFood(myFood);
-
-      assert.equal(myMeal.remainingCalories, 400);
+        assert.equal(myMeal.remainingCalories, 400);
+      });
     });
   });
 
@@ -122,5 +124,4 @@ describe('meal', () => {
       });
     });
   });
-
-})
+});
