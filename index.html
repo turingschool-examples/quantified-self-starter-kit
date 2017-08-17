@@ -6,18 +6,29 @@
 </head>
 <body>
 
-	<section>
-  <!--for demo wrap-->
-  <h1>Fixed Table header</h1>
+<h1>Manage Foods</h1>
+
+<form name="new_foods" method="post" action="">
+    <p>
+        <label for="food_name">Name</label>
+        <input type="text" name="food_name" id="food_name" />
+    </p>
+    <p>
+        <label for="food_calories">Calories</label>
+        <input type="text" name="food_calories" id="food_calories" />
+    </p>
+    <p>
+        <input type="submit" name="add_food" id="submit" value="Add Food" />
+    </p>
+</form>
+
+<section>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>Code</th>
-          <th>Company</th>
-          <th>Price</th>
-          <th>Change</th>
-          <th>Change %</th>
+          <th>Name</th>
+          <th>Calories</th>
         </tr>
       </thead>
     </table>
@@ -26,25 +37,16 @@
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
         <tr>
-          <td>AAC</td>
+          <td>Banana</td>
           <td>AUSTRALIAN COMPANY </td>
-          <td>$1.38</td>
-          <td>+2.01</td>
-          <td>-0.36%</td>
         </tr>
         <tr>
           <td>AAD</td>
           <td>AUSENCO</td>
-          <td>$2.38</td>
-          <td>-0.01</td>
-          <td>-1.36%</td>
         </tr>
         <tr>
           <td>AAX</td>
           <td>ADELAIDE</td>
-          <td>$3.22</td>
-          <td>+0.01</td>
-          <td>+1.36%</td>
         </tr>
       </tbody>
     </table>
