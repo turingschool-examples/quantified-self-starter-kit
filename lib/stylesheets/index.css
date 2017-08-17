@@ -18,6 +18,7 @@
 
 h1 {
   margin-left: 25px;
+  font-family: 'Yantramanav', sans-serif;
 }
 
 #header {
@@ -27,6 +28,10 @@ h1 {
   text-align: center;
 }
 
+h3 {
+  font-family: 'Yantramanav', sans-serif;
+}
+
 table {
   width: 100%;
   align-self: center;
@@ -34,9 +39,10 @@ table {
   border-radius: 6px;
 }
 
-th.calories {
-  font-weight: 900;
+th {
+  font-weight: 700;
   text-align: center;
+  font-family: 'Yantramanav', sans-serif;
 }
 
 td {
