@@ -18,12 +18,27 @@ test.describe('Foods Index Page', function() {
     driver.quit()
   })
 
-  test.it('it shows all foods currently saved in database', () => {
+  test.it('shows all foods currently saved in database', () => {
     driver.get(`${url}`)
     driver.wait(until.elementLocated({css: '.food-name'}))
     driver.findElements({css: '.food-name'})
       .then((foods) => {
-        assert.lengthOf(foods, 12)
+        foods.forEach((food) => {
+          assert(food.isDisplayed())
+        })
       })
   })
+
+  //Need to incorporate delete functionality so I can delete the newly created food
+  // test.it('allows user to add a new food', () => {
+  //   driver.get(`${url}`)
+  //   driver.wait(until.elementLocated({css: '.food-name'}))
+  //   driver.findElements({css: '.food-name'})
+  //     .then((foods) => {
+  //       const originalFoodCount = foods.length
+  //       driver.findElement({css: 'input[name="food-name"]'}).sendKeys('Potato')
+  //       driver.findElement({css: 'input[name="food-calories"]'}).sendKeys('210')
+  //       driver.findElement({css: '#add-food'}).click()
+  //     })
+  // })
 })
