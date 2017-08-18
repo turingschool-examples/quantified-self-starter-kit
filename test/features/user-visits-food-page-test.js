@@ -23,7 +23,9 @@ test.describe('Foods Index Page', function() {
     driver.wait(until.elementLocated({css: '.food-name'}))
     driver.findElements({css: '.food-name'})
       .then((foods) => {
-        assert.lengthOf(foods, 12)
+        foods.forEach((food) => {
+          assert(food.isDisplayed())
+        })
       })
   })
 })
