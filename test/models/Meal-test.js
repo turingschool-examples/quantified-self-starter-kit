@@ -108,7 +108,7 @@ describe('meal', () => {
 
   describe('.getCalorieLimits()', () => {
     it('Snacks returns 200', () => {
-      const Snacks = new Meal({name: "Snacks", foods: []});
+      const Snacks = new Meal({name: "Snack", foods: []});
 
       assert.equal(Snacks.getCalorieLimits(Snacks.name), 200);
     });
