@@ -6,7 +6,7 @@
   "scripts": {
     "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline",
     "build": "./node_modules/webpack/bin/webpack.js",
-    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register"
+    "test": "flow status && ./node_modules/mocha/bin/mocha --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",

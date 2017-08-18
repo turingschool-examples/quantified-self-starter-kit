@@ -105,4 +105,27 @@ describe('meal', () => {
       });
     });
   });
+
+  describe('.getCalorieLimits()', () => {
+    it('Snacks returns 200', () => {
+      const Snacks = new Meal({name: "Snacks", foods: []});
+
+      assert.equal(Snacks.getCalorieLimits(Snacks.name), 200);
+    });
+    it('Breakfast returns 400', () => {
+      const Breakfast = new Meal({name: "Breakfast", foods: []});
+
+      assert.equal(Breakfast.getCalorieLimits(Breakfast.name), 400);
+    });
+    it('Lunch returns 600', () => {
+      const Lunch = new Meal({name: "Lunch", foods: []});
+
+      assert.equal(Lunch.getCalorieLimits(Lunch.name), 600);
+    });
+    it('Dinner returns 800', () => {
+      const Dinner = new Meal({name: "Dinner", foods: []});
+
+      assert.equal(Dinner.getCalorieLimits(Dinner.name), 800);
+    });
+  });
 });
