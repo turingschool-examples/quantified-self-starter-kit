@@ -105,23 +105,4 @@ describe('meal', () => {
       });
     });
   });
-
-  describe('.remainingCalSign()', () => {
-    context('when remainingCalories is greater than or equal to Zero', () => {
-      it('it returns "positive"', () =>{
-        const myMeal = new Meal({name: "Breakfast", foods: []});
-        assert.isAtLeast(myMeal.remainingCalories, 0);
-        assert.equal(myMeal.remainingCalSign(), 'positive');
-      });
-    });
-
-    context('when remainingCalories is below zero', () => {
-      it('it returns "negative"', () =>{
-        const myMeal = new Meal({name: "Breakfast", foods: []});
-        myMeal.remainingCalories = -1;
-        assert.isBelow(myMeal.remainingCalories, 0);
-        assert.equal(myMeal.remainingCalSign(), 'negative');
-      });
-    });
-  });
 });
