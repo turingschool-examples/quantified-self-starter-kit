@@ -5,6 +5,9 @@ module.exports = {
     main: "./lib/index.js",
     test: "mocha!./test/index-test.js"
   },
+  node: {
+    fs: 'empty'
+  },
   output: {
     path: __dirname,
     filename: "[name].bundle.js"
