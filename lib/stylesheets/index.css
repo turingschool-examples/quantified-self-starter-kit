@@ -56,6 +56,8 @@ td {
 .tbl-header{
   background-color: rgba(255,255,255,0.3);
   padding-bottom: 20px;
+  width: 95%;
+  margin: auto;
  }
 
 .tbl-content{
@@ -63,6 +65,8 @@ td {
   overflow-x:auto;
   margin-top: 0px;
   border: 1px solid rgba(255,255,255,0.3);
+  width: 95%;
+  margin: auto;
 }
 
 .trash-can {
@@ -72,4 +76,36 @@ td {
 
 img.index-palms {
   padding-top: 50px;
+}
+
+input[type=text] {
+  border: 2px solid red;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  box-shadow:
+}
+
+label{
+  display:inline-block;
+  width:100px;
+  font-size: 1.25em;
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+}
+
+form#new_foods {
+  margin-left: 10px;
+}
+
+.add-food-button {
+    background-color: white;
+    border: 2px solid red;
+    border-radius: 6px;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }

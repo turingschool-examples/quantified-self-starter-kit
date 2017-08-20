@@ -8,31 +8,33 @@
 <body>
   <img src="public/palm-pattern.png" alt="Red Palm Trees">
 
-  <h1>Manage Foods</h1>
+  <h1>MANAGE FOODS</h1>
 
-  <form name="new_foods" id="new_foods">
-      <p>
-          <label for="food_name">Name</label>
-          <input type="text" name="food_name" id="food_name" /><br />
-          <p id="name-input"></p>
-          </p>
-      </p>
-      <p>
-          <label for="food_calories">Calories</label>
-          <input type="text" name="food_calories" id="food_calories" /><br />
-          <p id="calories-input"></p>
-      </p>
-      <p>
-          <input type="submit" name="add_food" id="add_food" value="Add Food" />
-      </p>
-  </form>
+  <div class="new_food_form">
+    <form name="new_foods" id="new_foods">
+        <p>
+            <label for="food_name">NAME</label>
+            <input type="text" name="food_name" id="food_name" /><br />
+            <p id="name-input"></p>
+            </p>
+        </p>
+        <p>
+            <label for="food_calories">CALORIES</label>
+            <input type="text" name="food_calories" id="food_calories" /><br />
+            <p id="calories-input"></p>
+        </p>
+        <p>
+            <input type="submit" name="add_food" id="add_food" class="add-food-button" value="ADD FOOD" />
+        </p>
+    </form>
+  </div>
 
   <section>
     <div class="tbl-header">
-      <table cellpadding="0" cellspacing="0" border="0">
+      <table cellpadding="0" cellspacing="0" border="0" class="name-calories">
           <tr>
-            <th>Name</th>
-            <th>Calories</th>
+            <th>NAME</th>
+            <th>CALORIES</th>
           </tr>
       </table>
     </div>
