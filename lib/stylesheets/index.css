@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+}
+
 .col-food {
   width: 50%;
   float: left;
@@ -18,7 +22,7 @@
 
 h1 {
   margin-left: 25px;
-  font-family: 'Yantramanav', sans-serif;
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
 #header {
@@ -29,7 +33,7 @@ h1 {
 }
 
 h3 {
-  font-family: 'Yantramanav', sans-serif;
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
 table {
@@ -42,9 +46,30 @@ table {
 th {
   font-weight: 700;
   text-align: center;
-  font-family: 'Yantramanav', sans-serif;
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
 td {
   text-align: center;
+}
+
+.tbl-header{
+  background-color: rgba(255,255,255,0.3);
+  padding-bottom: 20px;
+ }
+
+.tbl-content{
+  height:300px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.trash-can {
+  height: 3%;
+  width: 3%;
+}
+
+img.index-palms {
+  padding-top: 50px;
 }
