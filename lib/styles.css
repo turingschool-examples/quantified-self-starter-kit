@@ -7,3 +7,8 @@
   margin-top: 0px;
   border: 1px solid rgba(255,255,255,0.3);
 }
+
+.trash-can {
+  height: 3%;
+  width: 3%;
+}

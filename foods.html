@@ -12,11 +12,14 @@
   <form name="new_foods" id="new_foods">
       <p>
           <label for="food_name">Name</label>
-          <input type="text" name="food_name" id="food_name" />
+          <input type="text" name="food_name" id="food_name" /><br />
+          <p id="name-input"></p>
+          </p>
       </p>
       <p>
           <label for="food_calories">Calories</label>
-          <input type="text" name="food_calories" id="food_calories" />
+          <input type="text" name="food_calories" id="food_calories" /><br />
+          <p id="calories-input"></p>
       </p>
       <p>
           <input type="submit" name="add_food" id="add_food" value="Add Food" />
@@ -33,7 +36,7 @@
       </table>
     </div>
     <div class="tbl-content">
-      <table id="foods_table" cellpadding="0" cellspacing="0" border="0">
+      <table class="foods_table" id="foods_table" cellpadding="0" cellspacing="0" border="0">
         <tbody></tbody>
       </table>
     </div>
