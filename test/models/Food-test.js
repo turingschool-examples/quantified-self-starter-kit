@@ -1,7 +1,5 @@
 const assert = require('chai').assert
-const sinon  = require('sinon');
 const Food   = require('../../lib/models/Food.js')
-const $      = require('jquery')
 
 describe('Food', () => {
   context('attributes', () => {
