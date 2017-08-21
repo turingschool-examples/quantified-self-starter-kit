@@ -23,34 +23,19 @@
         <hr/>
         <div class="input-group">
           <div class="input-group-addon">Search by Name:</div>
-          <input type="text" class="form-control" placeholder="Food Name" aria-label="Search by Food Name">
+          <input type="text" class="form-control" name="food-filter" placeholder="Food Name" aria-label="Search by Food Name">
         </div>
-        <table class="table">
-          <thead class="thead-default">
-            <tr>
-              <th><button type="button" class="btn btn-outline-secondary btn-sm">All</button></th>
-              <th>Name</th>
-              <th>Calories</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><input type="checkbox" value=""></td>
-              <td>Banana</td>
-              <td>34</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" value=""></td>
-              <td>French Silk Pie</td>
-              <td>340</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" value=""></td>
-              <td>Orange</td>
-              <td>34</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-borderd" id="foods-table">
+            <thead class="thead-default">
+              <tr>
+                <th>Name</th>
+                <th>Calories</th>
+                <th><button type="button" class="btn btn-outline-secondary btn-sm">All</button></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </div>
       <div class="col-md-8">
         <div class="container">
