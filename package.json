@@ -24,17 +24,20 @@
     "babel-loader": "^6.2.7",
     "chai": "^3.5.0",
     "chromedriver": "^2.27.2",
-    "css-loader": "^0.26.0",
-    "jquery": "^3.1.1",
+    "css-loader": "^0.26.4",
+    "jquery": "^3.2.1",
     "mocha": "^3.1.2",
     "mocha-loader": "^1.0.0",
     "node-libs-browser": "^1.0.0",
     "node-sass": "^4.3.0",
     "sass-loader": "^4.1.1",
     "selenium-webdriver": "^3.0.1",
-    "style-loader": "^0.13.1",
+    "style-loader": "^0.13.2",
     "webdriverjs": "^1.7.5",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "jsdom": "^11.2.0"
   }
 }
