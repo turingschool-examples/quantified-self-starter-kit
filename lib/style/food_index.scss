@@ -22,6 +22,16 @@ th {
   width: $width;
 }
 
+.delete-food {
+  height: 5%;
+}
+
+.edit-input {
+  text-align: center;
+  width: 100%;
+  display: table-cell;
+}
+
 #add-food {
   margin-right: 180px;
   float: right;

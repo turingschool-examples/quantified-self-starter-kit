@@ -6,6 +6,7 @@ const url       = 'http://localhost:8080/foods.html'
 
 test.describe('Foods Index Page', function() {
   let driver
+  let originalFoodCount
   this.timeout(10000)
 
   test.beforeEach(() => {
@@ -29,16 +30,32 @@ test.describe('Foods Index Page', function() {
       })
   })
 
-  //Need to incorporate delete functionality so I can delete the newly created food
-  // test.it('allows user to add a new food', () => {
-  //   driver.get(`${url}`)
-  //   driver.wait(until.elementLocated({css: '.food-name'}))
-  //   driver.findElements({css: '.food-name'})
-  //     .then((foods) => {
-  //       const originalFoodCount = foods.length
-  //       driver.findElement({css: 'input[name="food-name"]'}).sendKeys('Potato')
-  //       driver.findElement({css: 'input[name="food-calories"]'}).sendKeys('210')
-  //       driver.findElement({css: '#add-food'}).click()
-  //     })
-  // })
+  test.it('allows user to add a new food', () => {
+    driver.get(`${url}`)
+    driver.wait(until.elementLocated({css: '.food-name'}))
+    driver.findElements({css: '.food-name'})
+      .then((foods) => {
+        originalFoodCount = foods.length
+        driver.findElement({css: 'input[name="food-name"]'}).sendKeys('Potato')
+        driver.findElement({css: 'input[name="food-calories"]'}).sendKeys('210')
+        driver.findElement({css: '#add-food'}).click()
+        driver.sleep(100)
+      })
+      .then(() => {
+        driver.findElements({css: '.food-name'})
+          .then((foods) => {
+            assert.lengthOf(foods, originalFoodCount + 1)
+          })
+        })
+  })
+
+  test.it('allows user to delete a food', () => {
+    driver.get(`${url}`)
+    driver.wait(until.elementLocated({css: '.food-name'}))
+    driver.findElement({css: '.delete-food'}).click()
+    driver.findElements({css: '.food-name'})
+      .then((foods) => {
+        assert.lengthOf(foods, originalFoodCount)
+      })
+  })
 })
