@@ -109,3 +109,17 @@ form#new_foods {
     display: inline-block;
     font-size: 16px;
 }
+
+.filter-container {
+  display: flex;
+  width: 100%
+}
+
+.filter-container h4 {
+  width: 25%
+}
+
+.filter-input {
+  margin-bottom: 15px;
+  width: 50%
+}
