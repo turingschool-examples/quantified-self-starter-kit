@@ -107,16 +107,16 @@ label{
   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
-form#new_foods {
-  display: inline-block;
-  margin-left: 11%;
-}
-
 div.manage-foods {
   display: inline-block;
   margin-left: 50%;
   padding-bottom: 30px;
   transform: translateX(-50%);
+}
+
+form#new-foods {
+  display: inline-block;
+  margin-left: 11%;
 }
 
 .add-food-button, .button-back {
