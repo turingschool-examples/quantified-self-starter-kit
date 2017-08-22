@@ -1,7 +1,7 @@
 const assert = require('chai').assert
-const webdriver = require('selenium-webdriver')
+// const webdriver = require('selenium-webdriver')
 const until = webdriver.until
-const test = require('selenium-webdriver/testing')
+// const test = require('selenium-webdriver/testing')
 const frontEndLocation = "http://localhost:8080/foods.html"
 
 test.describe('Our test bundle', function() {
