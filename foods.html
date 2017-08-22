@@ -3,31 +3,34 @@
 <head>
   <meta charset="utf-8">
   <title>Quantified Self - Manage Foods</title>
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="./lib/stylesheets/index.css">
 </head>
+
 <body>
   <img src="public/palm-pattern.png" alt="Red Palm Trees">
 
-  <h1>MANAGE FOODS</h1>
+  <div class="manage-foods">
+    <h1>MANAGE FOODS</h1>
 
-  <div class="new-food-form">
-    <form name="new-foods" id="new-foods">
-        <p>
-            <label for="food-name">NAME</label>
-            <input type="text" name="food-name" id="food-name" /><br />
-            <p id="name-input"></p>
-            </p>
-        </p>
-        <p>
-            <label for="food-calories">CALORIES</label>
-            <input type="text" name="food-calories" id="food-calories" /><br />
-            <p id="calories-input"></p>
-        </p>
-        <p>
-            <input type="submit" name="add-food" id="add-food" class="add-food-button" value="ADD FOOD" />
-        </p>
-    </form>
+    <div class="new-food-form">
+      <form name="new-foods" id="new-foods">
+          <p>
+              <label for="food-name">NAME</label>
+              <input type="text" name="food-name" id="food-name" /><br />
+              <p id="name-input"></p>
+              </p>
+          </p>
+          <p>
+              <label for="food-calories">CALORIES</label>
+              <input type="text" name="food-calories" id="food-calories" /><br />
+              <p id="calories-input"></p>
+          </p>
+          <p>
+              <input type="submit" name="add-food" id="add-food" class="add-food-button" value="ADD FOOD" />
+              <a href="index.html"><input type="button" class="button-back" value="TAKE ME BACK" /></a>
+          </p>
+      </form>
+    </div>
   </div>
 
   <section>

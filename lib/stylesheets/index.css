@@ -4,6 +4,7 @@
 
 body {
   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  width: 100%;
 }
 
 .col-food {
@@ -41,6 +42,7 @@ table {
   align-self: center;
   border: 3px dashed red;
   border-radius: 6px;
+  margin: auto;
 }
 
 th {
@@ -48,6 +50,10 @@ th {
   text-align: center;
   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
+
+/*tr:nth-child(even) {
+    background-color: rgba(255,0,0,0.8)
+}*/
 
 td {
   text-align: center;
@@ -57,6 +63,13 @@ td {
   background-color: rgba(255,255,255,0.3);
   padding-bottom: 20px;
   width: 95%;
+  margin: auto;
+ }
+
+.tbl-header-index{
+  background-color: rgba(255,255,255,0.3);
+  padding-bottom: 20px;
+  width: 100%;
   margin: auto;
  }
 
@@ -94,11 +107,19 @@ label{
   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
-form#new-foods {
-  margin-left: 10px;
+div.manage-foods {
+  display: inline-block;
+  margin-left: 50%;
+  padding-bottom: 30px;
+  transform: translateX(-50%);
 }
 
-.add-food-button {
+form#new-foods {
+  display: inline-block;
+  margin-left: 11%;
+}
+
+.add-food-button, .button-back {
     background-color: white;
     border: 2px solid red;
     border-radius: 6px;
@@ -108,6 +129,7 @@ form#new-foods {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    margin-right: 10px;
 }
 
 .filter-container {
