@@ -27,9 +27,6 @@ h1 {
 }
 
 #header {
-  font-family: 'Zilla Slab Highlight', cursive;
-  font-size: 3em;
-  text-shadow: 2px 2px red;
   text-align: center;
 }
 
@@ -40,8 +37,9 @@ h3 {
 table {
   width: 100%;
   align-self: center;
-  border: 3px dashed red;
+  border: 6px solid #d8382c;
   border-radius: 6px;
+  box-shadow: 0 0 10px #d8382c;
   margin: auto;
 }
 
@@ -120,7 +118,7 @@ img.index-palms {
 }
 
 input[type=text] {
-  border: 2px solid red;
+  border: 2px solid #d8382c;
   border-radius: 6px;
   padding: 12px 15px;
   margin: 5px 0;
@@ -149,15 +147,17 @@ form#new-foods {
 
 .add-food-button, .button-back {
     background-color: white;
-    border: 2px solid red;
+    border: 2px solid #d8382c;
     border-radius: 6px;
     color: black;
     padding: 10px 10px;
     text-align: center;
     text-decoration: none;
+    font-weight: bold;
     display: inline-block;
     font-size: 16px;
     margin-right: 10px;
+    /*box-shadow: 0 0 10px #f8e632;*/
 }
 
 .filter-container {
@@ -172,4 +172,8 @@ form#new-foods {
 .filter-input {
   margin-bottom: 15px;
   width: 50%
+}
+
+.manage-foods-header {
+  margin-bottom: -10px;
 }
