@@ -1,5 +1,6 @@
-const assert = require('chai').assert
-const Food   = require('../../lib/models/Food.js')
+const assert     = require('chai').assert;
+const Food       = require('../../lib/models/Food.js');
+const HtmlHelper = require('../../lib/helpers/HtmlHelper');
 
 describe('Food', () => {
   context('attributes', () => {
@@ -26,10 +27,10 @@ describe('Food', () => {
       const food = new Food(attrs)
       const expectedHTML = `<tr class="food-row">` +
         `<td class="food-name" data-id="${attrs.id}">${attrs.name}</td>` +
-        `<td class="food-calories" data-id="${attrs.id}">${attrs.calories}</td>` +
+        `<td class="food-calories number" data-id="${attrs.id}">${attrs.calories}</td>` +
         `<td><input type="image" src="${deleteIcon}" class="delete-food" data-id="${attrs.id}"/></td></tr>`
 
-      const resultHTML = food.toHTML()
+      const resultHTML = HtmlHelper.foodRow(food);
 
       assert.equal(resultHTML, expectedHTML)
     })
