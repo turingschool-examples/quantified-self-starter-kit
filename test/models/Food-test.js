@@ -28,11 +28,11 @@ describe('Food', () => {
       const expectedHTML = `<tr class="food-row">` +
         `<td class="food-name" data-id="${attrs.id}">${attrs.name}</td>` +
         `<td class="food-calories number" data-id="${attrs.id}">${attrs.calories}</td>` +
-        `<td><input type="image" src="${deleteIcon}" class="delete-food" data-id="${attrs.id}"/></td></tr>`
+        `<td><input type="image" src="${deleteIcon}" class="delete-food" data-id="${attrs.id}"/></td></tr>`;
 
       const resultHTML = HtmlHelper.foodRow(food);
 
-      assert.equal(resultHTML, expectedHTML)
-    })
-  })
-})
+      assert.equal(resultHTML, expectedHTML);
+    });
+  });
+});
