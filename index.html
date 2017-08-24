@@ -15,11 +15,12 @@
   <div class="food-list">
     <div class="col-food">
       <h1>FOODS</h1>
-      <a href="foods.html"><input type="button" class="button-back" value="MANAGE FOODS" /></a>
-      <div class="filter-container">
-        <h4>FILTER BY NAME</h4>
-        <div class="filter-input">
-          <input type="text" name="filter_name" id="filter_name", placeholder="TYPE NAME HERE" /><br />
+      <div class="manage-foods-btn-filter">
+        <div class="filter-container">
+          <h4>FILTER BY NAME</h4>
+          <div class="filter-input">
+            <input type="text" name="filter-name" id="filter-name", placeholder="TYPE NAME HERE" /><br />
+          </div>
         </div>
       </div>
       <div class="tbl-header-index">
@@ -36,18 +37,21 @@
       <tbody></tbody>
       </table>
       </div>
+      <a href="foods.html"><input type="button" class="button-back manage-btn" value="MANAGE FOODS" /></a>
     </div>
 
     <div class="col-diary">
       <h1>DIARY</h1>
 
-      <table class="diary-table-breakfast">
+      <table class="tbl-header-diary-index">
         <h3>BREAKFAST</h3>
         <tr>
-          <th>FOOD NAME</th>
+          <th>NAME</th>
           <th class="calories">CALORIES</th>
           <th class="th remove">REMOVE</th>
         </tr>
+      </table>
+      <table class="diary-table-breakfast meal-table">
         <tbody></tbody>
         <tr>
           <th>Total Calories</th>
@@ -59,13 +63,15 @@
         </tr>
       </table>
 
-      <table class="diary-table-lunch">
+      <table class="tbl-header-diary-index">
         <h3>LUNCH</h3>
         <tr>
-          <th>FOOD NAME</th>
+          <th>NAME</th>
           <th>CALORIES</th>
           <th>REMOVE</th>
         </tr>
+      </table>
+      <table class="diary-table-lunch meal-table">
         <tbody></tbody>
         <tr>
           <th>Total Calories</th>
@@ -77,13 +83,15 @@
         </tr>
       </table>
 
-      <table class="diary-table-dinner">
+      <table class="tbl-header-diary-index">
         <h3>DINNER</h3>
         <tr>
-          <th>FOOD NAME</th>
+          <th>NAME</th>
           <th>CALORIES</th>
           <th>REMOVE</th>
         </tr>
+      </table>
+      <table class="diary-table-dinner meal-table">
         <tbody></tbody>
         <tr>
           <th>Total Calories</th>
@@ -95,13 +103,15 @@
         </tr>
       </table>
 
-      <table class="diary-table-snacks">
+      <table class="tbl-header-diary-index">
         <h3>SNACKS</h3>
         <tr>
-          <th>FOOD NAME</th>
+          <th>NAME</th>
           <th>CALORIES</th>
           <th>REMOVE</th>
         </tr>
+      </table>
+      <table class="diary-table-snacks meal-table">
         <tbody></tbody>
         <tr>
           <th>Total Calories</th>
@@ -116,14 +126,14 @@
   </div>
   <div class="totals">
       <div class='col totals'>
-        <h1>Totals:</h1>
+        <h1>TOTALS:</h1>
         <div class='row'>
           <table class="table total-calories-table">
             <thead>
               <tr>
-                <th>Goal</th>
-                <th>Total</th>
-                <th>Remaining</th>
+                <th>GOAL</th>
+                <th>TOTAL</th>
+                <th>REMAINING</th>
               </tr>
             </thead>
             <tbody id='total-calories-calculations'>
