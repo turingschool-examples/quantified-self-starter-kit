@@ -4,22 +4,25 @@
 
 body {
   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-  width: 100%;
 }
 
-.col-food {
+.col-food, .col-diary {
   width: 50%;
   float: left;
   padding-right: 30px;
   padding-left: 20px;
 }
 
-.col-diary {
-  width: 50%;
-  float: left;
-  padding-right: 30px;
-  padding-left: 20px;
+.col-food2 {
+  width: 40%;
+  padding-top: 40px;
 }
+
+.col-diary2 {
+  padding-top: 40px;
+  width: 60%;
+}
+
 
 h1 {
   margin-left: 25px;
@@ -36,6 +39,7 @@ h3 {
 
 table {
   width: 100%;
+  height: 100%;
   align-self: center;
   border: 6px solid #d8382c;
   border-radius: 6px;
@@ -125,23 +129,16 @@ input[type=text] {
   box-shadow:
 }
 
-label{
+label {
   display:inline-block;
   width:100px;
   font-size: 1.25em;
   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
-div.manage-foods {
-  display: inline-block;
-  margin-left: 50%;
-  padding-bottom: 30px;
-  transform: translateX(-50%);
-}
-
 form#new-foods {
   display: inline-block;
-  margin-left: 11%;
+  margin-left: 32%;
 }
 
 .add-food-button, .button-back {
@@ -175,4 +172,20 @@ form#new-foods {
 
 .manage-foods-header {
   margin-bottom: -10px;
+  margin: auto;
+  text-align: center;
+}
+
+.new-food-form {
+  margin-left: -12%;
+}
+
+.manage-foods {
+  margin-top: 10%;
+}
+
+.manage-btn {
+  margin-top: 2%;
+  margin-left: 38%;
+  
 }
