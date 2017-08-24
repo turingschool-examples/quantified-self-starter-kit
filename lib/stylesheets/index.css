@@ -49,10 +49,6 @@ th {
   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
-/*tr:nth-child(even) {
-    background-color: rgba(255,0,0,0.8)
-}*/
-
 td.food-name {
   text-align: left;
 }
@@ -108,9 +104,12 @@ td.food-name {
   width: 30%;
 }
 
+.trash-can-space {
+  width: 100%;
+}
+
 .trash-can {
   height: 3%;
-  width: 3%;
 }
 
 img.index-palms {
