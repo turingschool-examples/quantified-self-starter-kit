@@ -98,9 +98,9 @@ td.food-name {
 }
 
 .food-calories {
-  width: 45%;
+  width: 35%;
   text-align: left;
-  padding-left: 7%;
+  padding-left: 5%;
 }
 
 .checkbox {
@@ -110,6 +110,7 @@ td.food-name {
 
 .trash-can-space {
   width: 100%;
+  padding-left: 5%;
 }
 
 .trash-can {
@@ -156,6 +157,14 @@ form#new-foods {
     /*box-shadow: 0 0 10px #f8e632;*/
 }
 
+.manage-btn {
+  margin-top: 2%;
+  margin-left: 12%;
+  width: 75%;
+  font-size: 2em;
+  border: 2px solid #d8382c;
+}
+
 .filter-container {
   display: flex;
   width: 100%
@@ -182,10 +191,4 @@ form#new-foods {
 
 .manage-foods {
   margin-top: 10%;
-}
-
-.manage-btn {
-  margin-top: 2%;
-  margin-left: 38%;
-  
 }
