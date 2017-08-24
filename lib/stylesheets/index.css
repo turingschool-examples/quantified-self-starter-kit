@@ -104,8 +104,8 @@ td.food-name {
 }
 
 .checkbox {
-  padding-right: 15%;
   width: 30%;
+  padding-left: 8%;
 }
 
 .trash-can-space {
@@ -191,4 +191,8 @@ form#new-foods {
 
 .manage-foods {
   margin-top: 10%;
+}
+
+#total-goal-calories, #total-consumed-calories, #total-remaining-calories {
+  padding-left: 15%;
 }
