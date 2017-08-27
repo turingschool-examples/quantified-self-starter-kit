@@ -3,9 +3,157 @@
 <head>
   <meta charset="utf-8">
   <title>Quantified Self - Diary</title>
+  <link href="https://fonts.googleapis.com/css?family=Yantramanav:400,700|Zilla+Slab+Highlight:700" rel="stylesheet">
+  <link rel="stylesheet" href="./lib/stylesheets/index.css">
 </head>
-<body>
+
+<body class="index-home">
+  <header id="header">
+    <img src="public/QuantifiedSelfLogo.png" alt="Quantified Self logo" />
+  </header>
+  <div class="food-list">
+    <div class="col-food">
+      <h1>FOODS</h1>
+      <h3>Add Selected To</h3>
+        <div class="btn-group add-to-meal">
+          <button type="button" class="btn button-back add-to-breakfast" data-id="1">Breakfast</button>
+          <button type="button" class="btn button-back add-to-lunch" data-id="3">Lunch</button>
+          <button type="button" class="btn button-back add-to-dinner" data-id="4">Dinner</button>
+          <button type="button" class="btn button-back add-to-snacks" data-id="2">Snacks</button>
+        </div>
+        <hr/>
+      <div class="filter-container">
+        <h4>FILTER BY NAME</h4>
+        <div class="filter-input">
+          <input type="text" name="filter_name" id="filter_name", placeholder="TYPE NAME HERE" /><br />
+        </div>
+      </div>
+      <div class="tbl-header-index">
+        <table>
+            <tr>
+              <th>NAME</th>
+              <th>CALORIES</th>
+              <th>SELECT</th>
+            </tr>
+        </table>
+      </div>
+      <div>
+      <table class="diary-foods-table" id="foods-table">
+      <tbody></tbody>
+      </table>
+      </div>
+      <a href="foods.html"><input type="button" class="button-back manage-btn" value="MANAGE FOODS" /></a>
+    </div>
+    <div class="col-diary">
+      <h1>DIARY</h1>
+
+      <table class="tbl-header-diary-index">
+        <h3>BREAKFAST</h3>
+        <tr>
+          <th>NAME</th>
+          <th class="calories">CALORIES</th>
+          <th class="th remove">REMOVE</th>
+        </tr>
+      </table>
+      <table class="diary-table-breakfast meal-table" data-id="1" id="breakfast">
+        <tbody></tbody>
+        <tr>
+          <th>Total Calories</th>
+          <th class="tot-calories" id="total-breakfast-calories"></th>
+        </tr>
+        <tr>
+          <th>Remaining Calories</th>
+          <th id="remaining-breakfast-calories"></th>
+        </tr>
+      </table>
+      <table class="tbl-header-diary-index">
+        <h3>LUNCH</h3>
+        <tr>
+          <th>NAME</th>
+          <th>CALORIES</th>
+          <th>REMOVE</th>
+        </tr>
+      </table>
+      <table class="diary-table-lunch meal-table" data-id="3" id="lunch">
+        <tbody></tbody>
+        <tr>
+          <th>Total Calories</th>
+          <th class="tot-calories" id="total-lunch-calories"></th>
+        </tr>
+        <tr>
+          <th>Remaining Calories</th>
+          <th id="remaining-lunch-calories"></th>
+        </tr>
+      </table>
+
+      <table class="tbl-header-diary-index">
+        <h3>DINNER</h3>
+        <tr>
+          <th>NAME</th>
+          <th>CALORIES</th>
+          <th>REMOVE</th>
+        </tr>
+      </table>
+      <table class="diary-table-dinner meal-table" data-id="4" id="dinner">
+        <tbody></tbody>
+        <tr>
+          <th>Total Calories</th>
+          <th class="tot-calories" id="total-dinner-calories"></th>
+        </tr>
+        <tr>
+          <th>Remaining Calories</th>
+          <th id="remaining-dinner-calories"></th>
+        </tr>
+      </table>
+      <table class="tbl-header-diary-index">
+        <h3>SNACKS</h3>
+        <tr>
+          <th>NAME</th>
+          <th>CALORIES</th>
+          <th>REMOVE</th>
+        </tr>
+      </table>
+      <table class="diary-table-snacks meal-table" data-id="2" id="snacks">
+        <tbody></tbody>
+        <tr>
+          <th>Total Calories</th>
+          <th class="tot-calories" id="total-snacks-calories"></th>
+        </tr>
+        <tr>
+          <th>Remaining Calories</th>
+          <th id="remaining-snacks-calories"></th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="totals">
+      <div class='col totals'>
+        <h1>TOTALS:</h1>
+        <div class='row'>
+          <table class="table total-calories-table">
+            <thead>
+              <tr>
+                <th>GOAL</th>
+                <th>TOTAL</th>
+                <th>REMAINING</th>
+              </tr>
+            </thead>
+            <tbody id='total-calories-calculations'>
+              <tr>
+                <td id='total-goal-calories'></td>
+                <td id='total-consumed-calories'></td>
+                <td id='total-remaining-calories'></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <footer>
+    <img src="public/palm-pattern.png" alt="Red Palm Trees" class="index-palms">
+  </footer>
 
   <script src="main.bundle.js"></script>
+
 </body>
 </html>
