@@ -1,7 +1,5 @@
 const assert = require('chai').assert
 const Food = require('../../lib/models/food')
-const helper = require('./helpers/htmlHelper')
-
 
 describe('Food', function() {
   context('when created', function() {
