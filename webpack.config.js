@@ -1,5 +1,4 @@
 const path = require('path');
-
 module.exports = {
   entry: {
     main: "./lib/index.js",
@@ -9,6 +8,7 @@ module.exports = {
     path: __dirname,
     filename: "[name].bundle.js"
   },
+  devtool: 'eval-source-map',
   module: {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
