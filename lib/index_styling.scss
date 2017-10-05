@@ -1,0 +1,24 @@
+table {
+  border-collapse: collapse;
+  width: 40%;
+}
+
+table.left {
+  float: left;
+}
+
+table.right {
+  float: right;
+}
+
+
+td, th {
+  border: 1px solid #000000;
+  text-align: left;
+  padding: 10px;
+}
+
+thead, tfoot {
+  background-color: #dddddd;
+}
+
