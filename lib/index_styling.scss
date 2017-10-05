@@ -1,6 +1,30 @@
+div.right {
+  width: 40%;
+  float: right;
+  padding-right: 80px;
+  padding-bottom: 80px;
+}
+
+div.left {
+  width: 40%;
+  float: left;
+  padding-bottom: 80px;
+}
+
+div.left1 {
+  width: 40%;
+  float: left;
+}
+
+div.right1 {
+  width: 40%;
+  float: right;
+  padding-right: 80px;
+}
+
 table {
   border-collapse: collapse;
-  width: 40%;
+  width: 100%;
 }
 
 table.left {
