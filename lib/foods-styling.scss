@@ -1,0 +1,14 @@
+#foodTable {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+tr:hover {background-color: #f5f5f5}
+
+th, td {
+  padding: 10px;
+}
+
+td {
+    text-align: center;
+}
