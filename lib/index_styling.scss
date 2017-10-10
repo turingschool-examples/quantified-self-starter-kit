@@ -1,0 +1,63 @@
+td.green {
+  color: green;
+}
+
+td.red {
+  color: red;
+}
+
+div.right {
+  width: 40%;
+  float: right;
+  padding-right: 80px;
+  padding-bottom: 40px;
+}
+
+div.left {
+  width: 40%;
+  float: left;
+  padding-bottom: 40px;
+}
+
+div.left1 {
+  width: 40%;
+  float: left;
+}
+
+div.right1 {
+  width: 40%;
+  float: right;
+  padding-right: 80px;
+}
+
+div.total-calories {
+  width: 40%;
+  float: right;
+  padding-right: 80px;
+  padding-top: 40px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.left {
+  float: left;
+}
+
+table.right {
+  float: right;
+}
+
+
+td, th {
+  border: 1px solid #000000;
+  text-align: left;
+  padding: 10px;
+}
+
+thead, tfoot {
+  background-color: #dddddd;
+}
+
