@@ -17,7 +17,7 @@
 /******/ 		};
 
 /******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		modules[moduleId].call(module.exports, module, module.exports);
 
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
