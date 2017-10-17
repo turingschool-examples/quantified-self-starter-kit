@@ -17,7 +17,7 @@
 /******/ 		};
 
 /******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		modules[moduleId].call(module.exports, module, module.exports);
 
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
@@ -46,8 +46,11 @@
 
 	__webpack_require__(1);
 	__webpack_require__(5);
+	__webpack_require__(6);
+	__webpack_require__(8);
 	__webpack_require__(7);
 	__webpack_require__(9);
+
 
 /***/ }),
 /* 1 */
@@ -403,6 +406,8 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {let localURL = "http://localhost:3000";
 
+	let localURL = "http://localhost:3000";
+
 	$(document).ready(function () {
 
 	  // start of AJAX call to get all foods currently in db
@@ -413,6 +418,7 @@
 	      foods.forEach(function (food) {
 	        $("#foodTable").find('tbody').append($('<tr class=list>').append($(`<td class=edit-name contenteditable=true>${food.name}</td> <td class=edit-calories contenteditable=true>${food.calories}</td><td><input class=delete-food type=button name=delete-food id=${food.id} value=delete </td>`)));
 	      });
+
 	    });
 	  } // end of getFoods();
 
@@ -448,7 +454,44 @@
 	      }
 	    });
 	  }
+	    });
+	  } // end of getFoods();
+
+	  // call these functions upon page load
+	  getFoods();
+	  errorMessage();
+	  //end of document.ready
 	});
+	// upon loading page, make error message invisible with jQuery effects
+
+
+	function errorMessage() {
+	  $(".sub-name").hide();
+	  $(".sub-calories").hide();
+	}
+	// new food form handler works
+
+	$(".add-food-form").submit(function (event) {
+	  if ($(".new-food-name").val().length === 0 || $(".new-food-calories").val().length === 0) {
+	    alert("provide new food name and calories");
+	    event.preventDefault();
+	    $(".sub-name").show();
+	    $(".sub-calories").show();
+	  } else {
+	    $.ajax({
+	      url: `${localURL}/api/v1/foods`,
+	      type: 'POST',
+	      beforeSend: function (xhr) {
+	        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+	      },
+	      data: { food: { name: `${$(".new-food-name").val()}`, calories: `${$(".new-food-calories").val()}` } },
+	      success: function (response) {
+	        getFoods();
+	      }
+	    });
+	  }
+	});
+
 
 	function createFoodTable(foods) {
 	  var table = $("<table id=foodTable>").appendTo('#food-table'),
@@ -458,11 +501,19 @@
 	      headerCalories = $("<th>").text("Calories").appendTo(headersRow),
 	      newFoodRow = $("<tr id=result>").appendTo("table tr:last");
 	};
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
+
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(7);
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	 * jQuery JavaScript Library v3.2.1
@@ -10727,6 +10778,7 @@
 
 	// load the styles
 	var content = __webpack_require__(8);
+
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(4)(content, {});
@@ -10746,7 +10798,11 @@
 	}
 
 /***/ }),
+
+/* 7 */
+
 /* 8 */
+
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(3)();
@@ -10754,12 +10810,19 @@
 
 
 	// module
-	exports.push([module.id, "td.green {\n  color: green; }\n\ntd.red {\n  color: red; }\n\ndiv.right {\n  width: 40%;\n  float: right;\n  padding-right: 80px;\n  padding-bottom: 40px; }\n\ndiv.left {\n  width: 40%;\n  float: left;\n  padding-bottom: 40px; }\n\ndiv.left1 {\n  width: 40%;\n  float: left; }\n\ndiv.right1 {\n  width: 40%;\n  float: right;\n  padding-right: 80px; }\n\ndiv.total-calories {\n  width: 40%;\n  float: right;\n  padding-right: 80px;\n  padding-top: 40px; }\n\ntable {\n  border-collapse: collapse;\n  width: 100%; }\n\ntable.left {\n  float: left; }\n\ntable.right {\n  float: right; }\n\ntd, th {\n  border: 1px solid #000000;\n  text-align: left;\n  padding: 10px; }\n\nthead, tfoot {\n  background-color: #dddddd; }\n", ""]);
+
+	exports.push([module.id, "td.green {\n  color: green; }\n\ntd.red {\n  color: red; }\n\ndiv.right {\n  width: 40%;\n  float: right;\n  padding-right: 80px;\n  padding-bottom: 40px; }\n\ndiv.left {\n  width: 40%;\n  float: left;\n  padding-bottom: 40px; }\n\ndiv.left1 {\n  width: 40%;\n  float: left; }\n\ndiv.right1 {\n  width: 40%;\n  float: right;\n  padding-right: 80px; }\n\ndiv.total-calories {\n  width: 40%;\n  float: right;\n  padding-right: 80px;\n  padding-top: 40px; }\n\ntable {\n  border-collapse: collapse;\n  width: 100%; }\n\ntable.left {\n  float: left; }\n\ntable.right {\n  float: right; }\n\n.diary-food {\n  border: 1px solid #000000;\n  text-align: left;\n  padding: 10px; }\n\nthead, tfoot {\n  background-color: #dddddd; }\n", ""]);
+
 
 	// exports
 
 
 /***/ }),
+
+/* 8 */
+/***/ (function(module, exports) {
+
+	$(document).ready(function () {
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10770,7 +10833,7 @@
 	      generateTable(meal);
 	      let mealName = meal.name;
 	      meal.foods.forEach(function (food) {
-	        $(`table.${mealName} > tbody`).append("<tr><td>" + food.name + "</td><td class='total'>" + food.calories + "</td></tr>");
+	        $(`table.${mealName} > tbody`).append("<tr class=diary-food><td class=diary-food>" + food.name + "</td><td class='total'>" + food.calories + "</td></tr>");
 	        totalCalories += food.calories;
 	      });
 	      calorieCounter(mealName, i, totalCalories);
