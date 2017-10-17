@@ -1,3 +1,12 @@
+a.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: initial;
+}
+
 td.green {
   color: green;
 }
@@ -22,6 +31,12 @@ div.left {
 div.left1 {
   width: 40%;
   float: left;
+}
+
+div.left2 {
+  width: 40%;
+  float: left;
+  padding-top: 90px;
 }
 
 div.right1 {
