@@ -669,7 +669,7 @@
 	    let idOfFood = $(this).closest("tr").find(".food-name").attr("id");
 	    let foodName = $(this).closest("tr").find(".food-name").text();
 	    $.ajax({
-	      url: "https://quantified-self-node.herokuapp.com/" + mealId + "/foods/" + idOfFood,
+	      url: "https://quantified-self-node.herokuapp.com/api/v1/meals/" + mealId + "/foods/" + idOfFood,
 	      type: "DELETE",
 	      success: function (result) {
 	        alert("Successfully deleted " + foodName);
@@ -691,7 +691,7 @@
 	function collectTableSelection(mealId) {
 	  $.each($("#foodTable :checkbox:checked"), function () {
 	    let idOfFood = $(this).closest("tr").find("td:eq(3)").children().attr("id");
-	    $.post("https://quantified-self-node.herokuapp.com/" + mealId + "/foods/" + idOfFood, function (data) {});
+	    $.post("https://quantified-self-node.herokuapp.com/api/v1/meals/" + mealId + "/foods/" + idOfFood, function (data) {});
 	    let foodName = $(this).closest("td").next().text();
 	    let foodCalories = $(this).closest("td").next().next().text();
 	    $("#" + mealId + " table > tbody").append(`<tr><td class=food-name id=${idOfFood}>` + foodName + "</td><td>" + foodCalories + "</td><td><input class=remove-row type=button value=delete /></td></tr>");
