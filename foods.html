@@ -5,7 +5,48 @@
   <title>Quantified Self - Manage Foods</title>
 </head>
 <body>
+  <h2> Manage Foods </h2>
 
+<!-- START ADD FOOD FORM  -->
+<div class="add-food-form">
+
+  <form id="add-food-form" class="add-food">
+    <div class="add-food-input">
+      <label for="food-name"> Name </label>
+        <input type="text" class="new-food-name" name="" value=""> <br>
+      <div class="sub-name"> please enter a food name </div>
+    </div>
+    <div class="add-food-input">
+      <label for="food-calories"> Calories </label>
+        <input type="text" class="new-food-calories" value="">
+        <div class="sub-calories">please enter food calories </div>
+    </div>
+    <div class="add-food-button">
+      <input type="submit" class="new-food-click" value="Add Food">
+    </div>
+  </form>
+
+</div>
+<!-- END ADD FOOD FORM  -->
+
+
+
+ <!-- START SEARCH FORM
+  <form action="/" id="searchForm">
+    <input type="text" name="s" placeholder="Search...">
+    <input type="submit" value="Search">
+  </form> -->
+<!-- END SEARCH FORM -->
+
+<input id="searchInput" value="Type To Filter">
+<br/>
+
+    <!-- dynamically populate FOODS table start  -->
+    <div id="food-table" class="food-table">
+    </div>
+    <!-- FOODS table end -->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="main.bundle.js"></script>
 </body>
 </html>
