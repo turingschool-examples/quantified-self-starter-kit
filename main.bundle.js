@@ -660,7 +660,6 @@
 	    let i = parseInt(mealId) - 1;
 	    collectTableSelection(mealId);
 	    let totalCals = calculateTotalMealCalories(mealName);
-	    calorieCounter(mealName, i, totalCals);
 	    removeCheckedBoxes();
 	  });
 	}
