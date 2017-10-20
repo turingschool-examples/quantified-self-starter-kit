@@ -1,0 +1,70 @@
+a.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: initial;
+}
+// .total {
+//   background-color: #ddd;
+// }
+
+div {
+  display: block;
+}
+div.right {
+  width: 40%
+
+}
+
+div.left {
+  width: 40%
+
+}
+
+div.left1 {
+  width: 40%
+}
+
+div.left2 {
+  width: 40%;
+  float: right;
+
+}
+
+div.right1 {
+  width: 40%;
+
+
+}
+
+div.total-calories {
+  width: 40%;
+  float: right;
+
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #edf7f9;
+}
+//
+// table.left {
+//   float: left;
+// }
+//
+// table.right {
+//   float: right;
+// }
+//
+// .diary-food {
+//   border: 1px solid #000000;
+//   text-align: left;
+//   padding: 10px;
+// }
+//
+// tfoot {
+//    background-color: #b8b1ce;
+//  }
