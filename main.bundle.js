@@ -472,7 +472,6 @@
 	function deleteFoodMeal(itemId) {
 	  //let mealsWithFood;
 	  $.get(`${localURL}/api/v1/meals`).then(function (meals) {
-	    debugger;
 	    meals.forEach(function (meal) {
 	      if (meal.foods.ids == itemId) {
 	        let mealId = meal.id;
@@ -618,6 +617,9 @@
 
 	$(document).ready(function () {
 	  createTableContents();
+	  $('#searchInput').keyup(function () {
+	    filter(this);
+	  });
 	});
 
 	function createTableContents() {
