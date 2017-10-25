@@ -1,15 +1,7 @@
-// #food-table {
-//     width: 25%;
-//     border: 2px solid black;
-// }
-
-// #add-food-to-meal {
-//   display: inline;
-// }
-
-
 // alligns main page heading
-.add-food-button {float: right;}
+.new-food-click {
+  float: left;
+}
 
 .heading {
   padding-top: 30px;
@@ -71,14 +63,6 @@ td.green {
 td.red {
   color: red;
 }
-
-// add new food styling
-
-// .add-food-form {
-//   width: 25%;
-// }
-
-// error messaage styling
 
 .sub-name {
   text-align: right;
