@@ -1,30 +1,68 @@
-#food-table {
-    width: 25%;
-    border: 2px solid black;
+// alligns main page heading
+.new-food-click {
+  float: left;
 }
 
-#food-table table {
-  width: auto;
-  border-collapse: collapse;
+.heading {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 0px;
 }
+
+// alligs the input filter field against other page elements
+.filter {
+  padding-top: 40px;
+  padding-bottom: 5px;
+  padding-left: 0px;
+  display: block;
+
+}
+
+// makes delete buttons into icons; sets style + red color
+.icon-button {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+    color: red;
+}
+
+// keeps add new food button last on meals page
+.btn-info {float: left;}
+
+#foodsTable {
+  border-collapse: collapse;
+  width: 50%;
+}
+
+.delete-food {
+  color: #300;
+  cursor: pointer;
+
+  &:hover {
+    color: #f00;
+  }
+}
+
 
 .list:hover {background-color: #f5f5f5}
 
-td {
-  padding: 5px;
+#foodsTable th {
+  padding-bottom: 15px;
+  text-align: left;
 }
 
-td {
-    text-align: center;
+
+
+td.green {
+  color: green;
 }
 
-// add new food styling
-
-.add-food-form {
-  width: 25%;
+td.red {
+  color: red;
 }
-
-// error messaage styling
 
 .sub-name {
   text-align: right;
@@ -36,3 +74,4 @@ td {
   text-align: right;
   color: red;
 }
+
