@@ -30,8 +30,6 @@ div.left1 {
 
 div.left2 {
   width: 40%;
-  float: right;
-
 }
 
 div.right1 {
@@ -52,4 +50,7 @@ table {
 
 ul.buttons {
   list-style-type: none;
+}
+li {
+  display: inline;
 }
