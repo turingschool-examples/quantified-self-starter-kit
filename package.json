@@ -35,7 +35,11 @@
     "selenium-webdriver": "^3.0.1",
     "style-loader": "^0.13.1",
     "webdriverjs": "^1.7.5",
-    "webpack": "^1.14.0",
+    "webpack": "^1.15.0",
     "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "compass-sass-mixins": "^0.12.7",
+    "jQuery": "^1.7.4"
   }
 }

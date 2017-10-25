@@ -2,10 +2,47 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
   <title>Quantified Self - Manage Foods</title>
 </head>
 <body>
+  <div class="heading">
+    <h2> Manage Foods </h2>
+  </div>
 
+
+<!-- START ADD FOOD FORM  -->
+<span class="add-food-form">
+  <form id="add-food-form" class="add-food">
+    <span class="add-food-input">
+      <span for="food-nasme"> Name </span>
+        <span><input type="text" class="new-food-name" name="" value=""></span>
+      <span class="sub-name"> please enter a food name </span>
+    </span>
+    <span class="add-food-input">
+      <span for="food-calories"> Calories </span>
+        <span><input type="text" class="new-food-calories" value=""></span>
+        <span class="sub-calories">please enter food calories </span>
+    </span>
+    <span class="add-food-button">
+      <button type="submit" class="btn btn-info" class="new-food-click" >Add Food</button>
+    </span>
+  </form>
+</span>
+
+
+<div class="filter">
+  <input id="searchInput" value="Type To Filter">
+</div>
+
+
+    <!-- dynamically populate FOODS table start  -->
+<div id="food-table" class="food-table">
+</div>
+    <!-- FOODS table end -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="main.bundle.js"></script>
 </body>
 </html>
