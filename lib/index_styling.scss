@@ -1,0 +1,88 @@
+a.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: initial;
+}
+
+.div-row {
+  box-sizing: border-box;
+  height: 25%;
+  width: 100%;
+}
+
+td.green {
+  color: green;
+}
+
+td.red {
+  color: red;
+}
+
+div.right {
+  box-sizing: border-box;
+  width: 50%;
+  float: right;
+  padding-right: 80px;
+  padding-bottom: 40px;
+}
+
+div.left {
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+  padding-bottom: 40px;
+}
+
+div.left1 {
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+}
+
+div.left2 {
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+  padding-top: 90px;
+}
+
+div.right1 {
+  box-sizing: border-box;
+  width: 50%;
+  float: right;
+  padding-right: 80px;
+}
+
+div.total-calories {
+  box-sizing: border-box;
+  width: 100%;
+  float: right;
+  padding-left: 50%;
+  padding-right: 15%;
+  padding-top: 40px;
+}
+
+input.remove-row {
+  float: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.left {
+  float: left;
+}
+
+table.right {
+  float: right;
+}
+
+thead, tfoot {
+  background-color: #dddddd;
+}
+
