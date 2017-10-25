@@ -1,28 +1,82 @@
-#food-table {
-    width: 25%;
-    border: 2px solid black;
+// #food-table {
+//     width: 25%;
+//     border: 2px solid black;
+// }
+
+// #add-food-to-meal {
+//   display: inline;
+// }
+
+
+// alligns main page heading
+.add-food-button {float: right;}
+
+.heading {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 0px;
 }
 
-#food-table table {
-  width: auto;
-  border-collapse: collapse;
+// alligs the input filter field against other page elements
+.filter {
+  padding-top: 40px;
+  padding-bottom: 5px;
+  padding-left: 0px;
+  display: block;
+
 }
+
+// makes delete buttons into icons; sets style + red color
+.icon-button {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+    color: red;
+}
+
+// keeps add new food button last on meals page
+.btn-info {float: left;}
+
+#foodsTable {
+  border-collapse: collapse;
+  width: 50%;
+}
+
+.delete-food {
+  color: #300;
+  cursor: pointer;
+
+  &:hover {
+    color: #f00;
+  }
+}
+
 
 .list:hover {background-color: #f5f5f5}
 
-td {
-  padding: 5px;
+#foodsTable th {
+  padding-bottom: 15px;
+  text-align: left;
 }
 
-td {
-    text-align: center;
+
+
+td.green {
+  color: green;
+}
+
+td.red {
+  color: red;
 }
 
 // add new food styling
 
-.add-food-form {
-  width: 25%;
-}
+// .add-food-form {
+//   width: 25%;
+// }
 
 // error messaage styling
 
@@ -36,3 +90,4 @@ td {
   text-align: right;
   color: red;
 }
+
