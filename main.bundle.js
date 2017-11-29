@@ -42,9 +42,31 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	
+	'use strict';
 
-/***/ }
+	//foods.html
+	__webpack_require__(1);
+	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./models/all_foods.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	// If I visit foods.html, I should see a table of all my foods,
+	// with Name, Calories and a delete icon for each food
+
+	module.exports = function Food(name, calories) {
+	  _classCallCheck(this, Food);
+
+	  this.name = name;
+	  this.calories = calories;
+	};
+
+/***/ })
 /******/ ]);
