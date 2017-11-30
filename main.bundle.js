@@ -49,7 +49,7 @@
 	//foods.html
 	// require('./ajax-requests/all_foods.js')
 	__webpack_require__(1);
-	__webpack_require__(4);
+	__webpack_require__(5);
 
 /***/ }),
 /* 1 */
@@ -59,11 +59,13 @@
 
 	var _all_foods = __webpack_require__(2);
 
+	var _appendFood = __webpack_require__(4);
+
 	var $ = __webpack_require__(3);
 
-	_all_foods.foodsResponse.then(function (data) {
-	  for (var i = 0; i < data.length; i++) {
-	    $("#list").append('<li> Name: ' + data[i].name + ' | Calories: ' + data[i].calories + ' | delete_icon.png </li>');
+	_all_foods.foodsResponse.then(function (foodObjects) {
+	  for (var i = 0; i < foodObjects.length; i++) {
+	    (0, _appendFood.appendFood)(foodObjects[i]);
 	  }
 	}).catch(function () {
 	  console.log("Error Loading Food Tracker");
@@ -10351,43 +10353,89 @@
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var _all_foods = __webpack_require__(2);
-
-	__webpack_require__(5);
-
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	var $ = __webpack_require__(3);
 
-	function createFood() {
-	  // let foodParams = $('#food-form').on('submit')
-	  $("#add-food").on("click", function (event) {
-	    event.preventDefault();
-	    var name = $(food - form[name = "name"]).val();
-	    var calories = $(food - form[name = "calories"]).val();
-	    console.log(name, calories);
-	    // return new Food(foodParams.name, foodParams.calories)
-	  });
+	exports.appendFood = appendFood;
+
+
+	function appendFood(foodObject) {
+	  $("#list").append("<li> Name: " + foodObject.name + " | Calories: " + foodObject.calories + " | delete_icon.png </li>");
 	}
-
-	createFood();
-
-	// export { foodObject }
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _food = __webpack_require__(6);
+
+	var _add_food = __webpack_require__(7);
+
+	var $ = __webpack_require__(3);
+
+	var foodObj = $("#add-food").on("click", function (event) {
+	  event.preventDefault();
+	  var name = $("#name").val();
+	  var calories = $("#calories").val();
+	  var newFood = new _food.Food(name, calories);
+	  (0, _add_food.createFood)(newFood);
+	});
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports) {
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	module.exports = function Food(name, calories) {
+	var Food = function Food(name, calories) {
 	  _classCallCheck(this, Food);
 
 	  this.name = name;
 	  this.calories = calories;
 	};
+
+	exports.Food = Food;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.createFood = undefined;
+
+	var _appendFood = __webpack_require__(4);
+
+	var $ = __webpack_require__(3);
+
+	exports.createFood = createFood;
+
+
+	var url = "https://quantified-self-aabs.herokuapp.com/api/v1/foods";
+
+	function createFood(foodObject) {
+	  $.post(url, { food: foodObject }).then((0, _appendFood.appendFood)(foodObject));
+	}
+
+	//
+	// $.post( "ajax/test.html", function( data ) {
+	//   $( ".result" ).html( data );
+	// });
 
 /***/ })
 /******/ ]);
