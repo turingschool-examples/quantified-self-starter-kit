@@ -42,9 +42,30 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	
+	'use strict';
 
-/***/ }
+	var Food = __webpack_require__(1);
+
+	var someFood = new Food();
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	function Food(food, calories) {
+	  this.name = name;
+	  this.calories = calories;
+	}
+
+	Food.prototype.edit = function () {
+	  //Some cool storage stuff here
+	};
+
+	module.exports = Food;
+
+/***/ })
 /******/ ]);
