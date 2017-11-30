@@ -49,23 +49,24 @@
 	//foods.html
 	// require('./ajax-requests/all_foods.js')
 	__webpack_require__(1);
+	__webpack_require__(4);
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var _all_foods = __webpack_require__(2);
 
-	__webpack_require__(4);
-	__webpack_require__(2);
 	var $ = __webpack_require__(3);
 
-	_all_foods.foodsResponse.done(function (data) {
+	_all_foods.foodsResponse.then(function (data) {
 	  for (var i = 0; i < data.length; i++) {
-	    $("#list").append("<li> Name: " + data[i].name + " | Calories: " + data[i].calories + " | delete_icon.png </li>");
+	    $("#list").append('<li> Name: ' + data[i].name + ' | Calories: ' + data[i].calories + ' | delete_icon.png </li>');
 	  }
+	}).catch(function () {
+	  console.log("Error Loading Food Tracker");
 	});
 
 /***/ }),
@@ -75,16 +76,14 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	        value: true
 	});
 	var $ = __webpack_require__(3);
 
 	var url = "https://quantified-self-aabs.herokuapp.com/api/v1/foods";
 	var foodsResponse = $.ajax({
-	    url: url,
-	    success: function success(data) {
-	        return data;
-	    }
+	        type: "GET",
+	        url: url
 	});
 
 	exports.foodsResponse = foodsResponse;
@@ -10350,6 +10349,33 @@
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _all_foods = __webpack_require__(2);
+
+	__webpack_require__(5);
+
+	var $ = __webpack_require__(3);
+
+	function createFood() {
+	  // let foodParams = $('#food-form').on('submit')
+	  $("#add-food").on("click", function (event) {
+	    event.preventDefault();
+	    var name = $(food - form[name = "name"]).val();
+	    var calories = $(food - form[name = "calories"]).val();
+	    console.log(name, calories);
+	    // return new Food(foodParams.name, foodParams.calories)
+	  });
+	}
+
+	createFood();
+
+	// export { foodObject }
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports) {
 
 	"use strict";
