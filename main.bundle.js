@@ -44,14 +44,23 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	//foods.html
 	__webpack_require__(1);
-	__webpack_require__(2);
+	(function webpackMissingModule() { throw new Error("Cannot find module \"run\""); }());
+	(function webpackMissingModule() { throw new Error("Cannot find module \"build\""); }());
+
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	//foods.html
+	__webpack_require__(2);
+	__webpack_require__(3);
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -69,23 +78,26 @@
 	};
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	//
-	var $ = __webpack_require__(3);
+	var $ = __webpack_require__(4);
 	var url = "https://quantified-self-aabs.herokuapp.com/api/v1/foods";
+	var foodsJson = getAllFoods();
 
-	module.exports = function getAllFoods() {
+	function getAllFoods() {
 	    $.ajax({ url: url, success: function success(result) {
 	            return result;
 	        } });
 	};
 
+	exports.foodsJson = foodsJson;
+
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
