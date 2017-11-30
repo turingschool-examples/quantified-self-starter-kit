@@ -3,8 +3,49 @@
 <head>
   <meta charset="utf-8">
   <title>Quantified Self - Manage Foods</title>
+
+  <style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+  </style>
 </head>
 <body>
+  <h1>Manage Foods</h1>
+
+  <form class="new_food_form" name="food-form">
+    Name:<br>
+    <input name="food_name" type="text" placeholder="Please enter a food here">
+    <br>
+    Calories:<br>
+    <input name="calorie_count" type="text" placeholder="Please enter a calorie count">
+    <br><br>
+    <input type="submit" value="Add Food">
+    <br>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Calories</th>
+      </tr>
+    </thead>
+    <tbody id="new_food_table">
+    </tbody
+  </table>
 
   <script src="main.bundle.js"></script>
 </body>
