@@ -47,10 +47,27 @@ p.submit-food {
   border-width: 1.5px;
   border-color: black;
   border-radius: 25px;
+  margin-bottom: 15px;
   padding: 1em 18px;
   text-align: center;
   cursor: pointer;
   font-size: 1em;
   font-weight: bold;
   line-height: 1px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 2px solid;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #dddddd;
 }
