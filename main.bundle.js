@@ -44,60 +44,53 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(1);
-	(function webpackMissingModule() { throw new Error("Cannot find module \"run\""); }());
-	(function webpackMissingModule() { throw new Error("Cannot find module \"build\""); }());
+	'use strict';
 
+	//foods.html
+	// require('./ajax-requests/all_foods.js')
+	__webpack_require__(1);
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	//foods.html
+	var _all_foods = __webpack_require__(2);
+
+	__webpack_require__(4);
 	__webpack_require__(2);
-	__webpack_require__(3);
+	var $ = __webpack_require__(3);
+
+	_all_foods.foodsResponse.done(function (data) {
+	  for (var i = 0; i < data.length; i++) {
+	    $("#list").append("<li> Name: " + data[i].name + " | Calories: " + data[i].calories + " | delete_icon.png </li>");
+	  }
+	});
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	// If I visit foods.html, I should see a table of all my foods,
-	// with Name, Calories and a delete icon for each food
-
-	module.exports = function Food(name, calories) {
-	  _classCallCheck(this, Food);
-
-	  this.name = name;
-	  this.calories = calories;
-	};
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	//
-	var $ = __webpack_require__(4);
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var $ = __webpack_require__(3);
+
 	var url = "https://quantified-self-aabs.herokuapp.com/api/v1/foods";
-	var foodsJson = getAllFoods();
+	var foodsResponse = $.ajax({
+	    url: url,
+	    success: function success(data) {
+	        return data;
+	    }
+	});
 
-	function getAllFoods() {
-	    $.ajax({ url: url, success: function success(result) {
-	            return result;
-	        } });
-	};
-
-	exports.foodsJson = foodsJson;
+	exports.foodsResponse = foodsResponse;
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10354,6 +10347,21 @@
 	return jQuery;
 	} );
 
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	module.exports = function Food(name, calories) {
+	  _classCallCheck(this, Food);
+
+	  this.name = name;
+	  this.calories = calories;
+	};
 
 /***/ })
 /******/ ]);
