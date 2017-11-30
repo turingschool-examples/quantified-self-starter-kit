@@ -7,6 +7,11 @@ div.foods {
   width: 300px;
 }
 
+div.meal-tables {
+  font: 100% $font-stack;
+  width: 300px;
+}
+
 // input
 
 .foods input {
@@ -75,4 +80,3 @@ th {
 .hidden {
     display: none;
 }
-
