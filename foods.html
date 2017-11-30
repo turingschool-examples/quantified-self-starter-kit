@@ -23,17 +23,29 @@
   </style>
 </head>
 <body>
+  <h1>Manage Foods</h1>
 
-  <p id="counter"></p>
-    <table>
-     <tr>
-       <th>Name</th>
-       <th>Calories</th>
-     </tr>
-     <tbody id="foods">
-       
-     </tbody>
-    </table>
+  <form id="new_food">
+    Name:<br>
+    <input id="food_name" type="text" placeholder="Please enter a food here">
+    <br>
+    Calories:<br>
+    <input id="calorie_count" type="text" placeholder="Please enter a calorie count">
+    <br><br>
+    <input type="submit" value="Add Food">
+    <br>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Calories</th>
+      </tr>
+    </thead>
+    <tbody id="new_food_table">
+    </tbody
+  </table>
 
   <script src="main.bundle.js"></script>
 </body>
