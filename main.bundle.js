@@ -42,9 +42,20 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
-	
+	'use strict';
 
-/***/ }
+	$(document).ready(function () {
+	  var foods = $.getJSON('http://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods');
+	  function foodCall(foods) {
+	    foods.responseJSON.forEach(function (food) {
+	      $('tr').append('<td>' + food.name + '</td>');
+	      $('tr').append('<td>' + food.calories + '</td>');
+	    });
+	    foodCall();
+	  }
+	});
+
+/***/ })
 /******/ ]);
