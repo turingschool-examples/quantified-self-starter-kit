@@ -42,9 +42,22 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
-	
+	'use strict';
 
-/***/ }
+	$(document).ready(function () {
+	  $.getJSON('http://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods', function (data) {
+	    data.forEach(function (food) {
+	      $('.food-table').append('<tr><td class="no-show">' + food.id + '</td><td>' + food.name + '</td><td>' + food.calories + '</td><td class="delete-button"><button type="button">Delete</button></td></tr>');
+	      $('.no-show').hide();
+	    });
+	  });
+	});
+
+	$('.delete-button').on('click', function () {
+	  $(this).parent().remove();
+	});
+
+/***/ })
 /******/ ]);

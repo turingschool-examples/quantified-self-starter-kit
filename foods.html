@@ -5,7 +5,23 @@
   <title>Quantified Self - Manage Foods</title>
 </head>
 <body>
+  <table class="food-table">
+    <thead class="food-table-head">
+      <th>Name</th>
+      <th>Calories</th>
+    </thead>
+  </table>
 
-  <script src="main.bundle.js"></script>
+  <div class="food-form">
+    <h3>Manage Foods</h3>
+    <form id="new_food" name="new_food">
+      Name<br>
+      <input type="text" name="name" /><br>
+      Calories<br>
+      <input type="number" name="calories" /><br>
+      <button id="add_food">Add Food</button>
+    </form>
+  </div>
+<script src="main.bundle.js"></script>
 </body>
 </html>
