@@ -51,7 +51,7 @@
 	var someFood = new Food();
 
 	var bs = __webpack_require__(3);
-	bs();
+	// bs.getAllFoods();
 
 /***/ }),
 /* 1 */
@@ -10380,8 +10380,7 @@
 	var $ = __webpack_require__(2);
 	var API = "https://rocky-earth-59921.herokuapp.com";
 
-	function getAllFoods() {
-	  debugger;
+	var getAllFoods = function getAllFoods() {
 	  $.ajax({
 	    url: API + '/api/v1/foods',
 	    method: 'GET'
@@ -10408,18 +10407,20 @@
 	//   })
 	// }
 	//
-	// var createNewFood = function() {
-	//   var foodDescription = $(".post-form input[name='post-description']").val();
-	//   return $.ajax({
-	//     url: API + '/api/v1/foods',
-	//     method: 'POST',
-	//     data: { food: {name: foodDescription, calories: calorieCount} }
-	//   }).done(function(data) {
-	//     $('#latest-posts').prepend('<p class="post">New post has been created.</p>');
-	//   }).fail(function() {
-	//     handleError();
-	//   })
-	// }
+	var createNewFood = function createNewFood() {
+	  var foodName = $(".new_food_form input[name='food_name']").val();
+	  var calorieCount = $(".new_food_form input[name='calorie_count']").val();
+	  return $.ajax({
+	    url: API + '/api/v1/foods',
+	    method: 'POST',
+	    data: { food: { name: foodName, calories: calorieCount } }
+	  }).done(function (data) {
+	    console.log(data);
+	    $('#new_food_table').prepend('<tr><td>' + foodName + '</td><td>' + calorieCount + '</td></tr>');
+	  }).fail(function (error) {
+	    handleError(error);
+	  });
+	};
 	//
 	// var updateFood = function() {
 	//   var foodId = $(".update-form input[name='update-name']").val();
@@ -10449,16 +10450,19 @@
 	//   })
 	// }
 
-	var handleError = function handleError() {
-	  $('#new_food_table').prepend('<tr><td> Something went wrong. Try again later</td><ßtd>no count</td></tr>');
+	var handleError = function handleError(error) {
+	  console.log(error);
 	};
 
 	// $('button[name="button-fetch"]').on('click', getAllFoods);
 	// $(".show-form input[type='submit']").on('click', getSingleFood);
-	// $('.post-form input[type="submit"]').on('click', createNewFood);
+	$('.new_food_form input[type="submit"]').on('click', function (event) {
+	  event.preventDefault();
+	  createNewFood();
+	});
 	// $('.update-form input[type="submit"]').on('click', updateFood);
 	// $('.delete-form input[type="submit"]').on('click', deleteFood);
-	module.exports = getAllFoods;
+	getAllFoods();
 
 /***/ })
 /******/ ]);
