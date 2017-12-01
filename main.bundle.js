@@ -10496,7 +10496,7 @@
 	  }).done(function (data) {
 	    data.forEach(function (meal) {
 	      meal.foods.forEach(function (food) {
-	        $('#' + meal.name.toLowerCase() + ' #foods-header').append('<tr><td>' + food.name + '</td><td>' + food.calories + '</td></tr>');
+	        $('#' + meal.name.toLowerCase() + ' #foods-header').after('<tr><td>' + food.name + '</td><td>' + food.calories + '</td></tr>');
 	      });
 	    });
 	  });
