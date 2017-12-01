@@ -3,8 +3,58 @@
 <head>
   <meta charset="utf-8">
   <title>Quantified Self - Diary</title>
+  <style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+  </style>
 </head>
+
 <body>
+
+  <h2>Breakfast</h2>
+  <table id="breakfast" class="meal-table">
+    <tr id="foods-header">
+      <th>Name</th>
+      <th>Calories</th>
+    </tr>
+  </table>
+
+  <h2>Lunch</h2>
+  <table id="lunch" class="meal-table">
+    <tr id="foods-header">
+      <th>Name</th>
+      <th>Calories</th>
+    </tr>
+  </table>
+
+  <h2>Dinner</h2>
+  <table id="dinner" class="meal-table">
+    <tr id="foods-header">
+      <th>Name</th>
+      <th>Calories</th>
+    </tr>
+  </table>
+
+  <h2>Snacks</h2>
+  <table id="snack" class="meal-table">
+    <tr id="foods-header">
+      <th>Name</th>
+      <th>Calories</th>
+    </tr>
+  </table>
 
   <script src="main.bundle.js"></script>
 </body>
