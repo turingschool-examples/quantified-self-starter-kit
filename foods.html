@@ -2,7 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="lib/css/style.css">
   <title>Quantified Self - Manage Foods</title>
+
 </head>
 <body>
   <table class="food-table">
@@ -19,9 +21,11 @@
     <h3>Manage Foods</h3>
     <form id="new_food" name="new_food">
       Name<br>
-      <input type="text" name="name" /><br>
+      <input type="text" id="food-name" name="name"/><br>
+      <p class="name-error"></p>
       Calories<br>
-      <input type="number" name="calories" /><br>
+      <input id="calorie-count" name="calories"/><br>
+      <p class="calories-error">Please enter a calorie amount</p>
       <button id="add_food">Add Food</button>
     </form>
   </div>
