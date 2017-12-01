@@ -51,7 +51,7 @@
 	var someFood = new Food();
 
 	var bs = __webpack_require__(3);
-	bs();
+	// bs.getAllFoods();
 
 /***/ }),
 /* 1 */
@@ -10380,15 +10380,14 @@
 	var $ = __webpack_require__(2);
 	var API = "https://rocky-earth-59921.herokuapp.com";
 
-	function getAllFoods() {
-	  debugger;
+	var getAllFoods = function getAllFoods() {
 	  $.ajax({
 	    url: API + '/api/v1/foods',
 	    method: 'GET'
 	  }).done(function (data) {
 	    console.log(data);
 	    for (var i = 0; data.length; i++) {
-	      $('#new_food_table').append('<tr><td>' + data[i].name + '</td><td>' + data[i].calories + '</td></tr>');
+	      $('#new_food_table').append('<tr data-id=' + data[i].id + '><td class="food-name-cell">' + data[i].name + '</td><td class="calorie-cell">' + data[i].calories + '</td><td class="delete_row">X</td></tr>');
 	    }
 	  }).fail(function () {
 	    handleError();
@@ -10408,57 +10407,74 @@
 	//   })
 	// }
 	//
-	// var createNewFood = function() {
-	//   var foodDescription = $(".post-form input[name='post-description']").val();
-	//   return $.ajax({
-	//     url: API + '/api/v1/foods',
-	//     method: 'POST',
-	//     data: { food: {name: foodDescription, calories: calorieCount} }
-	//   }).done(function(data) {
-	//     $('#latest-posts').prepend('<p class="post">New post has been created.</p>');
-	//   }).fail(function() {
-	//     handleError();
-	//   })
-	// }
-	//
-	// var updateFood = function() {
-	//   var foodId = $(".update-form input[name='update-name']").val();
-	//   var updateDescription = $(".update-form input[name='food-description']").val();
-	//
-	//   return $.ajax({
-	//     url: API + '/api/v1/foods/' + foodId,
-	//     method: 'PUT',
-	//     data: { post: {food: updateDescription} },
-	//   }).done(function(data) {
-	//     $('#latest-posts').append('<p class="post">New post has been updated.</p>');
-	//   }).fail(function() {
-	//     handleError();
-	//   })
-	// }
-	//
-	// var deleteFood = function() {
-	//   var foodId = $(".delete-form input[name='delete-food']").val();
-	//
-	//   return $.ajax({
-	//     url: API + '/api/v1/foods/' + foodId,
-	//     method: 'DELETE',
-	//   }).done(function(data) {
-	//     $('#latest-posts').append('<p class="post">This post has been deleted.</p>');
-	//   }).fail(function() {
-	//     handleError();
-	//   })
-	// }
+	var createNewFood = function createNewFood() {
+	  var foodName = $(".new_food_form input[name='food_name']").val();
+	  var calorieCount = $(".new_food_form input[name='calorie_count']").val();
+	  return $.ajax({
+	    url: API + '/api/v1/foods',
+	    method: 'POST',
+	    data: { food: { name: foodName, calories: calorieCount } }
+	  }).done(function (data) {
+	    console.log(data);
+	    $('#new_food_table').prepend('<tr><td class="food-name-cell">' + foodName + '</td><td class="calorie-cell">' + calorieCount + '</td><td class="delete_row">X</td></tr>');
+	  }).fail(function (error) {
+	    handleError(error);
+	  });
+	};
 
-	var handleError = function handleError() {
-	  $('#new_food_table').prepend('<tr><td> Something went wrong. Try again later</td><ßtd>no count</td></tr>');
+	var updateFood = function updateFood(event) {
+	  var $parentNode = $(event.currentTarget.parentElement);
+	  var id = $parentNode.data().id;
+	  var foodName = $parentNode.children(".food-name-cell")[0].textContent;
+	  var calories = $parentNode.children(".calorie-cell")[0].textContent;
+
+	  return $.ajax({
+	    url: API + '/api/v1/foods/' + id,
+	    method: 'PATCH',
+	    data: { food: { name: foodName, calories: calories } }
+	  }).done(function (data) {
+	    console.log(data.statusText);
+	  }).fail(function () {
+	    handleError();
+	  });
+	};
+
+	var deleteFood = function deleteFood(event) {
+	  var id = event.currentTarget.parentElement.dataset.id;
+	  return $.ajax({
+	    url: API + '/api/v1/foods/' + id,
+	    method: 'DELETE'
+	  }).done(function (data) {
+	    event.currentTarget.parentElement.remove();
+	  }).fail(function (error) {
+	    handleError(error);
+	  });
+	};
+
+	var handleError = function handleError(error) {
+	  console.log(error.statusText);
+	  console.log(error.responseText);
 	};
 
 	// $('button[name="button-fetch"]').on('click', getAllFoods);
 	// $(".show-form input[type='submit']").on('click', getSingleFood);
-	// $('.post-form input[type="submit"]').on('click', createNewFood);
-	// $('.update-form input[type="submit"]').on('click', updateFood);
-	// $('.delete-form input[type="submit"]').on('click', deleteFood);
-	module.exports = getAllFoods;
+	$('.new_food_form input[type="submit"]').on('click', function (event) {
+	  event.preventDefault();
+	  createNewFood();
+	});
+	$('#new_food_table').on('click', '.food-name-cell, .calorie-cell', function (event) {
+	  $(event.currentTarget).attr('contenteditable', 'true');
+	});
+	$('#new_food_table').on('blur', '.food-name-cell, .calorie-cell', function (event) {
+	  if (event.currentTarget.contentEditable === 'true') {
+	    $(event.currentTarget).attr('contenteditable', 'false');
+	    updateFood(event);
+	  }
+	});
+	$('#new_food_table').on('click', '.delete_row', function (event) {
+	  deleteFood(event);
+	});
+	getAllFoods();
 
 /***/ })
 /******/ ]);
