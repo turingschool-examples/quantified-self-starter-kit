@@ -10387,7 +10387,7 @@
 	  }).done(function (data) {
 	    console.log(data);
 	    for (var i = 0; data.length; i++) {
-	      $('#new_food_table').append('<tr><td>' + data[i].name + '</td><td>' + data[i].calories + '</td></tr>');
+	      $('#new_food_table').append('<tr data-id=' + data[i].id + '><td>' + data[i].name + '</td><td>' + data[i].calories + '</td><td class="delete_row">X</td></tr>');
 	    }
 	  }).fail(function () {
 	    handleError();
@@ -10416,7 +10416,7 @@
 	    data: { food: { name: foodName, calories: calorieCount } }
 	  }).done(function (data) {
 	    console.log(data);
-	    $('#new_food_table').prepend('<tr><td>' + foodName + '</td><td>' + calorieCount + '</td></tr>');
+	    $('#new_food_table').prepend('<tr><td>' + foodName + '</td><td>' + calorieCount + '</td><td class="delete_row">X</td></tr>');
 	  }).fail(function (error) {
 	    handleError(error);
 	  });
@@ -10437,21 +10437,21 @@
 	//   })
 	// }
 	//
-	// var deleteFood = function() {
-	//   var foodId = $(".delete-form input[name='delete-food']").val();
-	//
-	//   return $.ajax({
-	//     url: API + '/api/v1/foods/' + foodId,
-	//     method: 'DELETE',
-	//   }).done(function(data) {
-	//     $('#latest-posts').append('<p class="post">This post has been deleted.</p>');
-	//   }).fail(function() {
-	//     handleError();
-	//   })
-	// }
+	var deleteFood = function deleteFood(event) {
+	  var id = event.currentTarget.parentElement.dataset.id;
+	  return $.ajax({
+	    url: API + '/api/v1/foods/' + id,
+	    method: 'DELETE'
+	  }).done(function (data) {
+	    event.currentTarget.parentElement.remove();
+	  }).fail(function (error) {
+	    handleError(error);
+	  });
+	};
 
 	var handleError = function handleError(error) {
-	  console.log(error);
+	  console.log(error.statusText);
+	  console.log(error.responseText);
 	};
 
 	// $('button[name="button-fetch"]').on('click', getAllFoods);
@@ -10461,7 +10461,9 @@
 	  createNewFood();
 	});
 	// $('.update-form input[type="submit"]').on('click', updateFood);
-	// $('.delete-form input[type="submit"]').on('click', deleteFood);
+	$('#new_food_table').on('click', '.delete_row', function (event) {
+	  deleteFood(event);
+	});
 	getAllFoods();
 
 /***/ })
