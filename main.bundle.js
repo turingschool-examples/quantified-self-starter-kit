@@ -47,11 +47,16 @@
 	'use strict';
 
 	var Food = __webpack_require__(1);
+	var Meal = __webpack_require__(3);
 
 	var someFood = new Food();
+	var someMeal = new Meal();
 
-	var bs = __webpack_require__(3);
-	// bs.getAllFoods();
+	var bs = __webpack_require__(4);
+
+	var foodDiary = __webpack_require__(5);
+
+	foodDiary();
 
 /***/ }),
 /* 1 */
@@ -61,7 +66,7 @@
 
 	var $ = __webpack_require__(2);
 
-	function Food(food, calories) {
+	function Food(name, calories) {
 	  this.name = name;
 	  this.calories = calories;
 	}
@@ -10378,6 +10383,20 @@
 	'use strict';
 
 	var $ = __webpack_require__(2);
+
+	function Meal(name) {
+	  this.name = name;
+	};
+
+	module.exports = Meal;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(2);
 	var API = "https://rocky-earth-59921.herokuapp.com";
 
 	var getAllFoods = function getAllFoods() {
@@ -10432,9 +10451,7 @@
 	    url: API + '/api/v1/foods/' + id,
 	    method: 'PATCH',
 	    data: { food: { name: foodName, calories: calories } }
-	  }).done(function (data) {
-	    console.log(data.statusText);
-	  }).fail(function () {
+	  }).done(function (data) {}).fail(function () {
 	    handleError();
 	  });
 	};
@@ -10456,7 +10473,6 @@
 	  console.log(error.responseText);
 	};
 
-	// $('button[name="button-fetch"]').on('click', getAllFoods);
 	// $(".show-form input[type='submit']").on('click', getSingleFood);
 	$('.new_food_form input[type="submit"]').on('click', function (event) {
 	  event.preventDefault();
@@ -10475,6 +10491,30 @@
 	  deleteFood(event);
 	});
 	getAllFoods();
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(2);
+	var API = "https://rocky-earth-59921.herokuapp.com";
+
+	function getAllMeals() {
+	  $.ajax({
+	    url: API + '/api/v1/meals',
+	    method: 'GET'
+	  }).done(function (data) {
+	    data.forEach(function (meal) {
+	      meal.foods.forEach(function (food) {
+	        $('#' + meal.name.toLowerCase() + ' #foods-header').after('<tr><td>' + food.name + '</td><td>' + food.calories + '</td></tr>');
+	      });
+	    });
+	  });
+	};
+
+	module.exports = getAllMeals;
 
 /***/ })
 /******/ ]);
