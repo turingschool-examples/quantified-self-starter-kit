@@ -47,11 +47,16 @@
 	'use strict';
 
 	var Food = __webpack_require__(1);
+	var Meal = __webpack_require__(3);
 
 	var someFood = new Food();
+	var someMeal = new Meal();
 
-	var bs = __webpack_require__(3);
+	var bs = __webpack_require__(4);
+	var foodDiary = __webpack_require__(5);
+
 	bs();
+	foodDiary();
 
 /***/ }),
 /* 1 */
@@ -61,7 +66,7 @@
 
 	var $ = __webpack_require__(2);
 
-	function Food(food, calories) {
+	function Food(name, calories) {
 	  this.name = name;
 	  this.calories = calories;
 	}
@@ -10378,10 +10383,23 @@
 	'use strict';
 
 	var $ = __webpack_require__(2);
+
+	function Meal(name) {
+	  this.name = name;
+	};
+
+	module.exports = Meal;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(2);
 	var API = "https://rocky-earth-59921.herokuapp.com";
 
 	function getAllFoods() {
-	  debugger;
 	  $.ajax({
 	    url: API + '/api/v1/foods',
 	    method: 'GET'
@@ -10408,18 +10426,19 @@
 	//   })
 	// }
 	//
-	// var createNewFood = function() {
-	//   var foodDescription = $(".post-form input[name='post-description']").val();
-	//   return $.ajax({
-	//     url: API + '/api/v1/foods',
-	//     method: 'POST',
-	//     data: { food: {name: foodDescription, calories: calorieCount} }
-	//   }).done(function(data) {
-	//     $('#latest-posts').prepend('<p class="post">New post has been created.</p>');
-	//   }).fail(function() {
-	//     handleError();
-	//   })
-	// }
+	function createNewFood() {
+	  var foodName = $(".new_food_form input[name='food_name']").val();
+	  var calorieCount = $(".new_food_form input[name='calorie_count']").val();
+	  return $.ajax({
+	    url: API + '/api/v1/foods',
+	    method: 'POST',
+	    data: { food: { name: foodName, calories: calorieCount } }
+	  }).done(function (data) {
+	    $('#latest-posts').prepend('<tr><td>' + foodName + '</td><td>' + calorieCount + '</td></tr>');
+	  }).fail(function () {
+	    handleError();
+	  });
+	}
 	//
 	// var updateFood = function() {
 	//   var foodId = $(".update-form input[name='update-name']").val();
@@ -10459,6 +10478,31 @@
 	// $('.update-form input[type="submit"]').on('click', updateFood);
 	// $('.delete-form input[type="submit"]').on('click', deleteFood);
 	module.exports = getAllFoods;
+	module.exports = createNewFood;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(2);
+	var API = "https://rocky-earth-59921.herokuapp.com";
+
+	function getAllMeals() {
+	  $.ajax({
+	    url: API + '/api/v1/meals',
+	    method: 'GET'
+	  }).done(function (data) {
+	    data.forEach(function (meal) {
+	      meal.foods.forEach(function (food) {
+	        $('#' + meal.name.toLowerCase() + ' #foods-header').append('<tr><td>' + food.name + '</td><td>' + food.calories + '</td></tr>');
+	      });
+	    });
+	  });
+	};
+
+	module.exports = getAllMeals;
 
 /***/ })
 /******/ ]);
