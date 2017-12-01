@@ -10387,7 +10387,7 @@
 	  }).done(function (data) {
 	    console.log(data);
 	    for (var i = 0; data.length; i++) {
-	      $('#new_food_table').append('<tr data-id=' + data[i].id + '><td>' + data[i].name + '</td><td>' + data[i].calories + '</td><td class="delete_row">X</td></tr>');
+	      $('#new_food_table').append('<tr data-id=' + data[i].id + '><td class="food-name-cell">' + data[i].name + '</td><td class="calorie-cell">' + data[i].calories + '</td><td class="delete_row">X</td></tr>');
 	    }
 	  }).fail(function () {
 	    handleError();
@@ -10416,27 +10416,29 @@
 	    data: { food: { name: foodName, calories: calorieCount } }
 	  }).done(function (data) {
 	    console.log(data);
-	    $('#new_food_table').prepend('<tr><td>' + foodName + '</td><td>' + calorieCount + '</td><td class="delete_row">X</td></tr>');
+	    $('#new_food_table').prepend('<tr><td class="food-name-cell">' + foodName + '</td><td class="calorie-cell">' + calorieCount + '</td><td class="delete_row">X</td></tr>');
 	  }).fail(function (error) {
 	    handleError(error);
 	  });
 	};
-	//
-	// var updateFood = function() {
-	//   var foodId = $(".update-form input[name='update-name']").val();
-	//   var updateDescription = $(".update-form input[name='food-description']").val();
-	//
-	//   return $.ajax({
-	//     url: API + '/api/v1/foods/' + foodId,
-	//     method: 'PUT',
-	//     data: { post: {food: updateDescription} },
-	//   }).done(function(data) {
-	//     $('#latest-posts').append('<p class="post">New post has been updated.</p>');
-	//   }).fail(function() {
-	//     handleError();
-	//   })
-	// }
-	//
+
+	var updateFood = function updateFood(event) {
+	  var $parentNode = $(event.currentTarget.parentElement);
+	  var id = $parentNode.data().id;
+	  var foodName = $parentNode.children(".food-name-cell")[0].textContent;
+	  var calories = $parentNode.children(".calorie-cell")[0].textContent;
+
+	  return $.ajax({
+	    url: API + '/api/v1/foods/' + id,
+	    method: 'PATCH',
+	    data: { food: { name: foodName, calories: calories } }
+	  }).done(function (data) {
+	    console.log(data.statusText);
+	  }).fail(function () {
+	    handleError();
+	  });
+	};
+
 	var deleteFood = function deleteFood(event) {
 	  var id = event.currentTarget.parentElement.dataset.id;
 	  return $.ajax({
@@ -10460,7 +10462,15 @@
 	  event.preventDefault();
 	  createNewFood();
 	});
-	// $('.update-form input[type="submit"]').on('click', updateFood);
+	$('#new_food_table').on('click', '.food-name-cell, .calorie-cell', function (event) {
+	  $(event.currentTarget).attr('contenteditable', 'true');
+	});
+	$('#new_food_table').on('blur', '.food-name-cell, .calorie-cell', function (event) {
+	  if (event.currentTarget.contentEditable === 'true') {
+	    $(event.currentTarget).attr('contenteditable', 'false');
+	    updateFood(event);
+	  }
+	});
 	$('#new_food_table').on('click', '.delete_row', function (event) {
 	  deleteFood(event);
 	});
