@@ -1,0 +1,60 @@
+/* List style */
+#list {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 30%;
+}
+
+#list td, #list th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#list tr:nth-child(even){background-color: #f2f2f2;}
+
+#list tr:hover {background-color: #ddd;}
+
+#list th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: maroon;
+    color: white;
+}
+
+/* Form Style */
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    display: flex;
+    width: 100%;
+    background-color: maroon;
+    color: white;
+    padding: 12px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+input[type=submit]:hover {
+    background-color: green;
+}
+
+label {
+    fond-color: black;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    cursor: default;
+}
+
+#food_form {
+    width: 30%;
+}
