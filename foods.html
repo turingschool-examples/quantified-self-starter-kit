@@ -2,9 +2,25 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <title>Quantified Self - Manage Foods</title>
 </head>
 <body>
+  <table id='food-table'>
+    <tr>
+      <th>Food</th>
+      <th>Calories</th>
+    </tr>
+  </table>
+
+  <form id="food-form">
+    Food:<br>
+    <input id='food' type="text" name="name"><br>
+    Calories:<br>
+    <input id='calories' type="text" name="calories">
+    <input id='new-food-submit' type='submit' value='Submit'>
+  </form>
 
   <script src="main.bundle.js"></script>
 </body>
