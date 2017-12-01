@@ -47,14 +47,16 @@
 	'use strict';
 
 	$(document).ready(function () {
-	  var foods = $.getJSON('http://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods');
-	  function foodCall(foods) {
-	    foods.responseJSON.forEach(function (food) {
-	      $('tr').append('<td>' + food.name + '</td>');
-	      $('tr').append('<td>' + food.calories + '</td>');
+	  $.getJSON('http://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods', function (data) {
+	    data.forEach(function (food) {
+	      $('.food-table').append('<tr><td class="no-show">' + food.id + '</td><td>' + food.name + '</td><td>' + food.calories + '</td><td class="delete-button"><button type="button">Delete</button></td></tr>');
+	      $('.no-show').hide();
 	    });
-	    foodCall();
-	  }
+	  });
+	});
+
+	$('.delete-button').on('click', function () {
+	  $(this).parent().remove();
 	});
 
 /***/ })
