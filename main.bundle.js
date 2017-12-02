@@ -56,8 +56,6 @@
 
 	var foodDiary = __webpack_require__(5);
 
-	foodDiary();
-
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -10508,13 +10506,33 @@
 	  }).done(function (data) {
 	    data.forEach(function (meal) {
 	      meal.foods.forEach(function (food) {
-	        $('#' + meal.name.toLowerCase() + ' #foods-header').after('<tr><td>' + food.name + '</td><td>' + food.calories + '</td></tr>');
+	        $('#' + meal.name.toLowerCase() + ' #foods-header').after('<tr><td class="food-name-cell">' + food.name + '</td><td class="calorie-cell">' + food.calories + '</td></tr>');
 	      });
 	    });
+	  }).fail(function () {
+	    handleError();
 	  });
 	};
 
-	module.exports = getAllMeals;
+	function getBreakfastMealCalories() {
+	  var table = document.getElementById('breakfast');
+	  var items = table.getElementsByClassName('calorie-cell');
+	  var sum = 0;
+	  for (var i = 0; i < items.length; i++) {
+	    return sum += parseInt(items[i].value);
+	  }
+	  console.log(items);
+	  // console.log(sum)
+	  $('#breakfast-cals').after('<tr><td class="breakfast-totals' + sum + '</td></tr>');
+	}
+
+	var handleError = function handleError(error) {
+	  console.log(error.statusText);
+	  console.log(error.responseText);
+	};
+
+	getAllMeals();
+	getBreakfastMealCalories();
 
 /***/ })
 /******/ ]);
