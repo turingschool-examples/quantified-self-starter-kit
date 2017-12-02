@@ -102,6 +102,7 @@
 	    url: 'https://quantified-self-aabs.herokuapp.com/api/v1/foods/' + id,
 	    type: 'DELETE',
 	    success: function success(result) {
+	      $('#' + id).remove();
 	      alert('You deleted food id=' + id + '!');
 	    },
 	    error: function error(result) {
@@ -137,7 +138,7 @@
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -150,11 +151,11 @@
 	function appendFood(foodObject) {
 	  var name = foodObject.name;
 	  var id = foodObject.id;
-	  var lowerCaseName = name.toLowerCase;
-	  var tableRowOne = "<td  class='foodinfo name' id='" + lowerCaseName + "'>" + name + "</td>";
-	  var tableRowTwo = "<td class='foodinfo calories'>" + foodObject.calories + "</td>";
-	  var tableRowThree = "<td><img src=\"src/delete.svg\" class=\"delete_button\" height=\"20px\" width=\"20px\"></td>";
-	  var table = "<tr id=" + id + "> " + tableRowOne + " " + tableRowTwo + " " + tableRowThree + " </tr>";
+	  var lowerCaseName = name.toLowerCase().split(' ').join('');
+	  var tableRowOne = '<td  class=\'foodinfo name\' rel=\'' + lowerCaseName + '\'>' + name + '</td>';
+	  var tableRowTwo = '<td class=\'foodinfo calories\'>' + foodObject.calories + '</td>';
+	  var tableRowThree = '<td><img src="src/delete.svg" class="delete_button" height="20px" width="20px"></td>';
+	  var table = '<tr id=' + id + '> ' + tableRowOne + ' ' + tableRowTwo + ' ' + tableRowThree + ' </tr>';
 	  $("#list").append(table);
 	}
 
@@ -10434,8 +10435,8 @@
 	$("#food_form").on("submit", function (event) {
 	  event.preventDefault();
 	  var newFood = foodFormData();
-	  clearFormFields();
 	  if (objectHasData(newFood)) {
+	    clearFormFields();
 	    (0, _foodRequests.createFood)(newFood);
 	  }
 	});
@@ -10471,9 +10472,8 @@
 	    $(this).prop("src", "src/delete.svg");
 	  },
 	  click: function click() {
-	    var parent = $(this).parents("tr");
-	    (0, _foodRequests.deleteFood)(parent.attr('id'));
-	    parent.remove();
+	    var id = $(this).parents("tr").attr('id');
+	    (0, _foodRequests.deleteFood)(id);
 	  }
 	}, '.delete_button');
 
@@ -10481,9 +10481,11 @@
 	$(document).on({
 	  click: function click() {
 	    $(this).attr('contenteditable', "true");
+	    $(this).addClass('highlighted');
 	  },
 	  blur: function blur() {
 	    $(this).attr('contenteditable', "false");
+	    $(this).removeClass('highlighted');
 	    var row = $(this).parent();
 	    var id = row.attr('id');
 	    var name = row.find('.name').text();
@@ -10495,10 +10497,13 @@
 
 	//filter functions
 	$("#foodfilter").on('keyup', function () {
-	  var term = $("#foodfilter").val().toLowerCase();
-	  var result = $('tr').filter(':not(:contains(' + term + '))').hide();
-
-	  console.log(term);
+	  var term = $("#foodfilter").val();
+	  var regex = new RegExp(term, "i");
+	  $("tr").hide();
+	  $("th").parents().show();
+	  var result = $("tr").filter(function () {
+	    return regex.test($(this).children().text());
+	  }).show();
 	});
 
 /***/ }),

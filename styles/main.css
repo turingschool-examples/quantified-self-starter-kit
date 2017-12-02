@@ -22,6 +22,18 @@
     color: white;
 }
 
+.highlighted {
+   -moz-transition: all .7s ease-in;
+   -o-transition: all .7s ease-in;
+   -webkit-transition: all .7s ease-in;
+   transition: all .7s ease-in;
+   padding: 20px;
+}
+
+.highlighted:hover {
+    background: yellow;
+}
+
 /* Form Style */
 
 input[type=text], select {
