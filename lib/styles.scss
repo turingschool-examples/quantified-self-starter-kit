@@ -51,3 +51,9 @@ input:focus {
   color: red;
   font-weight: bold;
 }
+
+.total-cals, .remaining-cals {
+  background-color: lightgrey;
+  width: auto;
+  text-align: left;
+}
