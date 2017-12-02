@@ -48,13 +48,20 @@
 
 	var $ = __webpack_require__(1);
 	var foodAjax = __webpack_require__(2);
-	var foodListners = __webpack_require__(4);
-	__webpack_require__(5);
+	var mealAjax = __webpack_require__(4);
+	var foodListners = __webpack_require__(6);
+	var mealListners = __webpack_require__(7);
+	__webpack_require__(8);
 
 	$(document).ready(function () {
-	  foodAjax.populateFoods();
-	  foodListners.getValues();
-	  foodListners.deleteListener();
+	  if (window.location.pathname === '/') {
+	    mealAjax.populateMeals();
+	    mealListners.deleteListener();
+	  } else {
+	    foodAjax.populateFoods();
+	    foodListners.getValues();
+	    foodListners.deleteListener();
+	  }
 	});
 
 /***/ }),
@@ -10348,7 +10355,7 @@
 	  });
 	};
 
-	var deleteFood = function deleteFood1() {
+	var deleteFood = function deleteFood() {
 	  var target = $(event.target);
 	  var foodId = target.closest('tr').data('id');
 	  var mealIds = [];
@@ -10419,6 +10426,68 @@
 	'use strict';
 
 	var $ = __webpack_require__(1);
+	var mealHandler = __webpack_require__(5);
+	var url = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
+
+	var populateMeals = function populateMeals() {
+	  $.getJSON(url).then(mealHandler.populateMeals);
+	};
+
+	var deleteFood = function deleteFood() {
+	  var target = $(event.target);
+	  var foodId = target.closest('tr').data('food-id');
+	  var mealId = target.closest('tr').data('meal-id');
+	  var foodName = target.parent().siblings()[0].innerHTML;
+	  var mealName = target.closest('table').attr('class');
+	  $.ajax({
+	    url: 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals/' + mealId + '/foods/' + foodId,
+	    type: 'DELETE',
+	    dataType: 'json'
+	  }).then(function (data) {
+	    alert(foodName + ' has been removed from ' + mealName);
+	    target.closest('tr').remove();
+	  }).fail(function (error) {
+	    alert('food not deleted');
+	  });
+	};
+
+	module.exports = {
+	  populateMeals: populateMeals,
+	  deleteFood: deleteFood
+	};
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(1);
+
+	var populateMeals = function populateMeals(data) {
+	  data.forEach(function (meal) {
+	    meal.foods.forEach(function (food) {
+	      $('.' + meal.name.toLowerCase()).prepend('<tr data-meal-id="' + meal.id + '" data-food-id="' + food.id + '"><td>' + food.name + '</td><td><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i>' + food.calories + '</td></tr>');
+	    });
+	  });
+	};
+
+	var errorLog = function errorLog(data) {
+	  console.error(data);
+	};
+
+	module.exports = {
+	  errorLog: errorLog,
+	  populateMeals: populateMeals
+	};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(1);
 	var ajaxReq = __webpack_require__(2);
 
 	var getValues = function getValues() {
@@ -10430,6 +10499,37 @@
 	      }
 	    };
 	    ev.preventDefault();
+
+	    var foodName = $(this).val();
+	    var calorieCount = $(this).val();
+
+	    function msg(body) {
+	      $(".name-error").text(body).show();
+	    };
+
+	    function hide() {
+	      $(".name-error").hide();
+	    };
+
+	    if (foodName.length < 1) {
+	      $(".name-error").text('Please enter a food name').show();
+	    } else {
+	      hide();
+	    }
+
+	    function msg(body) {
+	      $(".calories-error").text(body).show();
+	    };
+
+	    function hide() {
+	      $(".calories-error").hide();
+	    };
+
+	    if (calorieCount.length < 1) {
+	      msg('Please enter a calorie count');
+	    } else {
+	      hide();
+	    }
 	    ajaxReq.postFood(foodPost);
 	  });
 	};
@@ -10440,22 +10540,44 @@
 	    }
 	  });
 	};
+
 	module.exports = {
 	  getValues: getValues,
 	  deleteListener: deleteListener
 	};
 
 /***/ }),
-/* 5 */
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(1);
+	var ajaxReq = __webpack_require__(4);
+
+	var deleteListener = function deleteListener() {
+	  $('table').on('click', function () {
+	    if ($(event.target).hasClass('delete-button')) {
+	      ajaxReq.deleteFood();
+	    }
+	  });
+	};
+
+	module.exports = {
+	  deleteListener: deleteListener
+	};
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(6);
+	var content = __webpack_require__(9);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
+	var update = __webpack_require__(11)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -10472,21 +10594,21 @@
 	}
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(7)();
+	exports = module.exports = __webpack_require__(10)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n  font-family: helvetica; }\n\ntable {\n  border-collapse: collapse;\n  border: 1px solid black;\n  border-radius: 10px;\n  border-width: thin;\n  border-radius: 5px;\n  width: 20em;\n  margin-top: 1em; }\n\nth, td {\n  border: 1px solid black; }\n\nth {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n\ntd {\n  text-align: left; }\n\ninput {\n  width: 25em;\n  padding: 5px 5px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  border: 3px solid #ccc;\n  border-radius: 5px;\n  -webkit-transition: 0.5s;\n  transition: 0.5s;\n  outline: none; }\n\nlabel {\n  color: red;\n  margin-left: 13em; }\n\ninput:focus {\n  border: 3px solid #555; }\n\n.delete-button {\n  float: right;\n  margin-right: -1.2em;\n  color: red;\n  font-weight: bold; }\n", ""]);
+	exports.push([module.id, "body {\n  font-family: helvetica; }\n\ntable {\n  border-collapse: collapse;\n  border: 1px solid black;\n  border-radius: 10px;\n  border-width: thin;\n  border-radius: 5px;\n  width: 20em;\n  margin-top: 1em; }\n\nth, td {\n  border: 1px solid black; }\n\nth {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n\ntd {\n  text-align: left; }\n\ninput {\n  width: 25em;\n  padding: 5px 5px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  border: 3px solid #ccc;\n  border-radius: 5px;\n  -webkit-transition: 0.5s;\n  transition: 0.5s;\n  outline: none; }\n\nlabel {\n  color: red;\n  margin-left: 13em; }\n\ninput:focus {\n  border: 3px solid #555; }\n\n.delete-button {\n  float: right;\n  margin-right: -1.2em;\n  color: red;\n  font-weight: bold; }\n\n.total-cals, .remaining-cals {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports) {
 
 	/*
@@ -10542,7 +10664,7 @@
 
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
