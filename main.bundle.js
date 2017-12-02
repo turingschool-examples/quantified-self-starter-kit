@@ -111,10 +111,7 @@
 	}
 
 	function foodsResponse() {
-	  return $.ajax({
-	    type: "GET",
-	    url: url
-	  });
+	  return $.get(url);
 	}
 
 	function createFood(foodObject) {
@@ -144,8 +141,8 @@
 	function appendFood(foodObject) {
 	  var name = foodObject.name;
 	  var id = foodObject.id;
-	  var tableRowOne = "<td>" + name + "</td>";
-	  var tableRowTwo = "<td>" + foodObject.calories + "</td>";
+	  var tableRowOne = "<td class='foodinfo'>" + name + "</td>";
+	  var tableRowTwo = "<td class='foodinfo'>" + foodObject.calories + "</td>";
 	  var tableRowThree = "<td><img src=\"src/delete.svg\" class=\"delete_button\" height=\"20px\" width=\"20px\"></td>";
 	  var table = "<tr id=" + id + "> " + tableRowOne + " " + tableRowTwo + " " + tableRowThree + " </tr>";
 	  $("#list").append(table);
@@ -10428,8 +10425,7 @@
 	  event.preventDefault();
 	  var newFood = foodFormData();
 	  clearFormFields();
-	  console.log(newFood);
-	  if (objectHasData()) {
+	  if (objectHasData(newFood)) {
 	    (0, _foodRequests.createFood)(newFood);
 	  }
 	});
@@ -10456,6 +10452,7 @@
 	  $("#calories").val("");
 	};
 
+	//delete button functions
 	$(document).on({
 	  mouseenter: function mouseenter() {
 	    $(this).prop("src", "src/x-button.svg");
@@ -10470,6 +10467,17 @@
 	  }
 	}, '.delete_button');
 
+	//edit food functions
+	$(document).on({
+	  click: function click() {
+	    $(this).attr('contenteditable', "true");
+	  },
+	  blur: function blur() {
+	    $(this).attr('contenteditable', "false");
+	    //patch this info
+	  }
+	}, '.foodinfo');
+
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
@@ -10483,10 +10491,15 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var Food = function Food(name, calories) {
+	  var id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
 	  _classCallCheck(this, Food);
 
 	  this.name = name;
 	  this.calories = calories;
+	  if (id !== null) {
+	    this.id = id;
+	  }
 	};
 
 	exports.Food = Food;
