@@ -47,7 +47,6 @@
 	'use strict';
 
 	//foods.html
-	// require('./ajax-requests/all_foods.js')
 	__webpack_require__(1);
 	__webpack_require__(5);
 
@@ -57,41 +56,103 @@
 
 	'use strict';
 
-	var _all_foods = __webpack_require__(2);
-
-	var _appendFood = __webpack_require__(4);
-
-	var $ = __webpack_require__(3);
-
-	_all_foods.foodsResponse.then(function (foodObjects) {
-	  for (var i = 0; i < foodObjects.length; i++) {
-	    (0, _appendFood.appendFood)(foodObjects[i]);
-	  }
-	}).catch(function () {
-	  console.log("Error Loading Food Tracker");
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
 	});
+	exports.renderFoods = undefined;
+
+	var _foodRequests = __webpack_require__(2);
+
+	var _appendFood = __webpack_require__(3);
+
+	var $ = __webpack_require__(4);
+
+	renderFoods();
+
+	function renderFoods() {
+	  (0, _foodRequests.foodsResponse)().then(function (foodObjects) {
+	    for (var i = 0; i < foodObjects.length; i++) {
+	      (0, _appendFood.appendFood)(foodObjects[i]);
+	    }
+	  }).catch(function () {
+	    $(".alert").append("Error Loading Food Tracker");
+	  });
+	}
+
+	exports.renderFoods = renderFoods;
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	        value: true
+	  value: true
 	});
-	var $ = __webpack_require__(3);
+	exports.foodsResponse = exports.deleteFood = exports.createFood = undefined;
 
+	var _appendFood = __webpack_require__(3);
+
+	var $ = __webpack_require__(4);
 	var url = "https://quantified-self-aabs.herokuapp.com/api/v1/foods";
-	var foodsResponse = $.ajax({
-	        type: "GET",
-	        url: url
-	});
 
+	function deleteFood(id) {
+	  $.ajax({
+	    url: 'https://quantified-self-aabs.herokuapp.com/api/v1/foods/' + id,
+	    type: 'DELETE',
+	    success: function success(result) {
+	      alert('You deleted food id=' + id + '!');
+	    },
+	    error: function error(result) {
+	      alert('You must delete the meals this food belongs to in order to delete it.');
+	    }
+	  });
+	}
+
+	function foodsResponse() {
+	  return $.ajax({
+	    type: "GET",
+	    url: url
+	  });
+	}
+
+	function createFood(foodObject) {
+	  $.post(url, { food: foodObject }).done(function (response) {
+	    (0, _appendFood.appendFood)(response);
+	  });
+	}
+
+	exports.createFood = createFood;
+	exports.deleteFood = deleteFood;
 	exports.foodsResponse = foodsResponse;
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var $ = __webpack_require__(4);
+
+	exports.appendFood = appendFood;
+
+
+	function appendFood(foodObject) {
+	  var name = foodObject.name;
+	  var id = foodObject.id;
+	  var tableRowOne = "<td>" + name + "</td>";
+	  var tableRowTwo = "<td>" + foodObject.calories + "</td>";
+	  var tableRowThree = "<td><img src=\"src/delete.svg\" class=\"delete_button\" height=\"20px\" width=\"20px\"></td>";
+	  var table = "<tr id=" + id + "> " + tableRowOne + " " + tableRowTwo + " " + tableRowThree + " </tr>";
+	  $("#list").append(table);
+	}
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10350,24 +10411,6 @@
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var $ = __webpack_require__(3);
-
-	exports.appendFood = appendFood;
-
-
-	function appendFood(foodObject) {
-	  $("#list").append("<li> Name: " + foodObject.name + " | Calories: " + foodObject.calories + " | delete_icon.png </li>");
-	}
-
-/***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10375,17 +10418,57 @@
 
 	var _food = __webpack_require__(6);
 
-	var _add_food = __webpack_require__(7);
+	var _all_food_objects = __webpack_require__(1);
 
-	var $ = __webpack_require__(3);
+	var _foodRequests = __webpack_require__(2);
 
-	var foodObj = $("#add-food").on("click", function (event) {
+	var $ = __webpack_require__(4);
+
+	$("#food_form").on("submit", function (event) {
 	  event.preventDefault();
+	  var newFood = foodFormData();
+	  clearFormFields();
+	  console.log(newFood);
+	  if (objectHasData()) {
+	    (0, _foodRequests.createFood)(newFood);
+	  }
+	});
+
+	var objectHasData = function objectHasData(newFood) {
+	  var foodname = newFood.name;
+	  var calories = newFood.calories;
+	  if (foodname === '' || calories === '') {
+	    return false;
+	  } else {
+	    return true;
+	  }
+	};
+
+	var foodFormData = function foodFormData() {
 	  var name = $("#name").val();
 	  var calories = $("#calories").val();
 	  var newFood = new _food.Food(name, calories);
-	  (0, _add_food.createFood)(newFood);
-	});
+	  return newFood;
+	};
+
+	var clearFormFields = function clearFormFields() {
+	  $("#name").val("");
+	  $("#calories").val("");
+	};
+
+	$(document).on({
+	  mouseenter: function mouseenter() {
+	    $(this).prop("src", "src/x-button.svg");
+	  },
+	  mouseleave: function mouseleave() {
+	    $(this).prop("src", "src/delete.svg");
+	  },
+	  click: function click() {
+	    var parent = $(this).parents("tr");
+	    (0, _foodRequests.deleteFood)(parent.attr('id'));
+	    parent.remove();
+	  }
+	}, '.delete_button');
 
 /***/ }),
 /* 6 */
@@ -10407,35 +10490,6 @@
 	};
 
 	exports.Food = Food;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.createFood = undefined;
-
-	var _appendFood = __webpack_require__(4);
-
-	var $ = __webpack_require__(3);
-
-	exports.createFood = createFood;
-
-
-	var url = "https://quantified-self-aabs.herokuapp.com/api/v1/foods";
-
-	function createFood(foodObject) {
-	  $.post(url, { food: foodObject }).then((0, _appendFood.appendFood)(foodObject));
-	}
-
-	//
-	// $.post( "ajax/test.html", function( data ) {
-	//   $( ".result" ).html( data );
-	// });
 
 /***/ })
 /******/ ]);
