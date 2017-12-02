@@ -64,6 +64,7 @@ p.return {
   font-size: 1em;
   font-weight: bold;
   line-height: 1px;
+  width: 140px;
 }
 
 table {
@@ -95,4 +96,23 @@ span.killer {
 .fa-arrow-left {
   margin-right: 4px;
   color: #000;
+}
+
+div.column {
+    float: left;
+    width: 43%;
+    padding: 10px;
+}
+
+div.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+p.food-table-header {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 12px;
+  margin-top: 1px;
 }
