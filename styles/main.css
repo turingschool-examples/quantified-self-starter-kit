@@ -34,6 +34,10 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
+#searchContainer {
+  width: 30%;
+}
+
 input[type=submit] {
     display: flex;
     width: 100%;
@@ -57,4 +61,14 @@ label {
 
 #food_form {
     width: 30%;
+}
+
+#foodfilter{
+  width: 100%;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
 }
