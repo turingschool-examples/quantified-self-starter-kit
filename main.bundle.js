@@ -90,7 +90,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.foodsResponse = exports.deleteFood = exports.createFood = undefined;
+	exports.foodsResponse = exports.updateFood = exports.deleteFood = exports.createFood = undefined;
 
 	var _appendFood = __webpack_require__(3);
 
@@ -110,6 +110,14 @@
 	  });
 	}
 
+	function updateFood(foodObject) {
+	  $.ajax({
+	    url: 'https://quantified-self-aabs.herokuapp.com/api/v1/foods/' + foodObject.id,
+	    data: { food: foodObject },
+	    type: 'PATCH'
+	  });
+	}
+
 	function foodsResponse() {
 	  return $.get(url);
 	}
@@ -122,6 +130,7 @@
 
 	exports.createFood = createFood;
 	exports.deleteFood = deleteFood;
+	exports.updateFood = updateFood;
 	exports.foodsResponse = foodsResponse;
 
 /***/ }),
@@ -141,8 +150,9 @@
 	function appendFood(foodObject) {
 	  var name = foodObject.name;
 	  var id = foodObject.id;
-	  var tableRowOne = "<td class='foodinfo'>" + name + "</td>";
-	  var tableRowTwo = "<td class='foodinfo'>" + foodObject.calories + "</td>";
+	  var lowerCaseName = name.toLowerCase;
+	  var tableRowOne = "<td  class='foodinfo name' id='" + lowerCaseName + "'>" + name + "</td>";
+	  var tableRowTwo = "<td class='foodinfo calories'>" + foodObject.calories + "</td>";
 	  var tableRowThree = "<td><img src=\"src/delete.svg\" class=\"delete_button\" height=\"20px\" width=\"20px\"></td>";
 	  var table = "<tr id=" + id + "> " + tableRowOne + " " + tableRowTwo + " " + tableRowThree + " </tr>";
 	  $("#list").append(table);
@@ -10474,9 +10484,22 @@
 	  },
 	  blur: function blur() {
 	    $(this).attr('contenteditable', "false");
-	    //patch this info
+	    var row = $(this).parent();
+	    var id = row.attr('id');
+	    var name = row.find('.name').text();
+	    var calories = row.find('.calories').text();
+	    var newFood = new _food.Food(name, calories, id);
+	    (0, _foodRequests.updateFood)(newFood);
 	  }
 	}, '.foodinfo');
+
+	//filter functions
+	$("#foodfilter").on('keyup', function () {
+	  var term = $("#foodfilter").val().toLowerCase();
+	  var result = $('tr').filter(':not(:contains(' + term + '))').hide();
+
+	  console.log(term);
+	});
 
 /***/ }),
 /* 6 */
@@ -10497,7 +10520,7 @@
 
 	  this.name = name;
 	  this.calories = calories;
-	  if (id !== null) {
+	  if (id) {
 	    this.id = id;
 	  }
 	};
