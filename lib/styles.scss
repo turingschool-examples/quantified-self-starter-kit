@@ -1,0 +1,59 @@
+body {
+  font-family: helvetica;
+}
+table {
+  border-collapse: collapse;
+  border: 1px solid black;
+  border-radius: 10px;
+  border-width: thin;
+  border-radius: 5px;
+  width: 20em;
+  margin-top: 1em;
+}
+th, td {
+  border: 1px solid black;
+}
+
+th {
+  background-color: lightgrey;
+  width: auto;
+  text-align: left;
+}
+
+td {
+  text-align: left;
+}
+
+input {
+  width: 25em;
+  padding: 5px 5px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  border-radius: 5px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+label {
+  color: red;
+  margin-left: 13em;
+}
+
+input:focus {
+  border: 3px solid #555;
+}
+
+.delete-button {
+  float: right;
+  margin-right: -1.2em;
+  color: red;
+  font-weight: bold;
+}
+
+.total-cals, .remaining-cals {
+  background-color: lightgrey;
+  width: auto;
+  text-align: left;
+}
