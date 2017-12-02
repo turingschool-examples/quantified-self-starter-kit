@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html>
+
+<a class="alert"> </a>
+
 <head>
   <meta charset="utf-8">
   <title>Quantified Self - Manage Foods</title>
+  <link rel="stylesheet" href="styles/main.css">
 </head>
+
 <body>
+
+  <table id='list'>
+    <tr>
+      <th> Name </th>
+      <th> Calories </th>
+      <th> </th>
+    </tr>
+  </table>
+  <br />
+  <div>
+    <form id="food_form">
+      <label for="name">Name</label> <br />
+      <input type="text" id="name" name="name" required/> <br />
+      <label for="calories">Calories</label> <br />
+      <input type="text" id="calories" name="calories" required/> <br />
+      <input id="add-food" type="submit" value="Add Food" />
+    </form>
+  </div>
 
   <script src="main.bundle.js"></script>
 </body>
+
 </html>
