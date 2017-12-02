@@ -8,14 +8,18 @@
 <body>
 
   <div class="foods">
+  <p class="return"><a href="index.html"><i class="fa fa-arrow-left" aria-hidden="true"></i>Return to Index</a></p>
+  </div>
+
+  <div class="foods">
     <form id="food_form">
       <h1 class="foods">Manage Foods</h1>
       <p class="food">Name:</p>
       <input type="text" name="name">
-      <p class="submit-food">Please enter a food name</p>
+      <p class="submit-food" id="submit-food-name"></p>
       <p class="food">Calories:</p>
       <input type="text" size="40" name="calories">
-      <p class="submit-food">Please enter a calorie amount</p>
+      <p class="submit-food" id="submit-calories"></p>
       <button type="submit" form="food_form" value="Submit" class="button" style="float: right;">Add Food</button>
     </form>
   </div>
@@ -26,10 +30,9 @@
       <tr>
         <th>Food</th>
         <th>Calories</th>
-        <th class="hidden">
       </tr>
       </thead>
-      <tbody class="food-body">
+      <tbody class="food-body" id="food-list">
       </tbody>
     </table>
   </div>

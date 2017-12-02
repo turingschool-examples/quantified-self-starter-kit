@@ -43,6 +43,11 @@ p.submit-food {
   text-align: right;
 }
 
+p.return {
+  font-weight: bold;
+  color: #000;
+}
+
 // buttons
 
 .button {
@@ -77,6 +82,17 @@ th {
   background-color: #dddddd;
 }
 
-.hidden {
-    display: none;
+span.killer {
+    float: right;
+    margin-right: -2.4em;
+    color: red;
+}
+
+#food_form {
+  display: inline !important;
+}
+
+.fa-arrow-left {
+  margin-right: 4px;
+  color: #000;
 }
