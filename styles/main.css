@@ -1,0 +1,86 @@
+/* List style */
+.list {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 30%;
+}
+
+.list td, .list th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.list tr:nth-child(even){background-color: #f2f2f2;}
+
+.list tr:hover {background-color: #ddd;}
+
+.list th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: maroon;
+    color: white;
+}
+
+.highlighted {
+   -moz-transition: all .7s ease-in;
+   -o-transition: all .7s ease-in;
+   -webkit-transition: all .7s ease-in;
+   transition: all .7s ease-in;
+   padding: 20px;
+}
+
+.highlighted:hover {
+    background: yellow;
+}
+
+/* Form Style */
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#searchContainer {
+  width: 30%;
+}
+
+input[type=submit] {
+    display: flex;
+    width: 100%;
+    background-color: maroon;
+    color: white;
+    padding: 12px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+input[type=submit]:hover {
+    background-color: green;
+}
+
+label {
+    fond-color: black;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    cursor: default;
+}
+
+#food_form {
+    width: 30%;
+}
+
+#foodfilter{
+  width: 100%;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
