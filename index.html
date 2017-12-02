@@ -5,7 +5,7 @@
   <title>Quantified Self - Diary</title>
 </head>
 <body>
-  <p><a href="foods.html"></a></p>
+  <p><a href="foods.html">Food Page</a></p>
   <div class="meal-tables">
   </div>
   <p class='totals-table-title'>Totals</p>
@@ -31,6 +31,39 @@
       </tr>
     </tbody>
   </table>
+  <div class="foods">
+    <form id="food_form">
+      <h1 class="foods">Manage Foods</h1>
+      <p class="food">Name:</p>
+      <input type="text" name="name">
+      <p class="submit-food">Please enter a food name</p>
+      <p class="food">Calories:</p>
+      <input type="text" size="40" name="calories">
+      <p class="submit-food">Please enter a calorie amount</p>
+      <button type="submit" form="food_form" value="Submit" class="button" style="float: right;">Add Food</button>
+    </form>
+  </div>
+
+  <div class="foods" id="table">
+    <p class='food-table-header'>Add Selected To</p>
+        <div class="btn-group meal-selection" role="group" aria-label="Meal Selection">
+          <button type="button" class="btn btn-outline-info add-to-meal-button" id="1">Breakfast</button>
+          <button type="button" class="btn btn-outline-info add-to-meal-button" id="3">Lunch</button>
+          <button type="button" class="btn btn-outline-info add-to-meal-button" id="4">Dinner</button>
+          <button type="button" class="btn btn-outline-info add-to-meal-button" id="2">Snack</button>
+        </div>
+    <table>
+      <thead>
+      <tr>
+        <th class="hidden">
+        <th>Food</th>
+        <th>Calories</th>
+      </tr>
+      </thead>
+      <tbody class="food-meal-body">
+      </tbody>
+    </table>
+  </div>
   <script src="main.bundle.js"></script>
 </body>
 </html>
