@@ -20,7 +20,10 @@
   <div>
     <h2>Foods</h2>
     <a class="button" href="/foods.html">Create New</a>
-    <table id="meal-foods-list" class="list">
+    <div id="searchContainer">
+      <input type="text" id="foodfilter" placeholder="Filter foods..." title="Filter foods">
+    </div>
+    <table id="meal-foods-list" class="list searchable">
       <tr>
         <th> </th>
         <th> Name </th>
