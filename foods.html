@@ -8,27 +8,31 @@
 
 </head>
 <body>
-  <h3>Manage Foods</h3>
-  <form id="new_food" name="new_food">
-    <input type="text" name="name"/><br>
-    <label for="name">Name</label><br>
-    <input type="number" name="calories"/><br>
-    <label for="calories">Calories</label><br>
-    <button id="add_food">Add Food</button>
-  </form>
-  <table class="food-table">
-    <thead class="food-table-head">
-      <tr>
-        <th>Name</th>
-        <th>Calories</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+    <h3>Manage Foods</h3>
+    <form id="new_food" name="new_food">
+      <input type="text" name="name"/><br>
+      <label for="name">Name</label><br>
+      <input type="number" name="calories"/><br>
+      <label for="calories">Calories</label><br>
+      <button id="add_food">Add Food</button>
+    </form>
 
-  <div class="food-form">
-  </div>
+    Filter by Name<br>
+    <input id="search" name="search" type="text" class="foodSearch"/>
+
+    <table class="food-table">
+      <thead class="food-table-head">
+        <tr>
+          <th>Name</th>
+          <th>Calories</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    <div class="food-form">
+    </div>
   <script src="main.bundle.js"></script>
 </body>
 </html>

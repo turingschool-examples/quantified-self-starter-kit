@@ -22,6 +22,7 @@ th {
 
 td {
   text-align: left;
+  width: 420px;
 }
 
 input {
@@ -56,4 +57,11 @@ input:focus {
   background-color: lightgrey;
   width: auto;
   text-align: left;
+}
+
+.foodSearch {
+    width: 25%;
+    font-size: 16px;
+    border: 3px solid #ccc;
+    margin-bottom: 12px;
 }
