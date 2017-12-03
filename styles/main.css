@@ -65,6 +65,24 @@ input[type=submit]:hover {
     background-color: green;
 }
 
+.button {
+    text-align: center;
+    display: inline-block;
+    width: 10%;
+    background-color: maroon;
+    color: white;
+    padding: 12px 12px;
+    margin: 8px 0;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.button:hover {
+    background-color: green;
+}
+
 label {
     fond-color: black;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
