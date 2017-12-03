@@ -3,9 +3,67 @@
 <head>
   <meta charset="utf-8">
   <title>Quantified Self - Diary</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
+  <p class="return"><a href="foods.html"><i class="fa fa-arrow-left" aria-hidden="true"></i>Return to Foods</a></p>
+  <div class="foods">
+  <div class="meal-tables">
+  </div>
+  <p class='totals-table-title'>Totals</p>
+  <table class='totals-table'>
+    <thead>
+    </thead>
+    <tbody class='totals-tbody'>
+      <tr class='goal-calories'>
+        <td class='goal-calories-header totals-table-header'>Goal Calories</td>
+        <td class='goal-calories-val totals-table-value'>2000</td>
+      </tr>
+      <tr class='calories-consumed'>
+        <td class='calories-consumed-header totals-table-header'>
+          Calories Consumed
+        </td>
+        <td class='calories-consumed-val totals-table-value'></td>
+      </tr>
+      <tr class='total-remaining-calories'>
+        <td class='total-remaining-calories-header totals-table-header'>
+          Remaining Calories
+        </td>
+        <td class='total-remaining-calories-val totals-table-value'></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="foods">
+    <h1 class="foods">Foods</h1>
+    <div class="row">
+      <div class="column">
+        <button class="button">Add Food</button>
+      </div>
+    </div>
+    <p class='food-table-header'>Add Selected To</p>
+    <div class="row btn-group meal-selection" role="group" aria-label="Meal Selection">
+      <div class="column">
+        <button type="button" class="btn btn-outline-info add-to-meal-button button" id="1">Breakfast</button>
+        <button type="button" class="btn btn-outline-info add-to-meal-button button" id="4">Dinner</button>
+      </div>
+      <div class="column">
+        <button type="button" class="btn btn-outline-info add-to-meal-button button" id="3">Lunch</button>
+        <button type="button" class="btn btn-outline-info add-to-meal-button button" id="2">Snack</button>
+      </div>
+    </div>
+    <table>
+      <thead>
+      <tr>
+        <th class="hidden">
+        <th>Food</th>
+        <th>Calories</th>
+      </tr>
+      </thead>
+      <tbody class="food-meal-body">
+      </tbody>
+    </table>
+  </div>
   <script src="main.bundle.js"></script>
 </body>
 </html>
