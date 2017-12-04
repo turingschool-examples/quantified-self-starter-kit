@@ -54,7 +54,7 @@
 	__webpack_require__(8);
 
 	$(document).ready(function () {
-	  if (window.location.pathname === '/') {
+	  if (window.location.pathname === '/' || window.location.pathname === 'quantified-self-starter-kit/') {
 	    mealAjax.populateMeals();
 	    mealListners.deleteListener();
 	    mealAjax.populateFoods();
