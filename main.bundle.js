@@ -10332,8 +10332,8 @@
 
 	var $ = __webpack_require__(1);
 	var foodHandlers = __webpack_require__(3);
-	var url = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
-	var mealsUrl = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
+	var url = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
+	var mealsUrl = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
 
 	var populateFoods = function populateFoods() {
 	  $.getJSON(url).then(foodHandlers.appendPosts).catch(foodHandlers.errorLog);
@@ -10375,13 +10375,13 @@
 	function killFoods(foodId, mealIds, target) {
 	  mealIds.forEach(function (id) {
 	    $.ajax({
-	      url: 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals/' + id + '/foods/' + foodId,
+	      url: 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals/' + id + '/foods/' + foodId,
 	      type: 'DELETE',
 	      dataType: 'json'
 	    });
 	  });
 	  $.ajax({
-	    url: 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods/' + foodId,
+	    url: 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods/' + foodId,
 	    type: 'DELETE',
 	    dataType: 'json'
 	  }).then(function (data) {
@@ -10428,8 +10428,8 @@
 
 	var $ = __webpack_require__(1);
 	var mealHandler = __webpack_require__(5);
-	var mealURL = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
-	var foodURL = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
+	var mealURL = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
+	var foodURL = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
 
 	var populateMeals = function populateMeals() {
 	  $.getJSON(mealURL).then(mealHandler.populateMeals);
@@ -10448,7 +10448,7 @@
 
 	function killFoodsMeal(eventTarget, foodId, mealId) {
 	  $.ajax({
-	    url: 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals/' + mealId + '/foods/' + foodId,
+	    url: 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals/' + mealId + '/foods/' + foodId,
 	    type: 'DELETE',
 	    dataType: 'json'
 	  }).then(function (data) {
