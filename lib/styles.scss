@@ -1,6 +1,22 @@
 body {
   font-family: helvetica;
+  margin: 2.5em;
+  .meals {
+    grid-gap: 1em;
+    display: inline-grid;
+    grid-template-columns: 20em 20em;
+  }
 }
+
+button {
+  width: 12em;
+  height: 3em;
+  background-color: rgb(92, 204, 240);
+  border: 1px solid black;
+  border-radius: 2em;
+  font-weight: bold;
+}
+
 table {
   border-collapse: collapse;
   border: 1px solid black;
@@ -9,6 +25,7 @@ table {
   border-radius: 5px;
   width: 20em;
   margin-top: 1em;
+  margin-bottom: 20px;
 }
 th, td {
   border: 1px solid black;
@@ -45,6 +62,16 @@ input:focus {
   border: 3px solid #555;
 }
 
+.box {
+  margin-bottom: 2em;
+}
+
+.wrapper {
+  display: inline-grid;
+  grid-template-columns: 20em 20em;
+  grid-gap: 2em;
+}
+
 .delete-button {
   float: right;
   margin-right: -1.2em;
@@ -68,4 +95,16 @@ input:focus {
 
 .net-negative {
   color: red;
+}
+
+.divider{
+    width: 1em;
+    height: 1em;
+    display:inline-block;
+}
+
+.add-box {
+  display: inline;
+  float: left;
+  margin-left: -2.4em;
 }
