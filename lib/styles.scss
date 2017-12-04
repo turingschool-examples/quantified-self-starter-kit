@@ -55,5 +55,17 @@ input:focus {
 .total-cals, .remaining-cals {
   background-color: lightgrey;
   width: auto;
-  text-align: left;
+  text-align: right;
+}
+
+.totals-td, .remaining-td, .cal-sum, .cal-rem, .cals {
+  text-align: right;
+}
+
+.net-positive {
+  color: green;
+}
+
+.net-negative {
+  color: red;
 }
