@@ -25,6 +25,7 @@ td {
   width: 420px;
 }
 
+
 input {
   width: 25em;
   padding: 5px 5px;
@@ -36,6 +37,23 @@ input {
   transition: 0.5s;
   outline: none;
 }
+
+#add_food {
+    font-style: helvetica;
+    background-color: #56CCF2;
+    border-color: black;
+    border-radius: 20px;
+    font-size: 15px;
+    color: black;
+    padding: 12px;
+    margin-left : 10%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 8px 15px 8px 15px;
+    width: 10em;
+    text-decoration: none;
+}
+
 
 label {
   color: red;
@@ -64,4 +82,10 @@ input:focus {
     font-size: 16px;
     border: 3px solid #ccc;
     margin-bottom: 12px;
+}
+
+.name-error, .calorie-error {
+  color: red;
+  font-size: 15px;
+  display: none;
 }
