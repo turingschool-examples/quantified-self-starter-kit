@@ -1,8 +1,25 @@
 /* List style */
+.page-element {
+  display: inline-block;
+  margin-left: 10%;
+  margin-right: 5%;
+  margin-bottom: 1%;
+  float: left;
+  width: 30%;
+}
+
+.page-element-double {
+  display: inline-block;
+  margin-left: 10%;
+  margin-right: 60%;
+  float: left;
+  width: 30%;
+}
+
 .list {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 30%;
+    width: 100%;
 }
 
 .list td, .list th {
@@ -47,7 +64,7 @@ input[type=text], select {
 }
 
 #searchContainer {
-  width: 30%;
+  width: 100%;
 }
 
 input[type=submit] {
@@ -68,7 +85,7 @@ input[type=submit]:hover {
 .button {
     text-align: center;
     display: inline-block;
-    width: 10%;
+    width: 30%;
     background-color: maroon;
     color: white;
     padding: 12px 12px;
