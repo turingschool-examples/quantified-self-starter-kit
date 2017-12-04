@@ -2,9 +2,72 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <title>Quantified Self - Diary</title>
 </head>
 <body>
+  <h2>Breakfast</h2>
+  <table id='breakfast-table'>
+    <tr>
+      <th>Name</th>
+      <th>Calories</th>
+    </tr>
+  </table>
+
+  <h2>Lunch</h2>
+  <table id='lunch-table'>
+    <tr>
+      <th>Name</th>
+      <th>Calories</th>
+    </tr>
+  </table>
+
+  <h2>Dinner</h2>
+  <table id='dinner-table'>
+    <tr>
+      <th>Name</th>
+      <th>Calories</th>
+    </tr>
+  </table>
+
+  <h2>Snacks</h2>
+  <table id='snack-table'>
+    <tr>
+      <th>Name</th>
+      <th>Calories</th>
+    </tr>
+  </table>
+
+  <h2>Totals</h2>
+  <table id='totals-table'>
+    <tr>
+      <th>Goal Calories</th>
+      <td id="goal-calories">2000</td>
+    </tr>
+    <tr>
+      <th>Calories Consumed</th>
+      <td id="consumed-calories"></td>
+    </tr>
+    <tr>
+      <th>Remaining Calories</th>
+      <td id="total-remaining-calories"></td>
+    </tr>
+  </table>
+
+  <h2>Foods</h2>
+  <input type="button" onclick="location.href='/foods.html';" value="Create New" />
+  <p><b>Search by Name</b></p>
+  <form>
+    <input type="text" name="food-search" id="food-search">
+  </form>
+  <table id='diary-food-table'>
+    <tr>
+      <th></th>
+      <th>Food</th>
+      <th>Calories</th>
+    </tr>
+  </table>
 
   <script src="main.bundle.js"></script>
 </body>
