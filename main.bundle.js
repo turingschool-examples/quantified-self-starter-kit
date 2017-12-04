@@ -10402,7 +10402,7 @@
 	    url: API + '/api/v1/foods',
 	    method: 'GET'
 	  }).done(function (data) {
-	    console.log(data);
+	    // console.log(data);
 	    for (var i = 0; data.length; i++) {
 	      $('#new_food_table').append('<tr data-id=' + data[i].id + '><td class="food-name-cell">' + data[i].name + '</td><td class="calorie-cell">' + data[i].calories + '</td><td class="delete_row">X</td></tr>');
 	    }
@@ -10432,7 +10432,7 @@
 	    method: 'POST',
 	    data: { food: { name: foodName, calories: calorieCount } }
 	  }).done(function (data) {
-	    console.log(data);
+	    // console.log(data)
 	    $('#new_food_table').prepend('<tr><td class="food-name-cell">' + foodName + '</td><td class="calorie-cell">' + calorieCount + '</td><td class="delete_row">X</td></tr>');
 	  }).fail(function (error) {
 	    handleError(error);
@@ -10499,32 +10499,31 @@
 	var $ = __webpack_require__(2);
 	var API = "https://rocky-earth-59921.herokuapp.com";
 
+	var goalKey = {
+	  Breakfast: 400,
+	  Lunch: 600,
+	  Dinner: 800,
+	  Snack: 200
+	};
+
 	function getAllMeals() {
 	  $.ajax({
 	    url: API + '/api/v1/meals',
 	    method: 'GET'
 	  }).done(function (data) {
 	    data.forEach(function (meal) {
+	      var sum = 0;
 	      meal.foods.forEach(function (food) {
+	        sum += food.calories;
 	        $('#' + meal.name.toLowerCase() + ' #foods-header').after('<tr><td class="food-name-cell">' + food.name + '</td><td class="calorie-cell">' + food.calories + '</td></tr>');
 	      });
+	      $('#' + meal.name.toLowerCase() + '.totalcal').after('<td class="meal-totals">' + sum + '</td>');
+	      $('#' + meal.name.toLowerCase() + '.remainingCals').after('<td class="remaining-totals"' + goalKey['' + meal.name.toLowerCase()] + '</td>');
 	    });
 	  }).fail(function () {
 	    handleError();
 	  });
 	};
-
-	function getBreakfastMealCalories() {
-	  var table = document.getElementById('breakfast');
-	  var items = table.getElementsByClassName('calorie-cell');
-	  var sum = 0;
-	  for (var i = 0; i < items.length; i++) {
-	    return sum += parseInt(items[i].value);
-	  }
-	  console.log(items);
-	  // console.log(sum)
-	  $('#breakfast-cals').after('<tr><td class="breakfast-totals' + sum + '</td></tr>');
-	}
 
 	var handleError = function handleError(error) {
 	  console.log(error.statusText);
@@ -10532,7 +10531,6 @@
 	};
 
 	getAllMeals();
-	getBreakfastMealCalories();
 
 /***/ })
 /******/ ]);
