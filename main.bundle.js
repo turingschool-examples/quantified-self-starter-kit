@@ -57,6 +57,7 @@
 	  if (window.location.pathname === '/') {
 	    mealAjax.populateMeals();
 	    mealListners.deleteListener();
+	    mealAjax.populateFoods();
 	  } else {
 	    foodAjax.populateFoods();
 	    foodListners.getValues();
@@ -10427,33 +10428,41 @@
 
 	var $ = __webpack_require__(1);
 	var mealHandler = __webpack_require__(5);
-	var url = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
+	var mealURL = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
+	var foodURL = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
 
 	var populateMeals = function populateMeals() {
-	  $.getJSON(url).then(mealHandler.populateMeals);
+	  $.getJSON(mealURL).then(mealHandler.populateMeals);
+	};
+
+	var populateFoods = function populateFoods() {
+	  $.getJSON(foodURL).then(mealHandler.populateFoods);
 	};
 
 	var deleteFood = function deleteFood() {
-	  var target = $(event.target);
-	  var foodId = target.closest('tr').data('food-id');
-	  var mealId = target.closest('tr').data('meal-id');
-	  var foodName = target.parent().siblings()[0].innerHTML;
-	  var mealName = target.closest('table').attr('class');
+	  var eventTarget = $(event.target);
+	  var foodId = eventTarget.closest('tr').data('food-id');
+	  var mealId = eventTarget.closest('tr').data('meal-id');
+	  killFoodsMeal(eventTarget, foodId, mealId);
+	};
+
+	function killFoodsMeal(eventTarget, foodId, mealId) {
 	  $.ajax({
 	    url: 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals/' + mealId + '/foods/' + foodId,
 	    type: 'DELETE',
 	    dataType: 'json'
 	  }).then(function (data) {
-	    alert(foodName + ' has been removed from ' + mealName);
-	    target.closest('tr').remove();
-	  }).fail(function (error) {
-	    alert('food not deleted');
+	    // alert(data.message)
+	    mealHandler.deleteHandler(eventTarget);
+	  }).catch(function (error) {
+	    alert(error.statusText);
 	  });
-	};
+	}
 
 	module.exports = {
 	  populateMeals: populateMeals,
-	  deleteFood: deleteFood
+	  deleteFood: deleteFood,
+	  populateFoods: populateFoods
 	};
 
 /***/ }),
@@ -10465,20 +10474,70 @@
 	var $ = __webpack_require__(1);
 
 	var populateMeals = function populateMeals(data) {
+	  var totalCals = 0;
 	  data.forEach(function (meal) {
+	    var mealTotalCals = 0;
+	    var remainingCalsCell = $('.' + meal.name.toLowerCase()).children('tbody').children('.remaining-cals').children('.cal-rem');
 	    meal.foods.forEach(function (food) {
-	      $('.' + meal.name.toLowerCase()).prepend('<tr data-meal-id="' + meal.id + '" data-food-id="' + food.id + '"><td>' + food.name + '</td><td><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i>' + food.calories + '</td></tr>');
+	      mealTotalCals += Number(food.calories);
+	      $('.' + meal.name.toLowerCase()).prepend('<tr data-meal-id="' + meal.id + '" data-food-id="' + food.id + '"><td>' + food.name + '</td><td class="cals"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i>' + food.calories + '</td></tr>');
 	    });
+	    var remainingCals = remainingCalsCell.data('goal') - mealTotalCals;
+	    remainingCalsCell.append(remainingCals);
+	    if (remainingCals < 0) {
+	      remainingCalsCell.toggleClass('net-positive net-negative');
+	    }
+	    $('.' + meal.name.toLowerCase()).children('tbody').children('.total-cals').children('.cal-sum').prepend('' + mealTotalCals);
+	    totalCals += mealTotalCals;
 	  });
+	  $('.total-cals-consumed').append(totalCals);
+	  $('.total-cals-remaining').append(2000 - totalCals);
+	  if (2000 - totalCals < 0) {
+	    $('.total-cals-remaining').removeClass('net-positive').addClass('net-negative');
+	  }
 	};
 
 	var errorLog = function errorLog(data) {
 	  console.error(data);
 	};
 
+	var deleteHandler = function deleteHandler(eventTarget) {
+	  var removeCals = parseInt(eventTarget.parent()[0].innerText);
+	  var calTarget = eventTarget.closest('tbody').children('.total-cals').children('.cal-sum')[0];
+	  var calsRemCell = eventTarget.parent().parent().siblings('.remaining-cals').children('.cal-rem');
+	  var oldValue = parseInt(calTarget.innerText);
+	  var newValue = oldValue - removeCals;
+	  var remainingTotal = calsRemCell.data('goal') - newValue;
+	  calTarget.innerText = newValue;
+	  calsRemCell[0].innerText = remainingTotal;
+	  if (remainingTotal < 0) {
+	    calsRemCell.removeClass('net-positive').addClass('net-negative');
+	  } else {
+	    calsRemCell.removeClass('net-negative').addClass('net-positive');
+	  }
+	  var totalCalsRem = $('.total-cals-remaining');
+	  var totalCalsConsumed = $('.total-cals-consumed');
+	  totalCalsRem[0].innerText = parseInt(totalCalsRem[0].innerText) + removeCals;
+	  totalCalsConsumed[0].innerText = parseInt(totalCalsConsumed[0].innerText) - removeCals;
+	  if (totalCalsRem[0].innerText < 0) {
+	    totalCalsRem.removeClass('net-positive').addClass('net-negative');
+	  } else {
+	    totalCalsRem.removeClass('net-negative').addClass('net-positive');
+	  }
+	  eventTarget.closest('tr').remove();
+	};
+
+	var populateFoods = function populateFoods(data) {
+	  data.forEach(function (food) {
+	    $('.food-table-meals').prepend('<tr data-id="' + food.id + '"><td>' + food.name + '</span></td><td>' + food.calories + '</td></tr>');
+	  });
+	};
+
 	module.exports = {
 	  errorLog: errorLog,
-	  populateMeals: populateMeals
+	  populateMeals: populateMeals,
+	  deleteHandler: deleteHandler,
+	  populateFoods: populateFoods
 	};
 
 /***/ }),
@@ -10556,7 +10615,7 @@
 	var ajaxReq = __webpack_require__(4);
 
 	var deleteListener = function deleteListener() {
-	  $('table').on('click', function () {
+	  $('tbody').on('click', function () {
 	    if ($(event.target).hasClass('delete-button')) {
 	      ajaxReq.deleteFood();
 	    }
@@ -10602,7 +10661,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  font-family: helvetica; }\n\ntable {\n  border-collapse: collapse;\n  border: 1px solid black;\n  border-radius: 10px;\n  border-width: thin;\n  border-radius: 5px;\n  width: 20em;\n  margin-top: 1em; }\n\nth, td {\n  border: 1px solid black; }\n\nth {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n\ntd {\n  text-align: left; }\n\ninput {\n  width: 25em;\n  padding: 5px 5px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  border: 3px solid #ccc;\n  border-radius: 5px;\n  -webkit-transition: 0.5s;\n  transition: 0.5s;\n  outline: none; }\n\nlabel {\n  color: red;\n  margin-left: 13em; }\n\ninput:focus {\n  border: 3px solid #555; }\n\n.delete-button {\n  float: right;\n  margin-right: -1.2em;\n  color: red;\n  font-weight: bold; }\n\n.total-cals, .remaining-cals {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n", ""]);
+	exports.push([module.id, "body {\n  font-family: helvetica;\n  margin: 2.5em; }\n  body .meals {\n    grid-gap: 1em;\n    display: inline-grid;\n    grid-template-columns: 20em 20em; }\n\nbutton {\n  width: 12em;\n  height: 3em;\n  background-color: #5cccf0;\n  border: 1px solid black;\n  border-radius: 2em;\n  font-weight: bold; }\n\ntable {\n  border-collapse: collapse;\n  border: 1px solid black;\n  border-radius: 10px;\n  border-width: thin;\n  border-radius: 5px;\n  width: 20em;\n  margin-top: 1em;\n  margin-bottom: 20px; }\n\nth, td {\n  border: 1px solid black; }\n\nth {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n\ntd {\n  text-align: left; }\n\ninput {\n  width: 25em;\n  padding: 5px 5px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  border: 3px solid #ccc;\n  border-radius: 5px;\n  -webkit-transition: 0.5s;\n  transition: 0.5s;\n  outline: none; }\n\nlabel {\n  color: red;\n  margin-left: 13em; }\n\ninput:focus {\n  border: 3px solid #555; }\n\n.box {\n  margin-bottom: 2em; }\n\n.wrapper {\n  display: inline-grid;\n  grid-template-columns: 20em 20em;\n  grid-gap: 2em; }\n\n.delete-button {\n  float: right;\n  margin-right: -1.2em;\n  color: red;\n  font-weight: bold; }\n\n.total-cals, .remaining-cals {\n  background-color: lightgrey;\n  width: auto;\n  text-align: right; }\n\n.totals-td, .remaining-td, .cal-sum, .cal-rem, .cals {\n  text-align: right; }\n\n.net-positive {\n  color: green; }\n\n.net-negative {\n  color: red; }\n\n.divider {\n  width: 1em;\n  height: 1em;\n  display: inline-block; }\n\n.add-box {\n  display: inline;\n  float: left;\n  margin-left: -2.4em; }\n", ""]);
 
 	// exports
 
