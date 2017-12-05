@@ -56,8 +56,6 @@
 
 	var foodDiary = __webpack_require__(5);
 
-	foodDiary();
-
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -10404,7 +10402,6 @@
 	    url: API + '/api/v1/foods',
 	    method: 'GET'
 	  }).done(function (data) {
-	    console.log(data);
 	    for (var i = 0; data.length; i++) {
 	      $('#new_food_table').append('<tr data-id=' + data[i].id + '><td class="food-name-cell">' + data[i].name + '</td><td class="calorie-cell">' + data[i].calories + '</td><td class="delete_row">X</td></tr>');
 	    }
@@ -10413,19 +10410,17 @@
 	  });
 	};
 
-	// var getSingleFood = function() {
-	//   var postId = $(".show-form input[name='show-id']").val();
-	//
-	//   return $.ajax({
-	//     url: API + '/api/v1/foods/:id' + postId,
-	//     method: 'GET',
-	//   }).done(function(data) {
-	//     $('#latest-posts').append('<p class="post">' + data.description + '</p>');
-	//   }).fail(function() {
-	//     handleError();
-	//   })
-	// }
-	//
+	var filterFoods = function filterFoods() {
+	  var filter = $('#search-foods').val().toUpperCase();
+	  $('.food-name-cell').each(function () {
+	    if ($(this).text().toUpperCase().includes(filter)) {
+	      $(this).parent().show();
+	    } else {
+	      $(this).parent().hide();
+	    }
+	  });
+	};
+
 	var createNewFood = function createNewFood() {
 	  var foodName = $(".new_food_form input[name='food_name']").val();
 	  var calorieCount = $(".new_food_form input[name='calorie_count']").val();
@@ -10434,7 +10429,7 @@
 	    method: 'POST',
 	    data: { food: { name: foodName, calories: calorieCount } }
 	  }).done(function (data) {
-	    console.log(data);
+	    // console.log(data)
 	    $('#new_food_table').prepend('<tr><td class="food-name-cell">' + foodName + '</td><td class="calorie-cell">' + calorieCount + '</td><td class="delete_row">X</td></tr>');
 	  }).fail(function (error) {
 	    handleError(error);
@@ -10473,7 +10468,7 @@
 	  console.log(error.responseText);
 	};
 
-	// $(".show-form input[type='submit']").on('click', getSingleFood);
+	$('#search-foods').on('keyup', filterFoods);
 	$('.new_food_form input[type="submit"]').on('click', function (event) {
 	  event.preventDefault();
 	  createNewFood();
@@ -10490,6 +10485,7 @@
 	$('#new_food_table').on('click', '.delete_row', function (event) {
 	  deleteFood(event);
 	});
+
 	getAllFoods();
 
 /***/ }),
@@ -10507,14 +10503,25 @@
 	    method: 'GET'
 	  }).done(function (data) {
 	    data.forEach(function (meal) {
+	      var sum = 0;
 	      meal.foods.forEach(function (food) {
-	        $('#' + meal.name.toLowerCase() + ' #foods-header').after('<tr><td>' + food.name + '</td><td>' + food.calories + '</td></tr>');
+	        sum += food.calories;
+	        $('#' + meal.name.toLowerCase() + ' #foods-header').after('<tr><td class="food-name-cell">' + food.name + '</td><td class="calorie-cell">' + food.calories + '</td></tr>');
 	      });
+	      $('#' + meal.name.toLowerCase() + '.totalcal').after('<td class="breakfast-totals">' + sum + '</td>');
 	    });
+	  }).fail(function () {
+	    handleError();
 	  });
 	};
 
-	module.exports = getAllMeals;
+	var handleError = function handleError(error) {
+	  console.log(error.statusText);
+	  console.log(error.responseText);
+	};
+
+	getAllMeals();
+	// getMealCalories();
 
 /***/ })
 /******/ ]);
