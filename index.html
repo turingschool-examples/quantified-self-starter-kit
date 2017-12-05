@@ -1,10 +1,145 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://use.fontawesome.com/9e54aa71a3.js"></script>
   <meta charset="utf-8">
   <title>Quantified Self - Diary</title>
 </head>
-<body>
+<body class="meals">
+  <div class="wrapper">
+    <div class="box">
+      <h3>Breakfast</h3>
+      <table class="breakfast">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Calories</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="total-cals">
+            <td class="totals-td">Total Calories</td>
+            <td class="cal-sum"></td>
+          </tr>
+          <tr class="remaining-cals">
+            <td class="totals-td">Remaining Calories</td>
+            <td data-goal="400" class="cal-rem net-positive"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <table class="lunch">
+        <thead>
+          <tr>
+            <h3>Lunch</h3>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Calories</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="total-cals">
+            <td class="totals-td">Total Calories</td>
+            <td class="cal-sum"></td>
+          </tr>
+          <tr class="remaining-cals">
+            <td class="totals-td">Remaining Calories</td>
+            <td data-goal="600" class="cal-rem net-positive"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <table class="dinner">
+        <thead>
+          <tr>
+            <h3>Dinner</h3>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Calories</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="total-cals">
+            <td class="totals-td">Total Calories</td>
+            <td class="cal-sum"></td>
+          </tr>
+          <tr class="remaining-cals">
+            <td class="totals-td">Remaining Calories</td>
+            <td data-goal="600" class="cal-rem net-positive"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <table class="snack">
+        <thead>
+          <tr>
+            <h3>Snacks</h3>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Calories</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="total-cals">
+            <td class="totals-td">Total Calories</td>
+            <td class="cal-sum"></td>
+          </tr>
+          <tr class="remaining-cals">
+            <td class="totals-td">Remaining Calories</td>
+            <td data-goal="200" class="cal-rem net-positive"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <h3>Foods</h3>
+      <button type="button" name="new-food"><a href="./foods.html">Create New</a></button>
+      <h4>Add Selected To</h4><br>
+      <button class="add-to-meal" type="button" name="add-breakfast">Breakfast</button>
+      <div class="divider"></div>
+      <button class="add-to-meal" type="button" name="add-lunch">Lunch</button><br>
+      <div class="divider"></div><br>
+      <button class="add-to-meal" type="button" name="add-dinner">Dinner</button>
+      <div class="divider"></div>
+      <button class="add-to-meal" type="button" name="add-snacks">Snacks</button>
+      <br><br>
+      <input type="text" name="search-foods" placeholder="Search">
+      <table class="food-table-meals">
+        <thead class="food-table-head">
+          <tr>
+            <th>Name</th>
+            <th>Calories</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <table>
+        <thead>
+          <tr>
+          <th class="totals-td">Goal Calories</th>
+          <th class="totals-td">2000</th>
+        </tr>
+        <tr>
+          <th class="totals-td">Calories Consumed</th>
+          <th class="total-cals-consumed cal-rem"></th>
+        </tr>
+        <tr>
+          <th class="totals-td">Remaining Calories</th>
+          <th class="total-cals-remaining cal-rem net-positive"></th>
+        </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
 
   <script src="main.bundle.js"></script>
 </body>
