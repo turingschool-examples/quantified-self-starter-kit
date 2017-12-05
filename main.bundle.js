@@ -10402,24 +10402,38 @@
 	    url: API + '/api/v1/foods',
 	    method: 'GET'
 	  }).done(function (data) {
-	    for (var i = 0; data.length; i++) {
+	    var foods = data.sort(function (a, b) {
+	      return a.id - b.id;
+	    });
+	    for (var i = 0; foods.length; i++) {
 	      $('#new_food_table').append('<tr data-id=' + data[i].id + '><td class="food-name-cell">' + data[i].name + '</td><td class="calorie-cell">' + data[i].calories + '</td><td class="delete_row">X</td></tr>');
 	    }
 	  }).fail(function () {
 	    handleError();
 	  });
 	};
+	//
+	// const searchFoods = function() {
+	//   $.ajax({
+	//     url: API + '/api/v1/foods',
+	//     method: 'GET',
+	//   }).done(function(data) {
+	// foods = data.sort(function(a, b) {
+	//   return a.id - b.id;
+	//       })
+	//   }).fail(function() {
+	//     handleError();
+	//   })
+	// };
 
-	var searchFoods = function searchFoods() {
-	  $.ajax({
-	    url: API + '/api/v1/foods',
-	    method: 'GET'
-	  }).done(function (data) {
-	    foods = data.sort(function (a, b) {
-	      return a.id - b.id;
-	    });
-	  }).fail(function () {
-	    handleError();
+	var filterFoods = function filterFoods() {
+	  var filter = $('#search-foods').val().toUpperCase();
+	  $('.food-name-cell').each(function () {
+	    if ($(this).text().toUpperCase().includes(filter)) {
+	      $(this).parent().show();
+	    } else {
+	      $(this).parent().hide();
+	    }
 	  });
 	};
 
@@ -10470,7 +10484,7 @@
 	  console.log(error.responseText);
 	};
 
-	// $(".show-form input[type='submit']").on('click', getSingleFood);
+	$('#search-foods').on('keyup', filterFoods);
 	$('.new_food_form input[type="submit"]').on('click', function (event) {
 	  event.preventDefault();
 	  createNewFood();
@@ -10487,6 +10501,7 @@
 	$('#new_food_table').on('click', '.delete_row', function (event) {
 	  deleteFood(event);
 	});
+
 	getAllFoods();
 
 /***/ }),
