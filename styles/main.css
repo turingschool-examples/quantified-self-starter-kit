@@ -1,21 +1,4 @@
 /* List style */
-.page-element {
-  display: inline-block;
-  margin-left: 10%;
-  margin-right: 5%;
-  margin-bottom: 1%;
-  float: left;
-  width: 30%;
-}
-
-.page-element-double {
-  display: inline-block;
-  margin-left: 10%;
-  margin-right: 60%;
-  float: left;
-  width: 30%;
-}
-
 .list {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -84,12 +67,11 @@ input[type=submit]:hover {
 
 .button {
     text-align: center;
-    display: inline-block;
-    width: 30%;
+    /*width: 30%;*/
     background-color: maroon;
     color: white;
     padding: 12px 12px;
-    margin: 8px 0;
+    /*margin: 10px 0;*/
     cursor: pointer;
     font-size: 18px;
     text-decoration: none;
@@ -126,4 +108,43 @@ label {
 
 .green {
   color: green
+}
+
+.allmeals {
+  display: grid;
+  grid-template: 40% 40% / 50% 50%;
+  grid-gap: 10px;
+}
+
+.totals-element {
+  display: grid;
+  grid-template: 40% / auto 50% auto;
+  grid-gap: 10px;
+}
+.totals-element div:nth-child(1) {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+.meal-buttons {
+  display: grid;
+  grid-template: 100px / 33% 33% 33% ;
+  grid-gap: 10px;
+}
+
+.meal-buttons div:nth-child(1) {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+#create-new-foods-style {
+  padding-top: 3%;
+  padding-left:  42%;
+  padding-right: 40%;
+  padding-bottom: 2%;
+}
+
+
+body {
+  padding: 50px;
 }

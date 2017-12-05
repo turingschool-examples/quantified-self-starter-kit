@@ -10,43 +10,53 @@
 <body>
 
   <div class='allmeals'>
-
   </div>
 
-  <div class='page-element'>
-    
-  </div>
+  <div>
+    <div class='totals-element'>
+      <div>
+        <h2>Totals</h2>
+        <table class='meal-totals list'>
 
-  <div class='page-element-double'>
-
-    <h2>Totals</h2>
-    <table class='meal-totals list'>
-      
-    </table>
-
-    <h2>Foods</h2>
-    <a class="button" href="/foods.html">Create New</a>
-    <h4>Add Selected To</h4>
-    <a class="button add-food-to-meal" id="1">Breakfast</a>
-    <a class="button add-food-to-meal" id="3">Lunch</a>
-    <br>
-    <a class="button add-food-to-meal" id="4">Dinner</a>
-    <a class="button add-food-to-meal" id="2">Snacks</a>
-
-    <div id="searchContainer">
-      <input type="text" id="foodfilter" placeholder="Filter foods..." title="Filter foods">
+        </table>
+      </div>
+    </div>
+    <div class='center-content'>
+      <div id='create-new-foods-style'>
+        <a class="button" href="quantified-self/foods.html">Create New Foods</a>
+      </div>
     </div>
 
-    <table id="meal-foods-list" class="list searchable alphabetical">
-      <thead>
-        <tr>
-          <th> </th>
-          <th> Name </th>
-          <th id="calorie-header"> Calories </th>
-        </tr>
-      </thead>
-    </table>
+    <div class='meal-buttons'>
 
+      <div class='center-content'>
+        <div>
+          <h3>Add Selected To</h3>
+          <a class="button add-food-to-meal" id="1">Breakfast</a>
+          <a class="button add-food-to-meal" id="3">Lunch</a>
+          <a class="button add-food-to-meal" id="4">Dinner</a>
+          <a class="button add-food-to-meal" id="2">Snacks</a>
+        </div>
+      </div>
+    </div>
+
+    <div class='totals-element'>
+      <div>
+        <div id="searchContainer">
+          <input type="text" id="foodfilter" placeholder="Filter foods..." title="Filter foods">
+        </div>
+
+        <table id="meal-foods-list" class="list searchable alphabetical">
+          <thead>
+            <tr>
+              <th> </th>
+              <th> Name </th>
+              <th id="calorie-header"> Calories </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
   </div>
 
   <script src="main.bundle.js"></script>
