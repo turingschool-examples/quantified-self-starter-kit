@@ -10,25 +10,30 @@
 </head>
 
 <body>
-  <div id="searchContainer">
-    <input type="text" id="foodfilter" placeholder="Filter foods..." title="Filter foods">
-  </div>
-  <table class='list' id='foodlist'>
-    <tr>
-      <th> Name </th>
-      <th> Calories </th>
-      <th> </th>
-    </tr>
-  </table>
-  <br />
-  <div>
-    <form id="food_form">
-      <label for="name">Name</label> <br />
-      <input type="text" id="name" name="name" required/> <br />
-      <label for="calories">Calories</label> <br />
-      <input type="text" id="calories" name="calories" required/> <br />
-      <input id="add-food" type="submit" value="Add Food" />
-    </form>
+
+  <div class="page-element">
+    <div id="searchContainer">
+      <input type="text" id="foodfilter" placeholder="Filter foods..." title="Filter foods">
+    </div>
+    <table class='list searchable alphabetical' id='foodlist'>
+      <thead>
+        <tr>
+          <th> Name </th>
+          <th id="calorie-header"> Calories </th>
+          <th> </th>
+        </tr>
+      </thead>
+    </table>
+    <br />
+    <div>
+      <form id="food_form">
+        <label for="name">Name</label> <br />
+        <input type="text" id="name" name="name" required/> <br />
+        <label for="calories">Calories</label> <br />
+        <input type="text" id="calories" name="calories" required/> <br />
+        <input id="add-food" type="submit" value="Add Food" />
+      </form>
+    </div>
   </div>
 
   <script src="main.bundle.js"></script>
