@@ -10427,7 +10427,7 @@
 	  var id = foodObject.id;
 	  var tableRowOne = '<td  class=\'foodinfo name\'>' + name + '</td>';
 	  var tableRowTwo = '<td class=\'foodinfo calories\'>' + foodObject.calories + '</td>';
-	  var tableRowThree = '<td><img src="/src/x-button.svg" class="' + page + '_delete_button" height="20px" width="20px"></td>';
+	  var tableRowThree = '<td><img src="src/x-button.svg" class="' + page + '_delete_button" height="20px" width="20px"></td>';
 	  var table = '<tr id=' + id + '> ' + tableRowOne + ' ' + tableRowTwo + ' ' + tableRowThree + ' </tr>';
 	  $(element).append(table);
 	}
@@ -10502,10 +10502,10 @@
 	//delete button functions
 	$(document).on({
 	    mouseenter: function mouseenter() {
-	        $(this).prop("src", "/src/x-button.svg");
+	        $(this).prop("src", "src/x-button.svg");
 	    },
 	    mouseleave: function mouseleave() {
-	        $(this).prop("src", "/src/delete.svg");
+	        $(this).prop("src", "src/delete.svg");
 	    },
 	    click: function click() {
 	        var parent = $(this).parents("tr");
