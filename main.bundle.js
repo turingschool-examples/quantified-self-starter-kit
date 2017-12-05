@@ -10427,7 +10427,7 @@
 	  var id = foodObject.id;
 	  var tableRowOne = '<td  class=\'foodinfo name\'>' + name + '</td>';
 	  var tableRowTwo = '<td class=\'foodinfo calories\'>' + foodObject.calories + '</td>';
-	  var tableRowThree = '<td><img src="src/x-button.svg" class="' + page + '_delete_button" height="20px" width="20px"></td>';
+	  var tableRowThree = '<td><img src="src/delete.svg" class="' + page + '_delete_button" height="20px" width="20px"></td>';
 	  var table = '<tr id=' + id + '> ' + tableRowOne + ' ' + tableRowTwo + ' ' + tableRowThree + ' </tr>';
 	  $(element).append(table);
 	}
