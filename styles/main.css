@@ -144,6 +144,10 @@ label {
   padding-bottom: 2%;
 }
 
+.center-content {
+  padding-left: 15%;
+  padding-right: 15%;
+}
 
 body {
   padding: 50px;
