@@ -10410,19 +10410,19 @@
 	  });
 	};
 
-	// var getSingleFood = function() {
-	//   var postId = $(".show-form input[name='show-id']").val();
-	//
-	//   return $.ajax({
-	//     url: API + '/api/v1/foods/:id' + postId,
-	//     method: 'GET',
-	//   }).done(function(data) {
-	//     $('#latest-posts').append('<p class="post">' + data.description + '</p>');
-	//   }).fail(function() {
-	//     handleError();
-	//   })
-	// }
-	//
+	var searchFoods = function searchFoods() {
+	  $.ajax({
+	    url: API + '/api/v1/foods',
+	    method: 'GET'
+	  }).done(function (data) {
+	    foods = data.sort(function (a, b) {
+	      return a.id - b.id;
+	    });
+	  }).fail(function () {
+	    handleError();
+	  });
+	};
+
 	var createNewFood = function createNewFood() {
 	  var foodName = $(".new_food_form input[name='food_name']").val();
 	  var calorieCount = $(".new_food_form input[name='calorie_count']").val();
