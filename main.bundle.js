@@ -54,7 +54,7 @@
 	__webpack_require__(8);
 
 	$(document).ready(function () {
-	  if (window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === 'quantified-self-starter-kit/' || window.location.pathname === 'quantified-self-starter-kit/index.html') {
+	  if (window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '/quantified-self-starter-kit/' || window.location.pathname === '/quantified-self-starter-kit/index.html') {
 	    mealAjax.populateMeals();
 	    mealListners.deleteListener();
 	    mealAjax.populateFoods();
