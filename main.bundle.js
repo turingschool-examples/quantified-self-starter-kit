@@ -10402,9 +10402,6 @@
 	    url: API + '/api/v1/foods',
 	    method: 'GET'
 	  }).done(function (data) {
-	    // var foods = data.sort(function(a, b) {
-	    //   return a.id - b.id;
-	    // })
 	    for (var i = 0; data.length; i++) {
 	      $('#new_food_table').append('<tr data-id=' + data[i].id + '><td class="food-name-cell">' + data[i].name + '</td><td class="calorie-cell">' + data[i].calories + '</td><td class="delete_row">X</td></tr>');
 	    }
