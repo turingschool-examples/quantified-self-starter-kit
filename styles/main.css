@@ -172,15 +172,15 @@ label {
 
 .hovering-button {
   position: fixed;
-  bottom: 50px;
-  right: 50px;
+  bottom: 4%;
+  right: 2%;
   
 
 }
 
 .corner {
   padding: 20px 20px;
-  font-size: 36px;
+  font-size: 2vw;
 }
 
 .center-content {
