@@ -10547,7 +10547,7 @@
 	  calsRemCell[0].innerText = remainingTotal;
 	  toggleCalsClass(remainingTotal, calsRemCell);
 	  totalCalsRem[0].innerText = parseInt(totalCalsRem[0].innerText) + removeCals;
-	  debugger;
+	  ;
 	  totalCalsConsumed[0].innerText = parseInt(totalCalsConsumed[0].innerText) - removeCals;
 	  toggleCalsClass(totalCalsRem[0].innerText, totalCalsRem);
 	  eventTarget.closest('tr').remove();
