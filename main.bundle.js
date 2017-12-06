@@ -56,8 +56,8 @@
 	$(document).ready(function () {
 	  if (window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '/quantified-self-starter-kit/' || window.location.pathname === '/quantified-self-starter-kit/index.html') {
 	    mealAjax.populateMeals();
-	    mealListners.deleteListener();
 	    mealAjax.populateFoods();
+	    mealListners.deleteListener();
 	  } else {
 	    foodAjax.populateFoods();
 	    foodListners.getValues();
@@ -10348,7 +10348,7 @@
 	    data: foodPost,
 	    dataType: 'json',
 	    success: function success(data) {
-	      $('.food-table').prepend('<tr data-id="' + data.id + '"><td contenteditable="true">' + data.name + '</td><td contenteditable="true"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i>' + data.calories + '</td></tr>');
+	      $('.food-table').prepend('<tr data-id="' + data.id + '"><td contenteditable="true">' + data.name + '</td><td contenteditable="true">' + data.calories + '</td><td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
 	      $("#new_food").trigger('reset');
 	      return false;
 	    },
@@ -10424,12 +10424,12 @@
 
 	var appendPosts = function appendPosts(data) {
 	  data.forEach(function (food) {
-	    $('.food-table').prepend('<tr data-id="' + food.id + '"><td class="food" name="name" contenteditable="true">' + food.name + '</td><td class="food" name="calories" contenteditable="true"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i>' + food.calories + '</td></tr>');
+	    $('.food-table').prepend('<tr data-id="' + food.id + '"><td class="food" name="name" contenteditable="true">' + food.name + '</td><td class="food" name="calories" contenteditable="true">' + food.calories + '</td><td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
 	  });
 	};
 
 	var searchTable = function searchTable(value) {
-	  $(".food-table tr").each(function () {
+	  $(".food-table-body tr").each(function () {
 	    var found = 'false';
 	    $(this).each(function () {
 	      if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
@@ -10514,7 +10514,7 @@
 	    var remainingCalsCell = $('.' + meal.name.toLowerCase()).children('tbody').children('.remaining-cals').children('.cal-rem');
 	    meal.foods.forEach(function (food) {
 	      mealTotalCals += Number(food.calories);
-	      $('.' + meal.name.toLowerCase()).prepend('<tr data-meal-id="' + meal.id + '" data-food-id="' + food.id + '"><td>' + food.name + '</td><td class="cals"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i>' + food.calories + '</td></tr>');
+	      $('.' + meal.name.toLowerCase()).prepend('<tr data-meal-id="' + meal.id + '" data-food-id="' + food.id + '"><td>' + food.name + '</td><td class="cals">' + food.calories + '</td><td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
 	    });
 	    var remainingCals = remainingCalsCell.data('goal') - mealTotalCals;
 	    remainingCalsCell.append(remainingCals);
@@ -10524,11 +10524,11 @@
 	    $('.' + meal.name.toLowerCase()).children('tbody').children('.total-cals').children('.cal-sum').prepend('' + mealTotalCals);
 	    totalCals += mealTotalCals;
 	  });
+	  var remainingCals = 2000 - totalCals;
+	  var calsRemCell = $('.total-cals-remaining');
 	  $('.total-cals-consumed').append(totalCals);
-	  $('.total-cals-remaining').append(2000 - totalCals);
-	  if (2000 - totalCals < 0) {
-	    $('.total-cals-remaining').removeClass('net-positive').addClass('net-negative');
-	  }
+	  calsRemCell.append(remainingCals);
+	  toggleCalsClass(remainingCals, calsRemCell);
 	};
 
 	var errorLog = function errorLog(data) {
@@ -10536,34 +10536,34 @@
 	};
 
 	var deleteHandler = function deleteHandler(eventTarget) {
-	  var removeCals = parseInt(eventTarget.parent()[0].innerText);
+	  var removeCals = parseInt(eventTarget.parent().siblings('.cals')[0].innerText);
 	  var calTarget = eventTarget.closest('tbody').children('.total-cals').children('.cal-sum')[0];
 	  var calsRemCell = eventTarget.parent().parent().siblings('.remaining-cals').children('.cal-rem');
-	  var oldValue = parseInt(calTarget.innerText);
-	  var newValue = oldValue - removeCals;
+	  var newValue = parseInt(calTarget.innerText) - removeCals;
 	  var remainingTotal = calsRemCell.data('goal') - newValue;
-	  calTarget.innerText = newValue;
-	  calsRemCell[0].innerText = remainingTotal;
-	  if (remainingTotal < 0) {
-	    calsRemCell.removeClass('net-positive').addClass('net-negative');
-	  } else {
-	    calsRemCell.removeClass('net-negative').addClass('net-positive');
-	  }
 	  var totalCalsRem = $('.total-cals-remaining');
 	  var totalCalsConsumed = $('.total-cals-consumed');
+	  calTarget.innerText = newValue;
+	  calsRemCell[0].innerText = remainingTotal;
+	  toggleCalsClass(remainingTotal, calsRemCell);
 	  totalCalsRem[0].innerText = parseInt(totalCalsRem[0].innerText) + removeCals;
+	  debugger;
 	  totalCalsConsumed[0].innerText = parseInt(totalCalsConsumed[0].innerText) - removeCals;
-	  if (totalCalsRem[0].innerText < 0) {
-	    totalCalsRem.removeClass('net-positive').addClass('net-negative');
-	  } else {
-	    totalCalsRem.removeClass('net-negative').addClass('net-positive');
-	  }
+	  toggleCalsClass(totalCalsRem[0].innerText, totalCalsRem);
 	  eventTarget.closest('tr').remove();
+	};
+
+	var toggleCalsClass = function toggleCalsClass(comparison, target) {
+	  if (comparison < 0) {
+	    target.removeClass('net-positive').addClass('net-negative');
+	  } else {
+	    target.removeClass('net-negative').addClass('net-positive');
+	  }
 	};
 
 	var populateFoods = function populateFoods(data) {
 	  data.forEach(function (food) {
-	    $('.food-table-meals').prepend('<tr data-id="' + food.id + '"><td>' + food.name + '</span></td><td>' + food.calories + '</td></tr>');
+	    $('.food-table-meals').prepend('<tr data-id="' + food.id + '"><td>' + food.name + '</td><td>' + food.calories + '</td></tr>');
 	  });
 	};
 
@@ -10657,10 +10657,8 @@
 	var ajaxReq = __webpack_require__(4);
 
 	var deleteListener = function deleteListener() {
-	  $('tbody').on('click', function () {
-	    if ($(event.target).hasClass('delete-button')) {
-	      ajaxReq.deleteFood();
-	    }
+	  $('tbody').on('click', 'i.delete-button', function () {
+	    ajaxReq.deleteFood();
 	  });
 	};
 
@@ -10703,7 +10701,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  font-family: helvetica;\n  margin: 2.5em; }\n  body .meals {\n    grid-gap: 1em;\n    display: inline-grid;\n    grid-template-columns: 20em 20em; }\n\nbutton {\n  width: 12em;\n  height: 3em;\n  background-color: #5cccf0;\n  border: 1px solid black;\n  border-radius: 2em;\n  font-weight: bold; }\n\ntable {\n  border-collapse: collapse;\n  border: 1px solid black;\n  border-radius: 10px;\n  border-width: thin;\n  border-radius: 5px;\n  width: 20em;\n  margin-top: 1em;\n  margin-bottom: 20px; }\n\nth, td {\n  border: 1px solid black; }\n\nth {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n\ntd {\n  text-align: left;\n  width: 420px; }\n\ninput {\n  width: 25em;\n  padding: 5px 5px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  border: 3px solid #ccc;\n  border-radius: 5px;\n  -webkit-transition: 0.5s;\n  transition: 0.5s;\n  outline: none; }\n\n#add_food {\n  font-style: helvetica;\n  background-color: #56CCF2;\n  border-color: black;\n  border-radius: 20px;\n  font-size: 15px;\n  color: black;\n  padding: 12px;\n  margin-left: 10%;\n  margin-top: 15px;\n  margin-bottom: 15px;\n  padding: 8px 15px 8px 15px;\n  width: 10em;\n  text-decoration: none; }\n\nlabel {\n  color: red;\n  margin-left: 13em; }\n\ninput:focus {\n  border: 3px solid #555; }\n\n.box {\n  margin-bottom: 2em; }\n\n.wrapper {\n  display: inline-grid;\n  grid-template-columns: 20em 20em;\n  grid-gap: 2em; }\n\n.delete-button {\n  float: right;\n  margin-right: -1.2em;\n  color: red;\n  font-weight: bold; }\n\n.total-cals, .remaining-cals {\n  background-color: lightgrey;\n  width: auto;\n  text-align: right; }\n\n.totals-td, .remaining-td, .cal-sum, .cal-rem, .cals {\n  text-align: right; }\n\n.net-positive {\n  color: green; }\n\n.net-negative {\n  color: red; }\n\n.divider {\n  width: 1em;\n  height: 1em;\n  display: inline-block; }\n\n.add-box {\n  display: inline;\n  float: left;\n  margin-left: -2.4em; }\n\n.foodSearch {\n  width: 25%;\n  font-size: 16px;\n  border: 3px solid #ccc;\n  margin-bottom: 12px; }\n\n.name-error, .calorie-error {\n  color: red;\n  font-size: 15px;\n  display: none; }\n", ""]);
+	exports.push([module.id, "body {\n  font-family: helvetica;\n  margin: 2.5em; }\n  body .meals {\n    grid-gap: 1em;\n    display: inline-grid;\n    grid-template-columns: 20em 20em; }\n\nbutton {\n  width: 12em;\n  height: 3em;\n  background-color: #5cccf0;\n  border: 1px solid black;\n  border-radius: 2em;\n  font-weight: bold; }\n\ntable {\n  border-collapse: collapse;\n  width: 20em;\n  margin-top: 1em;\n  margin-bottom: 20px; }\n\nth, td {\n  border: 1px solid black; }\n\nth {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n\ntd {\n  text-align: left;\n  width: 420px; }\n\ninput {\n  width: 25em;\n  padding: 5px 5px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  border: 3px solid #ccc;\n  border-radius: 5px;\n  -webkit-transition: 0.5s;\n  transition: 0.5s;\n  outline: none; }\n\n#add_food {\n  font-style: helvetica;\n  background-color: #56CCF2;\n  border-color: black;\n  border-radius: 20px;\n  font-size: 15px;\n  color: black;\n  padding: 12px;\n  margin-left: 10%;\n  margin-top: 15px;\n  margin-bottom: 15px;\n  padding: 8px 15px 8px 15px;\n  width: 10em;\n  text-decoration: none; }\n\nlabel {\n  color: red;\n  margin-left: 13em; }\n\ninput:focus {\n  border: 3px solid #555; }\n\n.box {\n  margin-bottom: 2em; }\n\n.wrapper {\n  display: inline-grid;\n  grid-template-columns: 20em 20em;\n  grid-gap: 2em; }\n\n.delete-button {\n  margin-left: 0.3em;\n  color: red;\n  font-weight: bold; }\n\n.delete-cell {\n  border: none;\n  width: auto; }\n\n.total-cals, .remaining-cals {\n  background-color: lightgrey;\n  width: auto;\n  text-align: right; }\n\n.totals-td, .remaining-td, .cal-sum, .cal-rem, .cals {\n  text-align: right; }\n\n.net-positive {\n  color: green; }\n\n.net-negative {\n  color: red; }\n\n.divider {\n  width: 1em;\n  height: 1em;\n  display: inline-block; }\n\n.add-box {\n  display: inline;\n  float: left;\n  margin-left: -2.4em; }\n\n.foodSearch {\n  width: 25%;\n  font-size: 16px;\n  border: 3px solid #ccc;\n  margin-bottom: 12px; }\n\n.name-error, .calorie-error {\n  color: red;\n  font-size: 15px;\n  display: none; }\n", ""]);
 
 	// exports
 
