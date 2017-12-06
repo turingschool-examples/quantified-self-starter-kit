@@ -19,10 +19,6 @@ button {
 
 table {
   border-collapse: collapse;
-  border: 1px solid black;
-  border-radius: 10px;
-  border-width: thin;
-  border-radius: 5px;
   width: 20em;
   margin-top: 1em;
   margin-bottom: 20px;
@@ -92,10 +88,14 @@ input:focus {
 }
 
 .delete-button {
-  float: right;
-  margin-right: -1.2em;
+  margin-left: 0.3em;
   color: red;
   font-weight: bold;
+}
+
+.delete-cell {
+  border: none;
+  width:auto;
 }
 
 .total-cals, .remaining-cals {
