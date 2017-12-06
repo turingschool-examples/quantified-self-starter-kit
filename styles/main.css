@@ -1,13 +1,29 @@
 /* List style */
+html {
+  background-image: url("../src/avocado.jpg");  
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 .list {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
+    
     width: 100%;
+
 }
 
 .list td, .list th {
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     padding: 8px;
+}
+
+.list tr:nth-child(odd) {
+  background: rgba(255, 255, 255, .7);
 }
 
 .list tr:nth-child(even){background-color: #f2f2f2;}
@@ -18,7 +34,7 @@
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: maroon;
+    background-color: rgba(64, 0, 0, .7);
     color: white;
 }
 
@@ -31,7 +47,7 @@
 }
 
 .highlighted:hover {
-    background: yellow;
+    background: rgba(255, 255, 0, .5);
 }
 
 /* Form Style */
@@ -53,22 +69,25 @@ input[type=text], select {
 input[type=submit] {
     display: flex;
     width: 100%;
-    background-color: maroon;
+    background-color: rgba(64, 0, 0, .7);
     color: white;
     padding: 12px 20px;
     margin: 8px 0;
     cursor: pointer;
     font-size: 18px;
+    /*border: 1px solid #ccc;*/
+    border-style: none;
+    border-radius: 4px;
 }
 
 input[type=submit]:hover {
-    background-color: green;
+    background-color: rgba(34, 95, 34, .7);
 }
 
 .button {
     text-align: center;
     /*width: 30%;*/
-    background-color: maroon;
+    background-color: rgba(64, 0, 0, .7);
     color: white;
     padding: 12px 12px;
     /*margin: 10px 0;*/
@@ -76,16 +95,18 @@ input[type=submit]:hover {
     font-size: 18px;
     text-decoration: none;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    /*border: 1px solid #ccc;*/
+    border-radius: 4px;
 }
 
 .button:hover {
-    background-color: green;
+    background-color: rgba(34, 95, 34, .7);
 }
 
 label {
-    fond-color: black;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    cursor: default;
+   /* fond-color: black;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
+    /*cursor: default;*/
 }
 
 #food_form {
@@ -112,8 +133,8 @@ label {
 
 .allmeals {
   display: grid;
-  grid-template: 40% 40% / 50% 50%;
-  grid-gap: 10px;
+  grid-template: 40% 40% / 48% 48%;
+  grid-gap: 4%;
 }
 
 .totals-element {
@@ -130,6 +151,7 @@ label {
   display: grid;
   grid-template: 100px / 33% 33% 33% ;
   grid-gap: 10px;
+  margin-bottom: 10px;
 }
 
 .meal-buttons div:nth-child(1) {
@@ -151,4 +173,28 @@ label {
 
 body {
   padding: 50px;
+}
+
+.totals-element-page-search {
+  display: grid;
+  grid-template: 1000px / auto 50% auto;
+  grid-gap: 10px;
+}
+
+.totals-element-page-search div:nth-child(1) {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+h1, h2, h3, h4, h5, h6, label {
+  /*color: white;*/
+  text-shadow: 2px;
+  font-size: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+
 }
