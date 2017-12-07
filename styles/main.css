@@ -133,7 +133,7 @@ label {
 
 .allmeals {
   display: grid;
-  grid-template: 40% 40% / 48% 48%;
+  grid-template: 30% 30% / 48% 48%;
   grid-gap: 4%;
 }
 
@@ -142,6 +142,7 @@ label {
   grid-template: 40% / auto 50% auto;
   grid-gap: 10px;
 }
+
 .totals-element div:nth-child(1) {
   grid-column-start: 2;
   grid-column-end: 3;
@@ -174,8 +175,6 @@ label {
   position: fixed;
   bottom: 4%;
   right: 2%;
-  
-
 }
 
 .corner {
