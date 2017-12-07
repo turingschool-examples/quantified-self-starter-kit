@@ -1,11 +1,72 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="styles/main.css">
   <title>Quantified Self - Diary</title>
 </head>
+
 <body>
+
+  <div class='allmeals'>
+  </div>
+
+  <div>
+    <div class='totals-element'>
+      <div>
+        <h2>Totals</h2>
+        <table class='meal-totals list'>
+
+        </table>
+      </div>
+    </div>
+
+
+
+
+    <div class='center-content'>
+
+      <div class='meal-buttons'>
+
+          <h3>Add Selected To</h3>
+          <div>
+            <a class="button add-food-to-meal" id="1">Breakfast</a>
+            <a class="button add-food-to-meal" id="3">Lunch</a>
+          </div>
+          <div>
+            <a class="button add-food-to-meal" id="4">Dinner</a>
+            <a class="button add-food-to-meal" id="2">Snacks</a>
+          </div>
+
+      </div>
+
+    </div>
+
+    <div class='totals-element-page-search'>
+      <div>
+        <div id="searchContainer">
+          <input type="text" id="foodfilter" placeholder="Filter foods..." title="Filter foods">
+        </div>
+
+        <table id="meal-foods-list" class="list searchable alphabetical">
+          <thead>
+            <tr>
+              <th> </th>
+              <th> Name </th>
+              <th id="calorie-header"> Calories </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    
+    <div class="hovering-button">
+        <a class="button corner" href="foods.html">Create New Foods</a>
+    </div>
+  </div>
 
   <script src="main.bundle.js"></script>
 </body>
+
 </html>
