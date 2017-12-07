@@ -98,6 +98,15 @@ input:focus {
   width:auto;
 }
 
+.checkbox-cell {
+  border: none;
+  width: 1em;
+}
+
+.food-checkbox {
+  width: 2em;
+}
+
 .total-cals, .remaining-cals {
   background-color: lightgrey;
   width: auto;
