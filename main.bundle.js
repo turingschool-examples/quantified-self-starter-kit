@@ -10702,7 +10702,16 @@
 
 	var getRemainCals = function getRemainCals(name) {
 	    var total = parseInt($('#' + name + '-calories').text());
-	    if (name === 'Snack') return 200 - total;else if (name === 'Breakfast') return 400 - total;else if (name === 'Lunch') return 600 - total;else if (name === 'Dinner') return 800 - total;
+	    var goalValues = { "Snack": 200 - total, "Breakfast": 400 - total, "Lunch": 600 - total, "Dinner": 800 - total };
+	    return goalValues(name);
+	    // if (name === 'Snack')
+	    //     return 200 - total
+	    // else if (name === 'Breakfast')
+	    //     return 400 - total
+	    // else if (name === 'Lunch')
+	    //     return 600 - total
+	    // else if (name === 'Dinner')
+	    //     return 800 - total
 	};
 
 	//render all Calories
