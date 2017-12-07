@@ -52,7 +52,7 @@
 
 	//index.html
 	__webpack_require__(7);
-	__webpack_require__(10);
+	__webpack_require__(11);
 
 /***/ }),
 /* 1 */
@@ -10638,13 +10638,15 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.renderTotalCalsTable = exports.renderMealTotals = exports.renderAllCals = exports.renderMeals = undefined;
+	exports.getTotalRemainCals = exports.renderTotalCalsTable = exports.renderMealTotals = exports.renderAllCals = exports.renderMeals = undefined;
 
 	var _mealRequests = __webpack_require__(8);
 
 	var _appendMeal = __webpack_require__(9);
 
 	var _appendFood = __webpack_require__(4);
+
+	var _renderTotalCalsTable = __webpack_require__(10);
 
 	var $ = __webpack_require__(3);
 
@@ -10662,7 +10664,7 @@
 	            (0, _appendMeal.appendCalories)(meal.name);
 	            renderAllCals(meal.name);
 	        }
-	        renderTotalCalsTable();
+	        (0, _renderTotalCalsTable.renderTotalCalsTable)();
 	    }).catch(function () {
 	        $(".alert").append("Error Loading Food Tracker");
 	    });
@@ -10670,23 +10672,9 @@
 
 	// render total calories
 	var renderTotalCals = function renderTotalCals(name) {
-	    var tableCalories = getCalories(name);
-	    var totalCalories = sumCalories(tableCalories);
+	    var tableCalories = (0, _renderTotalCalsTable.getCalories)(name);
+	    var totalCalories = (0, _renderTotalCalsTable.sumCalories)(tableCalories);
 	    $('#' + name + '-calories').text(totalCalories);
-	};
-
-	var getCalories = function getCalories(name) {
-	    var calories = [];
-	    $('#' + name + ' td.calories').each(function (index, val) {
-	        calories.push(parseInt(val.innerHTML));
-	    });
-	    return calories;
-	};
-
-	var sumCalories = function sumCalories(tableCalories) {
-	    return tableCalories.reduce(function (calories, total) {
-	        return calories + total;
-	    }, 0);
 	};
 
 	// render remaining cals
@@ -10703,15 +10691,7 @@
 	var getRemainCals = function getRemainCals(name) {
 	    var total = parseInt($('#' + name + '-calories').text());
 	    var goalValues = { "Snack": 200 - total, "Breakfast": 400 - total, "Lunch": 600 - total, "Dinner": 800 - total };
-	    return goalValues(name);
-	    // if (name === 'Snack')
-	    //     return 200 - total
-	    // else if (name === 'Breakfast')
-	    //     return 400 - total
-	    // else if (name === 'Lunch')
-	    //     return 600 - total
-	    // else if (name === 'Dinner')
-	    //     return 800 - total
+	    return goalValues[name];
 	};
 
 	//render all Calories
@@ -10726,22 +10706,6 @@
 	    (0, _appendMeal.appendMealTotals)();
 	};
 
-	// gets array of each meals total cals
-	var getTotalCalories = function getTotalCalories() {
-	    var calories = [];
-	    $('td.total-meal-cals').each(function (index, val) {
-	        calories.push(parseInt(val.innerHTML));
-	    });
-	    return calories;
-	};
-
-	// render total cals consumed for all meals
-	var renderAllMealTotalCals = function renderAllMealTotalCals() {
-	    var allMealCals = getTotalCalories();
-	    var totalMealCals = sumCalories(allMealCals);
-	    $('#all-cals-consumed').text(totalMealCals);
-	};
-
 	// get total remaining cals for all meals
 	var getTotalRemainCals = function getTotalRemainCals(name) {
 	    var goalCals = parseInt($('td#total-goal-cals').text());
@@ -10749,28 +10713,11 @@
 	    return goalCals - consumedCals;
 	};
 
-	// render total remaining cals
-	var renderTotalRemainingCals = function renderTotalRemainingCals() {
-	    var totalRemainingCals = getTotalRemainCals();
-	    $('#total-cals-remaining').text(totalRemainingCals);
-	};
-
-	// colorize total remaining cals
-	var colorizeAllMealCals = function colorizeAllMealCals() {
-	    $('td#total-cals-remaining:contains(\'-\')').addClass('red').removeClass('green');
-	    $('td#total-cals-remaining:not(:contains(\'-\'))').addClass('green').removeClass('red');
-	};
-
-	var renderTotalCalsTable = function renderTotalCalsTable() {
-	    renderAllMealTotalCals();
-	    renderTotalRemainingCals();
-	    colorizeAllMealCals();
-	};
-
 	exports.renderMeals = renderMeals;
 	exports.renderAllCals = renderAllCals;
 	exports.renderMealTotals = renderMealTotals;
-	exports.renderTotalCalsTable = renderTotalCalsTable;
+	exports.renderTotalCalsTable = _renderTotalCalsTable.renderTotalCalsTable;
+	exports.getTotalRemainCals = getTotalRemainCals;
 
 /***/ }),
 /* 8 */
@@ -10849,6 +10796,72 @@
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getCalories = exports.sumCalories = exports.renderTotalCalsTable = undefined;
+
+	var _all_meal_objects = __webpack_require__(7);
+
+	var $ = __webpack_require__(3);
+
+	function renderTotalCalsTable() {
+	    renderAllMealTotalCals();
+	    renderTotalRemainingCals();
+	    colorizeAllMealCals();
+	}
+
+	// render total cals consumed for all meals
+	var renderAllMealTotalCals = function renderAllMealTotalCals() {
+	    var allMealCals = getTotalCalories();
+	    var totalMealCals = sumCalories(allMealCals);
+	    $('#all-cals-consumed').text(totalMealCals);
+	};
+
+	function getTotalCalories() {
+	    var calories = [];
+	    $('td.total-meal-cals').each(function (index, val) {
+	        calories.push(parseInt(val.innerHTML));
+	    });
+	    return calories;
+	}
+
+	function sumCalories(tableCalories) {
+	    return tableCalories.reduce(function (calories, total) {
+	        return calories + total;
+	    }, 0);
+	}
+
+	function getCalories(name) {
+	    var calories = [];
+	    $('#' + name + ' td.calories').each(function (index, val) {
+	        calories.push(parseInt(val.innerHTML));
+	    });
+	    return calories;
+	}
+
+	// colorize total remaining cals
+	var colorizeAllMealCals = function colorizeAllMealCals() {
+	    $('td#total-cals-remaining:contains(\'-\')').addClass('red').removeClass('green');
+	    $('td#total-cals-remaining:not(:contains(\'-\'))').addClass('green').removeClass('red');
+	};
+
+	// render total remaining cals
+	var renderTotalRemainingCals = function renderTotalRemainingCals() {
+	    var totalRemainingCals = (0, _all_meal_objects.getTotalRemainCals)();
+	    $('#total-cals-remaining').text(totalRemainingCals);
+	};
+
+	exports.renderTotalCalsTable = renderTotalCalsTable;
+	exports.sumCalories = sumCalories;
+	exports.getCalories = getCalories;
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
