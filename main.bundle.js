@@ -49,9 +49,9 @@
 	var $ = __webpack_require__(1);
 	var foodAjax = __webpack_require__(2);
 	var mealAjax = __webpack_require__(5);
-	var foodListners = __webpack_require__(7);
-	var mealListners = __webpack_require__(8);
-	__webpack_require__(9);
+	var foodListners = __webpack_require__(8);
+	var mealListners = __webpack_require__(9);
+	__webpack_require__(10);
 
 	$(document).ready(function () {
 	  if (window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '/quantified-self-starter-kit/' || window.location.pathname === '/quantified-self-starter-kit/index.html') {
@@ -10487,6 +10487,7 @@
 
 	var $ = __webpack_require__(1);
 	var mealHandler = __webpack_require__(6);
+	var helpers = __webpack_require__(7);
 	var mealURL = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
 	var foodURL = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
 
@@ -10531,31 +10532,18 @@
 	    rowsToAdd['' + $(this).data('id')] = { name: '' + $(this).data('name'), cals: '' + $(this).data('cals') };
 	  });
 	  var addFoodsPromises = foodsToAdd.map(function (foodId) {
-	    $.post('https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals/' + mealId + '/foods/' + foodId).then(function (data) {
+	    $.post('https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals/' + mealId + '/foods/' + foodId);
+	  });
+	  Promise.all(addFoodsPromises).then(function () {
+	    foodsToAdd.forEach(function (foodId) {
 	      mealTable.prepend('<tr data-meal-id="' + mealId + '" data-food-id="' + foodId + '"> <td>' + rowsToAdd[foodId].name + '</td><td class="cals">' + rowsToAdd[foodId].cals + '</td><td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td> </tr>');
 	      caloriesChange += parseInt(rowsToAdd[foodId].cals);
-	      debugger;
 	    });
-	  });
-	  debugger;
-	  Promise.all(addFoodsPromises).then(function () {
-	    debugger;
-	    updateCalories(caloriesChange, mealTable);
+	  }).then(function () {
+	    helpers.updateCalories(caloriesChange, mealTable);
 	    $(':checked').prop('checked', false);
 	  });
 	};
-
-	function updateCalories(caloriesChange, mealTable) {
-	  var calsGoal = mealTable.children('.remaining-cals').children('.cal-rem').data('goal');
-	  var oldCalsConsumed = $('.total-cals-consumed')[0];
-	  var oldCalsRemaining = $('.total-cals-remaining')[0];
-	  var oldMealCalsConsumed = mealTable.children('.total-cals').children('.cal-sum')[0];
-	  var oldMealCalsRemaining = mealTable.children('.remaining-cals').children('.cal-rem')[0];
-	  oldCalsConsumed.innerText = parseInt(oldCalsConsumed.innerText) + caloriesChange;
-	  oldCalsRemaining.innerText = parseInt(oldCalsRemaining.innerText) - caloriesChange;
-	  oldMealCalsConsumed.innerText = parseInt(oldMealCalsConsumed.innerText) + caloriesChange;
-	  oldMealCalsRemaining.innerText = parseInt(oldMealCalsRemaining.innerText) - caloriesChange;
-	}
 
 	module.exports = {
 	  populateMeals: populateMeals,
@@ -10572,6 +10560,7 @@
 
 	var $ = __webpack_require__(1);
 	var searchHelper = __webpack_require__(4);
+	var helpers = __webpack_require__(7);
 
 	var populateMeals = function populateMeals(data) {
 	  var totalCals = 0;
@@ -10595,7 +10584,7 @@
 	  var calsRemCell = $('.total-cals-remaining');
 	  $('.total-cals-consumed').append(totalCals);
 	  calsRemCell.append(remainingCals);
-	  toggleCalsClass(remainingCals, calsRemCell);
+	  helpers.toggleCalsClass(remainingCals, calsRemCell);
 	};
 
 	var errorLog = function errorLog(data) {
@@ -10613,20 +10602,12 @@
 
 	  calTarget.innerText = newValue;
 	  calsRemCell[0].innerText = remainingTotal;
-	  toggleCalsClass(remainingTotal, calsRemCell);
+	  helpers.toggleCalsClass(remainingTotal, calsRemCell);
 	  totalCalsRem[0].innerText = parseInt(totalCalsRem[0].innerText) + removeCals;
 
 	  totalCalsConsumed[0].innerText = parseInt(totalCalsConsumed[0].innerText) - removeCals;
-	  toggleCalsClass(totalCalsRem[0].innerText, totalCalsRem);
+	  helpers.toggleCalsClass(totalCalsRem[0].innerText, totalCalsRem);
 	  eventTarget.closest('tr').remove();
-	};
-
-	var toggleCalsClass = function toggleCalsClass(comparison, target) {
-	  if (comparison < 0) {
-	    target.removeClass('net-positive').addClass('net-negative');
-	  } else {
-	    target.removeClass('net-negative').addClass('net-positive');
-	  }
 	};
 
 	var populateFoods = function populateFoods(data) {
@@ -10651,6 +10632,42 @@
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(1);
+
+	function updateCalories(caloriesChange, mealTable) {
+	  var oldCalsConsumed = $('.total-cals-consumed');
+	  var oldCalsRemaining = $('.total-cals-remaining');
+	  var oldMealCalsConsumed = mealTable.children('.total-cals').children('.cal-sum');
+	  var oldMealCalsRemaining = mealTable.children('.remaining-cals').children('.cal-rem');
+	  var newCalsRemaining = parseInt(oldCalsRemaining[0].innerText) - caloriesChange;
+	  var newMealCalsRemaining = parseInt(oldMealCalsRemaining[0].innerText) - caloriesChange;
+	  oldCalsConsumed[0].innerText = parseInt(oldCalsConsumed[0].innerText) + caloriesChange;
+	  oldCalsRemaining[0].innerText = newCalsRemaining;
+	  toggleCalsClass(newCalsRemaining, oldCalsRemaining);
+	  oldMealCalsConsumed[0].innerText = parseInt(oldMealCalsConsumed[0].innerText) + caloriesChange;
+	  oldMealCalsRemaining[0].innerText = newMealCalsRemaining;
+	  toggleCalsClass(newMealCalsRemaining, oldMealCalsRemaining);
+	}
+
+	var toggleCalsClass = function toggleCalsClass(comparison, target) {
+	  if (comparison < 0) {
+	    target.removeClass('net-positive').addClass('net-negative');
+	  } else {
+	    target.removeClass('net-negative').addClass('net-positive');
+	  }
+	};
+
+	module.exports = {
+	  updateCalories: updateCalories,
+	  toggleCalsClass: toggleCalsClass
+	};
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10717,7 +10734,7 @@
 	};
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10806,16 +10823,16 @@
 	};
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(10);
+	var content = __webpack_require__(11);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(12)(content, {});
+	var update = __webpack_require__(13)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -10832,10 +10849,10 @@
 	}
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(11)();
+	exports = module.exports = __webpack_require__(12)();
 	// imports
 
 
@@ -10846,7 +10863,7 @@
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	/*
@@ -10902,7 +10919,7 @@
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
