@@ -109,17 +109,20 @@
       <div class="divider"></div>
       <button class="add-to-meal" type="button" name="snack">Snacks</button>
       <br><br>
-      <input type="text" name="search-foods" placeholder="Search">
+      <p for="search">Search by Name</p>
+      <input id="search" type="text" name="search" class="index-search" placeholder="Search">
+
       <table class="food-table-meals">
         <thead class="food-table-head">
           <tr>
             <th>Name</th>
-            <th>Calories</th>
+            <th id="sort-calorie" class="original">Calories</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="meal-table-body">
         </tbody>
       </table>
+
     </div>
     <div class="box">
       <table>

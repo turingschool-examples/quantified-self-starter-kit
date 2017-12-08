@@ -48,16 +48,15 @@
 
 	var $ = __webpack_require__(1);
 	var foodAjax = __webpack_require__(2);
-	var mealAjax = __webpack_require__(4);
-	var foodListners = __webpack_require__(6);
-	var mealListners = __webpack_require__(7);
-	__webpack_require__(8);
+	var mealAjax = __webpack_require__(5);
+	var foodListners = __webpack_require__(7);
+	var mealListners = __webpack_require__(8);
+	__webpack_require__(9);
 
 	$(document).ready(function () {
 	  if (window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '/quantified-self-starter-kit/' || window.location.pathname === '/quantified-self-starter-kit/index.html') {
 	    mealAjax.populateMeals();
 	    mealAjax.populateFoods();
-	    mealListners.deleteListener();
 	  } else {
 	    foodAjax.populateFoods();
 	    foodListners.getValues();
@@ -10421,6 +10420,7 @@
 	'use strict';
 
 	var $ = __webpack_require__(1);
+	var searchHelper = __webpack_require__(4);
 
 	var appendPosts = function appendPosts(data) {
 	  data.forEach(function (food) {
@@ -10461,7 +10461,27 @@
 	'use strict';
 
 	var $ = __webpack_require__(1);
-	var mealHandler = __webpack_require__(5);
+
+	var searchFood = function searchFood(input, context) {
+	  var found = 'false';
+	  $(context).each(function () {
+	    if ($(context).text().toLowerCase().indexOf(input.toLowerCase()) >= 0) {
+	      found = 'true';
+	    }
+	  });
+	  found == 'true' ? $(context).show() : $(context).hide();
+	};
+
+	module.exports = { searchFood: searchFood };
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(1);
+	var mealHandler = __webpack_require__(6);
 	var mealURL = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
 	var foodURL = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
 
@@ -10500,12 +10520,13 @@
 	};
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var $ = __webpack_require__(1);
+	var searchHelper = __webpack_require__(4);
 
 	var populateMeals = function populateMeals(data) {
 	  var totalCals = 0;
@@ -10567,15 +10588,22 @@
 	  });
 	};
 
+	var searchTable = function searchTable(value) {
+	  $(".meal-table-body tr").each(function () {
+	    searchHelper.searchFood(value, $(this));
+	  });
+	};
+
 	module.exports = {
 	  errorLog: errorLog,
 	  populateMeals: populateMeals,
 	  deleteHandler: deleteHandler,
-	  populateFoods: populateFoods
+	  populateFoods: populateFoods,
+	  searchTable: searchTable
 	};
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10596,17 +10624,11 @@
 	    };
 	    ev.preventDefault();
 
-	    if (foodPost.food.name.length < 1) {
-	      $(".name-error").show();
-	    } else {
-	      $(".name-error").hide();
-	    }
+	    var nameError = $(".name-error"),
+	        calorieError = $(".calorie-error");
 
-	    if (foodPost.food.calories.length < 1) {
-	      $(".calorie-error").show();
-	    } else {
-	      $(".calorie-error").hide();
-	    }
+	    foodPost.food.name.length < 1 ? nameError.show() : nameError.hide();
+	    foodPost.food.calories.length < 1 ? calorieError.show() : calorieError.hide();
 
 	    ajaxReq.postFood(foodPost);
 	  });
@@ -10648,13 +10670,14 @@
 	};
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var $ = __webpack_require__(1);
-	var ajaxReq = __webpack_require__(4);
+	var ajaxReq = __webpack_require__(5);
+	var response = __webpack_require__(6);
 
 	var deleteListener = function deleteListener() {
 	  $('tbody').on('click', 'i.delete-button', function () {
@@ -10662,21 +10685,82 @@
 	  });
 	};
 
+	var searchListeners = function searchListeners() {
+	  $("#search").keyup(function () {
+	    response.searchTable($(this).val());
+	  });
+	};
+
+	var filterCalories = function filterCalories() {
+	  $('#sort-calorie').on('click', function () {
+	    var columnIndex = $(this).prevAll().length,
+	        tableBody = $(this).closest("table").find("tbody"),
+	        tableRows = tableBody.find("tr"),
+	        classAttr = $(this).attr("class"),
+	        typeofClass = { 0: "ascending", 1: "descending", 2: "original" },
+	        ascendOrDecend;
+
+	    function addOrRemoveClass(typeofClass, context) {
+	      if ($(context).hasClass(typeofClass[0])) {
+	        $(context).removeClass(typeofClass[0]).addClass(typeofClass[1]);
+	        ascendOrDecend = classAttr;
+	      } else if ($(context).hasClass(typeofClass[1])) {
+	        $(context).removeClass(typeofClass[1]).addClass(typeofClass[2]);
+	        ascendOrDecend = classAttr;
+	      } else if ($(context).hasClass(typeofClass[2])) {
+	        $(context).removeClass(typeofClass[2]).addClass(typeofClass[0]);
+	        ascendOrDecend = classAttr;
+	      }
+	    }
+
+	    addOrRemoveClass(typeofClass, this);
+
+	    function appendToTable(tableRows) {
+	      $.each(tableRows, function (index, element) {
+	        tableBody.append(element);
+	      });
+	    }
+
+	    function sortTable() {
+	      if (ascendOrDecend == typeofClass[2]) {
+	        $('.meal-table-body').empty();
+	        ajaxReq.populateFoods();
+	      } else {
+	        tableRows.sort(function (a, b) {
+	          var tda = $(a).find("td").eq(columnIndex).text();
+	          var tdb = $(b).find("td").eq(columnIndex).text();
+	          if (ascendOrDecend == typeofClass[0]) {
+	            if (!isNaN(tda) && !isNaN(tdb)) return parseInt(tda) - parseInt(tdb);
+	            return tda > tdb ? 1 : tda < tdb ? -1 : 0;
+	          } else if (ascendOrDecend == typeofClass[1]) {
+	            if (!isNaN(tda) && !isNaN(tdb)) return parseInt(tdb) - parseInt(tda);
+	            return tda < tdb ? 1 : tda > tdb ? -1 : 0;
+	          }
+	        });
+	        appendToTable(tableRows);
+	      }
+	    }
+	    sortTable();
+	  });
+	};
+
 	module.exports = {
-	  deleteListener: deleteListener
+	  deleteListener: deleteListener,
+	  searchListeners: searchListeners,
+	  filterCalories: filterCalories
 	};
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(9);
+	var content = __webpack_require__(10);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(11)(content, {});
+	var update = __webpack_require__(12)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -10693,21 +10777,21 @@
 	}
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(10)();
+	exports = module.exports = __webpack_require__(11)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n  font-family: helvetica;\n  margin: 2.5em; }\n  body .meals {\n    grid-gap: 1em;\n    display: inline-grid;\n    grid-template-columns: 20em 20em; }\n\nbutton {\n  width: 12em;\n  height: 3em;\n  background-color: #5cccf0;\n  border: 1px solid black;\n  border-radius: 2em;\n  font-weight: bold; }\n\ntable {\n  border-collapse: collapse;\n  width: 20em;\n  margin-top: 1em;\n  margin-bottom: 20px; }\n\nth, td {\n  border: 1px solid black; }\n\nth {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n\ntd {\n  text-align: left;\n  width: 420px; }\n\ninput {\n  width: 25em;\n  padding: 5px 5px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  border: 3px solid #ccc;\n  border-radius: 5px;\n  -webkit-transition: 0.5s;\n  transition: 0.5s;\n  outline: none; }\n\n#add_food {\n  font-style: helvetica;\n  background-color: #56CCF2;\n  border-color: black;\n  border-radius: 20px;\n  font-size: 15px;\n  color: black;\n  padding: 12px;\n  margin-left: 10%;\n  margin-top: 15px;\n  margin-bottom: 15px;\n  padding: 8px 15px 8px 15px;\n  width: 10em;\n  text-decoration: none; }\n\nlabel {\n  color: red;\n  margin-left: 13em; }\n\ninput:focus {\n  border: 3px solid #555; }\n\n.box {\n  margin-bottom: 2em; }\n\n.wrapper {\n  display: inline-grid;\n  grid-template-columns: 20em 20em;\n  grid-gap: 2em; }\n\n.delete-button {\n  margin-left: 0.3em;\n  color: red;\n  font-weight: bold; }\n\n.delete-cell {\n  border: none;\n  width: auto; }\n\n.total-cals, .remaining-cals {\n  background-color: lightgrey;\n  width: auto;\n  text-align: right; }\n\n.totals-td, .remaining-td, .cal-sum, .cal-rem, .cals {\n  text-align: right; }\n\n.net-positive {\n  color: green; }\n\n.net-negative {\n  color: red; }\n\n.divider {\n  width: 1em;\n  height: 1em;\n  display: inline-block; }\n\n.add-box {\n  display: inline;\n  float: left;\n  margin-left: -2.4em; }\n\n.foodSearch {\n  width: 25%;\n  font-size: 16px;\n  border: 3px solid #ccc;\n  margin-bottom: 12px; }\n\n.name-error, .calorie-error {\n  color: red;\n  font-size: 15px;\n  display: none; }\n", ""]);
+	exports.push([module.id, "body {\n  font-family: helvetica;\n  margin: 2.5em; }\n  body .meals {\n    grid-gap: 1em;\n    display: inline-grid;\n    grid-template-columns: 20em 20em; }\n\nbutton {\n  width: 12em;\n  height: 3em;\n  background-color: #5cccf0;\n  border: 1px solid black;\n  border-radius: 2em;\n  font-weight: bold; }\n\ntable {\n  border-collapse: collapse;\n  border: 1px solid black;\n  border-radius: 10px;\n  border-width: thin;\n  border-radius: 5px;\n  width: 20em;\n  margin-top: 1em;\n  margin-bottom: 20px; }\n\nth, td {\n  border: 1px solid black; }\n\nth {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n\ntd {\n  text-align: left;\n  width: 420px; }\n\ninput {\n  width: 25em;\n  padding: 5px 5px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  border: 3px solid #ccc;\n  border-radius: 5px;\n  -webkit-transition: 0.5s;\n  transition: 0.5s;\n  outline: none; }\n\n#add_food {\n  font-style: helvetica;\n  background-color: #56CCF2;\n  border-color: black;\n  border-radius: 20px;\n  font-size: 15px;\n  color: black;\n  padding: 12px;\n  margin-left: 10%;\n  margin-top: 15px;\n  margin-bottom: 15px;\n  padding: 8px 15px 8px 15px;\n  width: 10em;\n  text-decoration: none; }\n\nlabel {\n  color: red;\n  margin-left: 13em; }\n\ninput:focus {\n  border: 3px solid #555; }\n\n.box {\n  margin-bottom: 2em; }\n\n.wrapper {\n  display: inline-grid;\n  grid-template-columns: 20em 20em;\n  grid-gap: 2em; }\n\n.delete-button {\n  float: right;\n  margin-right: -1.2em;\n  color: red;\n  font-weight: bold; }\n\n.total-cals, .remaining-cals {\n  background-color: lightgrey;\n  width: auto;\n  text-align: right; }\n\n.totals-td, .remaining-td, .cal-sum, .cal-rem, .cals {\n  text-align: right; }\n\n.net-positive {\n  color: green; }\n\n.net-negative {\n  color: red; }\n\n.divider {\n  width: 1em;\n  height: 1em;\n  display: inline-block; }\n\n.add-box {\n  display: inline;\n  float: left;\n  margin-left: -2.4em; }\n\n.foodSearch {\n  width: 25%;\n  font-size: 16px;\n  border: 3px solid #ccc;\n  margin-bottom: 12px; }\n\n.index-search {\n  width: 29em; }\n\n.name-error, .calorie-error {\n  color: red;\n  font-size: 15px;\n  display: none; }\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 	/*
@@ -10763,7 +10847,7 @@
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*

@@ -67,7 +67,6 @@ input {
     text-decoration: none;
 }
 
-
 label {
   color: red;
   margin-left: 13em;
@@ -143,6 +142,11 @@ input:focus {
     border: 3px solid #ccc;
     margin-bottom: 12px;
 }
+
+.index-search {
+  width: 29em;
+}
+
 
 .name-error, .calorie-error {
   color: red;
