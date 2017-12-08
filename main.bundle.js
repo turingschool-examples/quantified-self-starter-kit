@@ -10512,7 +10512,7 @@
 	    type: 'DELETE',
 	    dataType: 'json'
 	  }).then(function (data) {
-	    // alert(data.message)
+	    alert(data.message);
 	    mealHandler.deleteHandler(eventTarget);
 	  }).catch(function (error) {
 	    alert(error.statusText);
