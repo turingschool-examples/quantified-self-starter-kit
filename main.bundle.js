@@ -48,16 +48,19 @@
 
 	var $ = __webpack_require__(1);
 	var foodAjax = __webpack_require__(2);
-	var mealAjax = __webpack_require__(4);
-	var foodListners = __webpack_require__(6);
-	var mealListners = __webpack_require__(7);
-	__webpack_require__(8);
+	var mealAjax = __webpack_require__(5);
+	var foodListners = __webpack_require__(8);
+	var mealListners = __webpack_require__(9);
+	__webpack_require__(10);
 
 	$(document).ready(function () {
 	  if (window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '/quantified-self-starter-kit/' || window.location.pathname === '/quantified-self-starter-kit/index.html') {
 	    mealAjax.populateMeals();
-	    mealListners.deleteListener();
 	    mealAjax.populateFoods();
+	    mealListners.deleteListener();
+	    mealListners.addFoodToMeal();
+	    mealListners.searchListeners();
+	    mealListners.filterCalories();
 	  } else {
 	    foodAjax.populateFoods();
 	    foodListners.getValues();
@@ -10348,7 +10351,7 @@
 	    data: foodPost,
 	    dataType: 'json',
 	    success: function success(data) {
-	      $('.food-table').prepend('<tr data-id="' + data.id + '"><td contenteditable="true">' + data.name + '</td><td contenteditable="true"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i>' + data.calories + '</td></tr>');
+	      $('.food-table').prepend('<tr data-id="' + data.id + '"><td contenteditable="true">' + data.name + '</td><td contenteditable="true">' + data.calories + '</td><td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
 	      $("#new_food").trigger('reset');
 	      return false;
 	    },
@@ -10362,7 +10365,7 @@
 	  var target = $(event.target);
 	  var foodId = target.closest('tr').data('id');
 	  var mealIds = [];
-	  $.when($.get(mealsUrl).then(function (data) {
+	  $.get(mealsUrl).then(function (data) {
 	    data.filter(function (meal) {
 	      meal.foods.forEach(function (food) {
 	        if (food.id === foodId) {
@@ -10370,25 +10373,36 @@
 	        }
 	      });
 	    });
-	    killFoods(foodId, mealIds, target);
-	  }));
+	  }).then(function () {
+	    deleteFoodsCallDelegator(foodId, mealIds, target);
+	  });
 	};
 
-	function killFoods(foodId, mealIds, target) {
-	  mealIds.forEach(function (id) {
+	function deleteFoodsFromMeals(foodId, mealIds) {
+	  return mealIds.map(function (id) {
 	    $.ajax({
 	      url: 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals/' + id + '/foods/' + foodId,
 	      type: 'DELETE',
 	      dataType: 'json'
 	    });
 	  });
-	  $.ajax({
+	}
+
+	function deleteFoodFromDB(foodId) {
+	  return $.ajax({
 	    url: 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods/' + foodId,
 	    type: 'DELETE',
 	    dataType: 'json'
+	  });
+	}
+
+	function deleteFoodsCallDelegator(foodId, mealIds, target) {
+	  var mealPromises = deleteFoodsFromMeals(foodId, mealIds);
+	  Promise.all(mealPromises).then(function () {
+	    deleteFoodFromDB(foodId);
 	  }).then(function (data) {
 	    target.closest('tr').remove();
-	  }).fail(function (error) {
+	  }).catch(function (error) {
 	    alert('food not deleted');
 	  });
 	}
@@ -10421,26 +10435,17 @@
 	'use strict';
 
 	var $ = __webpack_require__(1);
+	var searchHelper = __webpack_require__(4);
 
 	var appendPosts = function appendPosts(data) {
 	  data.forEach(function (food) {
-	    $('.food-table').prepend('<tr data-id="' + food.id + '"><td class="food" name="name" contenteditable="true">' + food.name + '</td><td class="food" name="calories" contenteditable="true"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i>' + food.calories + '</td></tr>');
+	    $('.food-table').prepend('<tr data-id="' + food.id + '"><td class="food" name="name" contenteditable="true">' + food.name + '</td><td class="food" name="calories" contenteditable="true">' + food.calories + '</td><td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
 	  });
 	};
 
 	var searchTable = function searchTable(value) {
-	  $(".food-table tr").each(function () {
-	    var found = 'false';
-	    $(this).each(function () {
-	      if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-	        found = 'true';
-	      }
-	    });
-	    if (found == 'true') {
-	      $(this).show();
-	    } else {
-	      $(this).hide();
-	    }
+	  $(".food-table-body tr").each(function () {
+	    searchHelper.searchFood(value, $(this));
 	  });
 	};
 
@@ -10461,7 +10466,28 @@
 	'use strict';
 
 	var $ = __webpack_require__(1);
-	var mealHandler = __webpack_require__(5);
+
+	var searchFood = function searchFood(input, context) {
+	  var found = 'false';
+	  $(context).each(function () {
+	    if ($(context).text().toLowerCase().indexOf(input.toLowerCase()) >= 0) {
+	      found = 'true';
+	    }
+	  });
+	  found == 'true' ? $(context).show() : $(context).hide();
+	};
+
+	module.exports = { searchFood: searchFood };
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(1);
+	var mealHandler = __webpack_require__(6);
+	var helpers = __webpack_require__(7);
 	var mealURL = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
 	var foodURL = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
 
@@ -10486,35 +10512,65 @@
 	    type: 'DELETE',
 	    dataType: 'json'
 	  }).then(function (data) {
-	    // alert(data.message)
+	    alert(data.message);
 	    mealHandler.deleteHandler(eventTarget);
 	  }).catch(function (error) {
 	    alert(error.statusText);
 	  });
 	}
 
+	var addFoodToMeal = function addFoodToMeal() {
+	  var target = $(event.target);
+	  var mealTable = $('tbody.' + target[0].name);
+	  var foodRows = $(':checked').parents('tr');
+	  var foodsToAdd = [];
+	  var mealId = mealTable.data('id');
+	  var rowsToAdd = {};
+	  var caloriesChange = 0;
+	  foodRows.each(function (row) {
+	    foodsToAdd.push($(this).data('id'));
+	    rowsToAdd['' + $(this).data('id')] = { name: '' + $(this).data('name'), cals: '' + $(this).data('cals') };
+	  });
+	  var addFoodsPromises = foodsToAdd.map(function (foodId) {
+	    $.post('https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals/' + mealId + '/foods/' + foodId);
+	  });
+	  Promise.all(addFoodsPromises).then(function () {
+	    foodsToAdd.forEach(function (foodId) {
+	      mealTable.prepend('<tr data-meal-id="' + mealId + '" data-food-id="' + foodId + '"> <td>' + rowsToAdd[foodId].name + '</td><td class="cals">' + rowsToAdd[foodId].cals + '</td><td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td> </tr>');
+	      caloriesChange += parseInt(rowsToAdd[foodId].cals);
+	    });
+	  }).then(function () {
+	    helpers.updateCalories(caloriesChange, mealTable);
+	    $(':checked').prop('checked', false);
+	  });
+	};
+
 	module.exports = {
 	  populateMeals: populateMeals,
 	  deleteFood: deleteFood,
-	  populateFoods: populateFoods
+	  populateFoods: populateFoods,
+	  addFoodToMeal: addFoodToMeal
 	};
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var $ = __webpack_require__(1);
+	var searchHelper = __webpack_require__(4);
+	var helpers = __webpack_require__(7);
 
 	var populateMeals = function populateMeals(data) {
 	  var totalCals = 0;
 	  data.forEach(function (meal) {
 	    var mealTotalCals = 0;
-	    var remainingCalsCell = $('.' + meal.name.toLowerCase()).children('tbody').children('.remaining-cals').children('.cal-rem');
+	    var remainingCalsCell = $('tbody.' + meal.name.toLowerCase()).children('.remaining-cals').children('.cal-rem');
+	    $('tbody.' + meal.name.toLowerCase()).attr('data-id', meal.id);
 	    meal.foods.forEach(function (food) {
 	      mealTotalCals += Number(food.calories);
-	      $('.' + meal.name.toLowerCase()).prepend('<tr data-meal-id="' + meal.id + '" data-food-id="' + food.id + '"><td>' + food.name + '</td><td class="cals"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i>' + food.calories + '</td></tr>');
+	      $('tbody.' + meal.name.toLowerCase()).prepend('<tr data-meal-id="' + meal.id + '" data-food-id="' + food.id + '"> <td>' + food.name + '</td> <td class="cals"> ' + food.calories + ' </td> <td class="delete-cell"> <i class="delete-button fa fa-minus-circle" aria-hidden="true"> </i> </td> </tr>');
 	    });
 	    var remainingCals = remainingCalsCell.data('goal') - mealTotalCals;
 	    remainingCalsCell.append(remainingCals);
@@ -10524,11 +10580,11 @@
 	    $('.' + meal.name.toLowerCase()).children('tbody').children('.total-cals').children('.cal-sum').prepend('' + mealTotalCals);
 	    totalCals += mealTotalCals;
 	  });
+	  var remainingCals = 2000 - totalCals;
+	  var calsRemCell = $('.total-cals-remaining');
 	  $('.total-cals-consumed').append(totalCals);
-	  $('.total-cals-remaining').append(2000 - totalCals);
-	  if (2000 - totalCals < 0) {
-	    $('.total-cals-remaining').removeClass('net-positive').addClass('net-negative');
-	  }
+	  calsRemCell.append(remainingCals);
+	  helpers.toggleCalsClass(remainingCals, calsRemCell);
 	};
 
 	var errorLog = function errorLog(data) {
@@ -10536,34 +10592,33 @@
 	};
 
 	var deleteHandler = function deleteHandler(eventTarget) {
-	  var removeCals = parseInt(eventTarget.parent()[0].innerText);
+	  var removeCals = parseInt(eventTarget.parent().siblings('.cals')[0].innerText);
 	  var calTarget = eventTarget.closest('tbody').children('.total-cals').children('.cal-sum')[0];
 	  var calsRemCell = eventTarget.parent().parent().siblings('.remaining-cals').children('.cal-rem');
-	  var oldValue = parseInt(calTarget.innerText);
-	  var newValue = oldValue - removeCals;
+	  var newValue = parseInt(calTarget.innerText) - removeCals;
 	  var remainingTotal = calsRemCell.data('goal') - newValue;
-	  calTarget.innerText = newValue;
-	  calsRemCell[0].innerText = remainingTotal;
-	  if (remainingTotal < 0) {
-	    calsRemCell.removeClass('net-positive').addClass('net-negative');
-	  } else {
-	    calsRemCell.removeClass('net-negative').addClass('net-positive');
-	  }
 	  var totalCalsRem = $('.total-cals-remaining');
 	  var totalCalsConsumed = $('.total-cals-consumed');
+
+	  calTarget.innerText = newValue;
+	  calsRemCell[0].innerText = remainingTotal;
+	  helpers.toggleCalsClass(remainingTotal, calsRemCell);
 	  totalCalsRem[0].innerText = parseInt(totalCalsRem[0].innerText) + removeCals;
+
 	  totalCalsConsumed[0].innerText = parseInt(totalCalsConsumed[0].innerText) - removeCals;
-	  if (totalCalsRem[0].innerText < 0) {
-	    totalCalsRem.removeClass('net-positive').addClass('net-negative');
-	  } else {
-	    totalCalsRem.removeClass('net-negative').addClass('net-positive');
-	  }
+	  helpers.toggleCalsClass(totalCalsRem[0].innerText, totalCalsRem);
 	  eventTarget.closest('tr').remove();
 	};
 
 	var populateFoods = function populateFoods(data) {
 	  data.forEach(function (food) {
-	    $('.food-table-meals').prepend('<tr data-id="' + food.id + '"><td>' + food.name + '</span></td><td>' + food.calories + '</td></tr>');
+	    $('.food-table-meals').prepend('<tr data-id="' + food.id + '" data-cals="' + food.calories + '" data-name="' + food.name + '"><td>' + food.name + '</td><td>' + food.calories + '</td><td class="checkbox-cell"><input class="food-checkbox" type="checkbox"></td></tr>');
+	  });
+	};
+
+	var searchTable = function searchTable(value) {
+	  $(".meal-table-body tr").each(function () {
+	    searchHelper.searchFood(value, $(this));
 	  });
 	};
 
@@ -10571,11 +10626,48 @@
 	  errorLog: errorLog,
 	  populateMeals: populateMeals,
 	  deleteHandler: deleteHandler,
-	  populateFoods: populateFoods
+	  populateFoods: populateFoods,
+	  searchTable: searchTable
 	};
 
 /***/ }),
-/* 6 */
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(1);
+
+	function updateCalories(caloriesChange, mealTable) {
+	  var oldCalsConsumed = $('.total-cals-consumed');
+	  var oldCalsRemaining = $('.total-cals-remaining');
+	  var oldMealCalsConsumed = mealTable.children('.total-cals').children('.cal-sum');
+	  var oldMealCalsRemaining = mealTable.children('.remaining-cals').children('.cal-rem');
+	  var newCalsRemaining = parseInt(oldCalsRemaining[0].innerText) - caloriesChange;
+	  var newMealCalsRemaining = parseInt(oldMealCalsRemaining[0].innerText) - caloriesChange;
+	  oldCalsConsumed[0].innerText = parseInt(oldCalsConsumed[0].innerText) + caloriesChange;
+	  oldCalsRemaining[0].innerText = newCalsRemaining;
+	  toggleCalsClass(newCalsRemaining, oldCalsRemaining);
+	  oldMealCalsConsumed[0].innerText = parseInt(oldMealCalsConsumed[0].innerText) + caloriesChange;
+	  oldMealCalsRemaining[0].innerText = newMealCalsRemaining;
+	  toggleCalsClass(newMealCalsRemaining, oldMealCalsRemaining);
+	}
+
+	var toggleCalsClass = function toggleCalsClass(comparison, target) {
+	  if (comparison < 0) {
+	    target.removeClass('net-positive').addClass('net-negative');
+	  } else {
+	    target.removeClass('net-negative').addClass('net-positive');
+	  }
+	};
+
+	module.exports = {
+	  updateCalories: updateCalories,
+	  toggleCalsClass: toggleCalsClass
+	};
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10596,17 +10688,11 @@
 	    };
 	    ev.preventDefault();
 
-	    if (foodPost.food.name.length < 1) {
-	      $(".name-error").show();
-	    } else {
-	      $(".name-error").hide();
-	    }
+	    var nameError = $(".name-error"),
+	        calorieError = $(".calorie-error");
 
-	    if (foodPost.food.calories.length < 1) {
-	      $(".calorie-error").show();
-	    } else {
-	      $(".calorie-error").hide();
-	    }
+	    foodPost.food.name.length < 1 ? nameError.show() : nameError.hide();
+	    foodPost.food.calories.length < 1 ? calorieError.show() : calorieError.hide();
 
 	    ajaxReq.postFood(foodPost);
 	  });
@@ -10648,37 +10734,105 @@
 	};
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var $ = __webpack_require__(1);
-	var ajaxReq = __webpack_require__(4);
+	var ajaxReq = __webpack_require__(5);
+	var response = __webpack_require__(6);
 
 	var deleteListener = function deleteListener() {
-	  $('tbody').on('click', function () {
-	    if ($(event.target).hasClass('delete-button')) {
-	      ajaxReq.deleteFood();
+	  $('tbody').on('click', 'i.delete-button', function () {
+	    ajaxReq.deleteFood();
+	  });
+	};
+
+	var searchListeners = function searchListeners() {
+	  $("#search").keyup(function () {
+	    response.searchTable($(this).val());
+	  });
+	};
+
+	var filterCalories = function filterCalories() {
+	  $('#sort-calorie').on('click', function () {
+
+	    var columnIndex = $(this).prevAll().length,
+	        tableBody = $(this).closest("table").find("tbody"),
+	        tableRows = tableBody.find("tr"),
+	        classAttr = $(this).attr("class"),
+	        typeofClass = { 0: "original", 1: "ascending", 2: "descending" },
+	        ascendOrDecend;
+
+	    function addOrRemoveClass(typeofClass, context) {
+	      if ($(context).hasClass(typeofClass[0])) {
+	        $(context).removeClass(typeofClass[0]).addClass(typeofClass[1]);
+	        ascendOrDecend = classAttr;
+	      } else if ($(context).hasClass(typeofClass[1])) {
+	        $(context).removeClass(typeofClass[1]).addClass(typeofClass[2]);
+	        ascendOrDecend = classAttr;
+	      } else if ($(context).hasClass(typeofClass[2])) {
+	        $(context).removeClass(typeofClass[2]).addClass(typeofClass[0]);
+	        ascendOrDecend = classAttr;
+	      }
 	    }
+
+	    addOrRemoveClass(typeofClass, this);
+
+	    function appendToTable(tableRows) {
+	      $.each(tableRows, function (index, element) {
+	        tableBody.append(element);
+	      });
+	    }
+
+	    function sortTable() {
+	      if (ascendOrDecend == typeofClass[0]) {
+	        $('.meal-table-body').empty();
+	        ajaxReq.populateFoods();
+	      } else {
+	        tableRows.sort(function (a, b) {
+	          var tda = $(a).find("td").eq(columnIndex).text();
+	          var tdb = $(b).find("td").eq(columnIndex).text();
+	          if (ascendOrDecend == typeofClass[1]) {
+	            if (!isNaN(tda) && !isNaN(tdb)) return parseInt(tda) - parseInt(tdb);
+	            return tda > tdb ? 1 : tda < tdb ? -1 : 0;
+	          } else if (ascendOrDecend == typeofClass[2]) {
+	            if (!isNaN(tda) && !isNaN(tdb)) return parseInt(tdb) - parseInt(tda);
+	            return tda < tdb ? 1 : tda > tdb ? -1 : 0;
+	          }
+	        });
+	        appendToTable(tableRows);
+	      }
+	    }
+	    sortTable();
+	  });
+	};
+
+	var addFoodToMeal = function addFoodToMeal() {
+	  $('.add-to-meal').on('click', function () {
+	    ajaxReq.addFoodToMeal();
 	  });
 	};
 
 	module.exports = {
-	  deleteListener: deleteListener
+	  deleteListener: deleteListener,
+	  searchListeners: searchListeners,
+	  filterCalories: filterCalories,
+	  addFoodToMeal: addFoodToMeal
 	};
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(9);
+	var content = __webpack_require__(11);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(11)(content, {});
+	var update = __webpack_require__(13)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -10695,21 +10849,21 @@
 	}
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(10)();
+	exports = module.exports = __webpack_require__(12)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n  font-family: helvetica;\n  margin: 2.5em; }\n  body .meals {\n    grid-gap: 1em;\n    display: inline-grid;\n    grid-template-columns: 20em 20em; }\n\nbutton {\n  width: 12em;\n  height: 3em;\n  background-color: #5cccf0;\n  border: 1px solid black;\n  border-radius: 2em;\n  font-weight: bold; }\n\ntable {\n  border-collapse: collapse;\n  border: 1px solid black;\n  border-radius: 10px;\n  border-width: thin;\n  border-radius: 5px;\n  width: 20em;\n  margin-top: 1em;\n  margin-bottom: 20px; }\n\nth, td {\n  border: 1px solid black; }\n\nth {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n\ntd {\n  text-align: left;\n  width: 420px; }\n\ninput {\n  width: 25em;\n  padding: 5px 5px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  border: 3px solid #ccc;\n  border-radius: 5px;\n  -webkit-transition: 0.5s;\n  transition: 0.5s;\n  outline: none; }\n\n#add_food {\n  font-style: helvetica;\n  background-color: #56CCF2;\n  border-color: black;\n  border-radius: 20px;\n  font-size: 15px;\n  color: black;\n  padding: 12px;\n  margin-left: 10%;\n  margin-top: 15px;\n  margin-bottom: 15px;\n  padding: 8px 15px 8px 15px;\n  width: 10em;\n  text-decoration: none; }\n\nlabel {\n  color: red;\n  margin-left: 13em; }\n\ninput:focus {\n  border: 3px solid #555; }\n\n.box {\n  margin-bottom: 2em; }\n\n.wrapper {\n  display: inline-grid;\n  grid-template-columns: 20em 20em;\n  grid-gap: 2em; }\n\n.delete-button {\n  float: right;\n  margin-right: -1.2em;\n  color: red;\n  font-weight: bold; }\n\n.total-cals, .remaining-cals {\n  background-color: lightgrey;\n  width: auto;\n  text-align: right; }\n\n.totals-td, .remaining-td, .cal-sum, .cal-rem, .cals {\n  text-align: right; }\n\n.net-positive {\n  color: green; }\n\n.net-negative {\n  color: red; }\n\n.divider {\n  width: 1em;\n  height: 1em;\n  display: inline-block; }\n\n.add-box {\n  display: inline;\n  float: left;\n  margin-left: -2.4em; }\n\n.foodSearch {\n  width: 25%;\n  font-size: 16px;\n  border: 3px solid #ccc;\n  margin-bottom: 12px; }\n\n.name-error, .calorie-error {\n  color: red;\n  font-size: 15px;\n  display: none; }\n", ""]);
+	exports.push([module.id, "body {\n  font-family: helvetica;\n  margin: 2.5em; }\n  body .meals {\n    grid-gap: 1em;\n    display: inline-grid;\n    grid-template-columns: 20em 20em; }\n\nbutton {\n  width: 12em;\n  height: 3em;\n  background-color: #5cccf0;\n  border: 1px solid black;\n  border-radius: 2em;\n  font-weight: bold; }\n\ntable {\n  border-collapse: collapse;\n  width: 20em;\n  margin-top: 1em;\n  margin-bottom: 20px; }\n\nth, td {\n  border: 1px solid black; }\n\nth {\n  background-color: lightgrey;\n  width: auto;\n  text-align: left; }\n\ntd {\n  text-align: left;\n  width: 420px; }\n\ninput {\n  width: 25em;\n  padding: 5px 5px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  border: 3px solid #ccc;\n  border-radius: 5px;\n  -webkit-transition: 0.5s;\n  transition: 0.5s;\n  outline: none; }\n\n#add_food {\n  font-style: helvetica;\n  background-color: #56CCF2;\n  border-color: black;\n  border-radius: 20px;\n  font-size: 15px;\n  color: black;\n  padding: 12px;\n  margin-left: 10%;\n  margin-top: 15px;\n  margin-bottom: 15px;\n  padding: 8px 15px 8px 15px;\n  width: 10em;\n  text-decoration: none; }\n\nlabel {\n  color: red;\n  margin-left: 13em; }\n\ninput:focus {\n  border: 3px solid #555; }\n\n.box {\n  margin-bottom: 2em; }\n\n.wrapper {\n  display: inline-grid;\n  grid-template-columns: 20em 20em;\n  grid-gap: 2em; }\n\n.delete-button {\n  margin-left: 0.3em;\n  color: red;\n  font-weight: bold; }\n\n.delete-cell {\n  border: none;\n  width: auto; }\n\n.checkbox-cell {\n  border: none;\n  width: 1em; }\n\n.food-checkbox {\n  width: 2em; }\n\n.total-cals, .remaining-cals {\n  background-color: lightgrey;\n  width: auto;\n  text-align: right; }\n\n.totals-td, .remaining-td, .cal-sum, .cal-rem, .cals {\n  text-align: right; }\n\n.net-positive {\n  color: green; }\n\n.net-negative {\n  color: red; }\n\n.divider {\n  width: 1em;\n  height: 1em;\n  display: inline-block; }\n\n.add-box {\n  display: inline;\n  float: left;\n  margin-left: -2.4em; }\n\n.foodSearch {\n  width: 25%;\n  font-size: 16px;\n  border: 3px solid #ccc;\n  margin-bottom: 12px; }\n\n.index-search {\n  width: 29em; }\n\n.name-error, .calorie-error {\n  color: red;\n  font-size: 15px;\n  display: none; }\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	/*
@@ -10765,7 +10919,7 @@
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*

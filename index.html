@@ -16,7 +16,7 @@
             <th>Calories</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="breakfast">
           <tr class="total-cals">
             <td class="totals-td">Total Calories</td>
             <td class="cal-sum"></td>
@@ -39,7 +39,7 @@
             <th>Calories</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="lunch">
           <tr class="total-cals">
             <td class="totals-td">Total Calories</td>
             <td class="cal-sum"></td>
@@ -62,7 +62,7 @@
             <th>Calories</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="dinner">
           <tr class="total-cals">
             <td class="totals-td">Total Calories</td>
             <td class="cal-sum"></td>
@@ -85,7 +85,7 @@
             <th>Calories</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="snack">
           <tr class="total-cals">
             <td class="totals-td">Total Calories</td>
             <td class="cal-sum"></td>
@@ -101,25 +101,28 @@
       <h3>Foods</h3>
       <a href="./foods.html"><button type="button" name="new-food">Create New</button></a>
       <h4>Add Selected To</h4><br>
-      <button class="add-to-meal" type="button" name="add-breakfast">Breakfast</button>
+      <button class="add-to-meal" type="button" name="breakfast">Breakfast</button>
       <div class="divider"></div>
-      <button class="add-to-meal" type="button" name="add-lunch">Lunch</button><br>
+      <button class="add-to-meal" type="button" name="lunch">Lunch</button><br>
       <div class="divider"></div><br>
-      <button class="add-to-meal" type="button" name="add-dinner">Dinner</button>
+      <button class="add-to-meal" type="button" name="dinner">Dinner</button>
       <div class="divider"></div>
-      <button class="add-to-meal" type="button" name="add-snacks">Snacks</button>
+      <button class="add-to-meal" type="button" name="snack">Snacks</button>
       <br><br>
-      <input type="text" name="search-foods" placeholder="Search">
+      <p for="search">Search by Name</p>
+      <input id="search" type="text" name="search" class="index-search" placeholder="Search">
+
       <table class="food-table-meals">
         <thead class="food-table-head">
           <tr>
             <th>Name</th>
-            <th>Calories</th>
+            <th id="sort-calorie" class="original">Calories</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="meal-table-body">
         </tbody>
       </table>
+
     </div>
     <div class="box">
       <table>
