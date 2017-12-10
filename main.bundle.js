@@ -10501,13 +10501,23 @@
 	  });
 	};
 
-	//
-	// const sortByCaloriesOrig = function(event) {
-	//   var calorieColumns =
-	//   var newOrder = calorieColumns.sort(function(a,b) {
-	//     a - b;
-	//   });
-	// }
+	var sortByCaloriesOrig = function sortByCaloriesOrig(event) {
+	  var columns = event.delegateTarget.children[1].children;
+	  var sortedColumns = Array.prototype.slice.call(columns).sort(function (a, b) {
+	    var ac = Number(a.dataset.id);
+	    var bc = Number(b.dataset.id);
+	    if (ac > bc) {
+	      return -1;
+	    }
+	    if (ac < bc) {
+	      return 1;
+	    }
+	    return 0;
+	  });
+	  sortedColumns.forEach(function (column) {
+	    $('#new_food_table').append(column);
+	  });
+	};
 
 	var handleError = function handleError(error) {
 	  console.log(error.statusText);
