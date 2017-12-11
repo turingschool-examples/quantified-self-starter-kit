@@ -52,10 +52,10 @@
 	var someFood = new Food();
 	var someMeal = new Meal();
 
-	var bs = __webpack_require__(4);
-
-	var foodDiary = __webpack_require__(5);
-	var mealResponse = __webpack_require__(6);
+	var ajaxForFoods = __webpack_require__(4);
+	var foodEventListeners = __webpack_require__(5);
+	var mealDiary = __webpack_require__(6);
+	var mealResponse = __webpack_require__(7);
 
 /***/ }),
 /* 1 */
@@ -69,50 +69,6 @@
 	  this.name = name;
 	  this.calories = calories;
 	}
-
-	// var app = new function() {
-	//   var foodElements = document.getElementById('foods');
-	//   var edibles = [{name: 'orange', calories: 34}, {name: 'French Silk Pie', calories: 340}, {name: 'Banana', calories: 34}, {name: 'Deep Dish Pizza', calories: 890}, {name: 'Spinach Salad with Dressing', calories: 240}, {name: 'Roasted Cauliflower', calories: 80}, {name: 'Chicken Breast', calories: 210}, {name: 'Dark Chocolate', calories: 150}];
-	//
-	//   this.Count = function(data) {
-	//    var el = document.getElementById('counter');
-	//    var name = 'food';
-	//    if (data) {
-	//     if (data > 1) {
-	//      name = 'foods';
-	//     }
-	//     el.innerHTML = data + ' ' + name ;
-	//    } else {
-	//     el.innerHTML = 'No ' + name;
-	//    }
-	//   };
-	//
-	//   this.FetchAll = function() {
-	//    var data = '';
-	//    if (edibles.length > 0) {
-	//     for (var i = 0; i < edibles.length; i++) {
-	//       console.log(i);
-	//      data += '<tr>';
-	//      data += '<td>' + edibles[i].name + '</td>';
-	//      data += '</tr>';
-	//      data += '<tr>';
-	//      data += '<td>' + edibles[i].calories + '</td>';
-	//      data += '</tr>';
-	//      console.log(data);
-	//     }
-	//    }
-	//
-	//    this.Count(edibles.length);
-	//    return foodElements.innerHTML = data;
-	//   };
-	// }
-	//
-	// app.FetchAll();
-
-
-	// Food.prototype.edit = function () {
-	//   //Some cool storage stuff here
-	// };
 
 	module.exports = Food;
 
@@ -10395,6 +10351,17 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.filterFoods = filterFoods;
+	exports.createNewFood = createNewFood;
+	exports.updateFood = updateFood;
+	exports.deleteFood = deleteFood;
+	exports.sortByCaloriesDesc = sortByCaloriesDesc;
+	exports.sortByCaloriesAsc = sortByCaloriesAsc;
+	exports.sortByCaloriesOrig = sortByCaloriesOrig;
+	exports.handleError = handleError;
 	var $ = __webpack_require__(2);
 	var API = "https://rocky-earth-59921.herokuapp.com";
 
@@ -10411,7 +10378,7 @@
 	  });
 	};
 
-	var filterFoods = function filterFoods() {
+	function filterFoods() {
 	  var filter = $('#search-foods').val().toUpperCase();
 	  $('.food-name-cell').each(function () {
 	    if ($(this).text().toUpperCase().includes(filter)) {
@@ -10420,9 +10387,9 @@
 	      $(this).parent().hide();
 	    }
 	  });
-	};
+	}
 
-	var createNewFood = function createNewFood() {
+	function createNewFood() {
 	  var foodName = $(".new_food_form input[name='food_name']").val();
 	  var calorieCount = $(".new_food_form input[name='calorie_count']").val();
 	  return $.ajax({
@@ -10437,7 +10404,7 @@
 	  });
 	};
 
-	var updateFood = function updateFood(event) {
+	function updateFood(event) {
 	  var $parentNode = $(event.currentTarget.parentElement);
 	  var id = $parentNode.data().id;
 	  var foodName = $parentNode.children(".food-name-cell")[0].textContent;
@@ -10450,9 +10417,9 @@
 	  }).done(function (data) {}).fail(function () {
 	    handleError();
 	  });
-	};
+	}
 
-	var deleteFood = function deleteFood(event) {
+	function deleteFood(event) {
 	  var id = event.currentTarget.parentElement.dataset.id;
 	  return $.ajax({
 	    url: API + '/api/v1/foods/' + id,
@@ -10463,9 +10430,9 @@
 	  }).fail(function (error) {
 	    handleError(error);
 	  });
-	};
+	}
 
-	var sortByCaloriesDesc = function sortByCaloriesDesc(event) {
+	function sortByCaloriesDesc(event) {
 	  var columns = event.delegateTarget.children[1].children;
 	  var sortedColumns = Array.prototype.slice.call(columns).sort(function (a, b) {
 	    var ac = Number(a.children[1].outerText);
@@ -10481,9 +10448,9 @@
 	  sortedColumns.forEach(function (column) {
 	    $('#new_food_table').append(column);
 	  });
-	};
+	}
 
-	var sortByCaloriesAsc = function sortByCaloriesAsc(event) {
+	function sortByCaloriesAsc(event) {
 	  var columns = event.delegateTarget.children[1].children;
 	  var sortedColumns = Array.prototype.slice.call(columns).sort(function (a, b) {
 	    var ac = Number(a.children[1].outerText);
@@ -10499,9 +10466,9 @@
 	  sortedColumns.forEach(function (column) {
 	    $('#new_food_table').append(column);
 	  });
-	};
+	}
 
-	var sortByCaloriesOrig = function sortByCaloriesOrig(event) {
+	function sortByCaloriesOrig(event) {
 	  var columns = event.delegateTarget.children[1].children;
 	  var sortedColumns = Array.prototype.slice.call(columns).sort(function (a, b) {
 	    var ac = Number(a.dataset.id);
@@ -10517,42 +10484,12 @@
 	  sortedColumns.forEach(function (column) {
 	    $('#new_food_table').append(column);
 	  });
-	};
+	}
 
-	var handleError = function handleError(error) {
+	function handleError(error) {
 	  console.log(error.statusText);
 	  console.log(error.responseText);
-	};
-
-	$('#search-foods').on('keyup', filterFoods);
-	$('.new_food_form input[type="submit"]').on('click', function (event) {
-	  event.preventDefault();
-	  createNewFood();
-	});
-	$('#new_food_table').on('click', '.food-name-cell, .calorie-cell', function (event) {
-	  $(event.currentTarget).attr('contenteditable', 'true');
-	});
-	$('#new_food_table').on('blur', '.food-name-cell, .calorie-cell', function (event) {
-	  if (event.currentTarget.contentEditable === 'true') {
-	    $(event.currentTarget).attr('contenteditable', 'false');
-	    updateFood(event);
-	  }
-	});
-	$('#new_food_table').on('click', '.delete_row', function (event) {
-	  deleteFood(event);
-	});
-	$('#food-table').on('click', '#calorie-cell', function (event) {
-	  if (event.currentTarget.dataset.sort === "default") {
-	    sortByCaloriesDesc(event);
-	    event.currentTarget.dataset.sort = "desc";
-	  } else if (event.currentTarget.dataset.sort === "desc") {
-	    sortByCaloriesAsc(event);
-	    event.currentTarget.dataset.sort = "asc";
-	  } else {
-	    sortByCaloriesOrig(event);
-	    event.currentTarget.dataset.sort = "default";
-	  }
-	});
+	}
 
 	getAllFoods();
 
@@ -10565,11 +10502,64 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.eventListenerFunction = eventListenerFunction;
+
+	var _food = __webpack_require__(4);
+
+	var $ = __webpack_require__(2);
+	function eventListenerFunction() {
+	  $('#search-foods').on('keyup', _food.filterFoods);
+
+	  $('.new_food_form input[type="submit"]').on('click', function (event) {
+	    event.preventDefault();
+	    (0, _food.createNewFood)();
+	  });
+
+	  $('#new_food_table').on('click', '.food-name-cell, .calorie-cell', function (event) {
+	    $(event.currentTarget).attr('contenteditable', 'true');
+	  });
+
+	  $('#new_food_table').on('blur', '.food-name-cell, .calorie-cell', function (event) {
+	    if (event.currentTarget.contentEditable === 'true') {
+	      $(event.currentTarget).attr('contenteditable', 'false');
+	      (0, _food.updateFood)(event);
+	    }
+	  });
+
+	  $('#new_food_table').on('click', '.delete_row', function (event) {
+	    (0, _food.deleteFood)(event);
+	  });
+
+	  $('#food-table').on('click', '#calorie-cell', function (event) {
+	    if (event.currentTarget.dataset.sort === "default") {
+	      (0, _food.sortByCaloriesDesc)(event);
+	      event.currentTarget.dataset.sort = "desc";
+	    } else if (event.currentTarget.dataset.sort === "desc") {
+	      (0, _food.sortByCaloriesAsc)(event);
+	      event.currentTarget.dataset.sort = "asc";
+	    } else {
+	      (0, _food.sortByCaloriesOrig)(event);
+	      event.currentTarget.dataset.sort = "default";
+	    }
+	  });
+	}
+
+	eventListenerFunction();
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.totalCalories = totalCalories;
 	exports.displayDiary = displayDiary;
 	exports.handleError = handleError;
 
-	var _mealResponses = __webpack_require__(6);
+	var _mealResponses = __webpack_require__(7);
 
 	var $ = __webpack_require__(2);
 	var API = "https://rocky-earth-59921.herokuapp.com";
@@ -10675,7 +10665,7 @@
 	}
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10692,7 +10682,7 @@
 	exports.clearElements = clearElements;
 	exports.clearFoods = clearFoods;
 
-	var _meal = __webpack_require__(5);
+	var _meal = __webpack_require__(6);
 
 	var $ = __webpack_require__(2);
 	var API = "https://rocky-earth-59921.herokuapp.com";
