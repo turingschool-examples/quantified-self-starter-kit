@@ -3,9 +3,62 @@
 <head>
   <meta charset="utf-8">
   <title>Quantified Self - Manage Foods</title>
+
+  <style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
 </head>
 <body>
+  <div class="container">
+    <h1>Manage Foods</h1>
 
-  <script src="main.bundle.js"></script>
+    <form class="new_food_form" name="food-form">
+      Name:<br>
+      <input id="food-name-cell" name="food_name" type="text" placeholder="Please enter a food here">
+      <br>
+      Calories:<br>
+      <input name="calorie_count" type="text" placeholder="Please enter a calorie count">
+      <br><br>
+      <input type="submit" value="Add Food">
+      <br><br><br>
+      <form>
+      Search by Name:<br>
+      <input type="text" id="search-foods"><br>
+      <br><br>
+    </form>
+
+    <table id="food-table">
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th id="calorie-cell" data-sort="default">Calories</th>
+        </tr>
+      </thead>
+      <tbody id="new_food_table">
+      </tbody
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="main.bundle.js"></script>
+  </div>
 </body>
 </html>
