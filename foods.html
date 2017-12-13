@@ -2,10 +2,72 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   <title>Quantified Self - Manage Foods</title>
+  <style>
+    h1 {
+      font-size: 700%;
+      color: white;
+    }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+    }
+    body, html {
+        height: 100%;
+    }
+    .bg {
+        background-image: url("https://cdn-images-1.medium.com/max/2000/1*wfoo4AtOkOWSUq-7rIT53Q.jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+  </style>
 </head>
 <body>
-
-  <script src="main.bundle.js"></script>
+  <div class="bg">
+    <div class="container">
+      <h1>Manage Foods</h1>
+      <div class="row">
+       <div class="col">
+         <div class="jumbotron">
+           <form class="new_food_form" name="food-form">
+             <h2>Add a Food Here</h2>
+             <strong>Name:</strong><br>
+             <input id="food-name-cell" name="food_name" type="text" placeholder="Food Name">
+             <br>
+             <strong>Calories:</strong><br>
+             <input name="calorie_count" type="text" placeholder="Calorie Amount">
+             <br><br>
+             <input type="submit" value="Add Food">
+             <br><br><br>
+             <form>
+            <h2>Search Existing Foods</h2>
+             Search by Name:<br>
+             <input type="text" id="search-foods"><br>
+             <br><br>
+           </form>
+         </div>
+       </div>
+       <div class="col">
+         <table id="food-table" class="table table-striped table-inverse">
+           <thead>
+             <tr>
+               <th>Food</th>
+               <th id="calorie-cell" data-sort="default">Calories</th>
+             </tr>
+           </thead>
+           <tbody id="new_food_table">
+           </tbody
+         </table>
+       </div>
+     </div>
+      <script src="main.bundle.js"></script>
+    </div>
+  </div>
 </body>
 </html>
