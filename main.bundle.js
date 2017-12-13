@@ -10588,7 +10588,6 @@
 	function eventMealListenerFunction() {
 	  $('#foods-table').on('click', '#calorie-cell', function (event) {
 	    if (event.currentTarget.dataset.sort === "default") {
-	      console.log(event);
 	      (0, _mealResponses.sortByCaloriesDesc)(event);
 	      event.currentTarget.dataset.sort = "desc";
 	    } else if (event.currentTarget.dataset.sort === "desc") {
