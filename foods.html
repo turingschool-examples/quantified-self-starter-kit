@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://use.fontawesome.com/9e54aa71a3.js"></script>
   <meta charset="utf-8">
   <title>Quantified Self - Manage Foods</title>
+
 </head>
 <body>
 
+  <h3>Manage Foods</h3>
+  <form id="new_food" name="new_food">
+    <label for="name">Name</label><br>
+    <input type="text" name="name"/><br>
+    <p class="name-error">Please enter a food name</p>
+    <label for="calories">Calories</label><br>
+    <input type="number" name="calories"/><br>
+    <p class="calorie-error">Please enter a calorie amount</p>
+    <button id="add_food">Add Food</button>
+  </form>
+
+
+  <label for="search">Filter by Name</label><br>
+  <input id="search" name="search" type="text" class="foodSearch"/>
+
+  <table class="food-table">
+    <thead class="food-table-head">
+      <tr class"head">
+        <th>Name</th>
+        <th>Calories</th>
+      </tr>
+    </thead>
+    <tbody class="food-table-body">
+    </tbody>
+  </table>
+
+  <div class="food-form">
+  </div>
+  <a href="./index.html"><button type="button" name="link-to-menu">Diary</button></a>
   <script src="main.bundle.js"></script>
 </body>
 </html>
