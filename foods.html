@@ -5,7 +5,30 @@
   <title>Quantified Self - Manage Foods</title>
 </head>
 <body>
+  <form id="new-food-form">
+      <label>Create New Food</label><br>
 
+    <div id="new-food-name">
+      <label for="name">Name</label><br>
+      <input name="name" type="text"><br>
+    </div>
+
+    <div id="new-food-calories">
+      <label for="calories">Calories</label><br>
+      <input name="calories" type="number"><br>
+    </div>
+
+      <input value="submit" type="submit" placeholder="Add Food"<br>
+    </div>
+  </form>
+
+  <table id="foods-table">
+  <tr id="foods-table-headers">
+    <th>Name</th>
+    <th>Calories</th>
+    <th></th>
+  </tr>
+</table>
   <script src="main.bundle.js"></script>
 </body>
 </html>
