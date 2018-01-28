@@ -8,6 +8,39 @@
 <body>
   <div id="meals-tables">
   </div>
+    <div class="foods">
+      <h1 class="foods">Foods</h1>
+      <div class="row">
+        <div class="column">
+          <a href="./foods.html"><button class="button">Create New</button></a>
+        </div>
+      </div>
+      <p class='meal-table-header'>Add Selected To</p>
+      <div class="row btn-group meal-selection" role="group" aria-label="Meal Selection">
+        <div class="column">
+          <button type="button" class="btn btn-outline-info add-to-meal-button button" id="1">Breakfast</button>
+          <button type="button" class="btn btn-outline-info add-to-meal-button button" id="4">Dinner</button>
+        </div>
+        <div class="column">
+          <button type="button" class="btn btn-outline-info add-to-meal-button button" id="3">Lunch</button>
+          <button type="button" class="btn btn-outline-info add-to-meal-button button" id="2">Snack</button>
+        </div>
+      </div>
+
+    <div class="foods" style="padding-bottom:25px;">
+      <p class="food">Search by Name</p>
+      <input id="filterFood" type="text" size="40" name="filter-food">
+    </div>
+
+    <table id="foods-table">
+      <tr id="foods-table-headers">
+        <th></th>
+        <th>Name</th>
+        <th>Calories</th>
+      </tr>
+    </table>
+  </div>
+</div>
   <script src="main.bundle.js"></script>
 </body>
 </html>
