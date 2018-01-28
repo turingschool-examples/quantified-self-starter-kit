@@ -18,5 +18,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.json', '.css']
+  },
+  devServer: {
+    headers: {
+      'Access-Control-Allow-Origin': 'GET,PATCH,POST,DELETE'
+    }
   }
 };
