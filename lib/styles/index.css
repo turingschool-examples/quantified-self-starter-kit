@@ -11,3 +11,5 @@ table tr td {
 .red {
   color: red; }
 
+.disabled {
+  display: none; }
