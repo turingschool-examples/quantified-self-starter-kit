@@ -8,8 +8,30 @@
 <body>
   <div id="meals-tables">
   </div>
+
+  <table id="totals">
+    <caption class="title">Totals</caption>
+    <tr class="darker">
+      <td>Goal Calories</td>
+      <td>2000</td>
+    </tr>
+    <tr class="darker">
+      <td>Calories Consumed</td>
+      <td id="calories-consumed"></td>
+    </tr>
+    <tr class="darker">
+      <td>Remaining Calories</td>
+      <td id="remaining-calories"></td>
+    </tr>
+  </table>
+
+  <h2 class="subtitle">Search by Name</h2>
+  <form id="food-search">
+    <input type="text">
+  </form>
+  
     <div class="foods">
-      <h1 class="foods">Foods</h1>
+      <h1 class="subtitle">Foods</h1>
         <a href="./foods.html"><button class="button">Create New</button></a>
       <p class='meal-table-header'>Add Selected To</p>
       <div class="meal-selection" role="group" aria-label="Meal Selection">
@@ -23,9 +45,9 @@
         </div>
       </div>
 
-    <div class="foods" style="padding-bottom:25px;">
-      <p class="food">Search by Name</p>
-      <input id="filterFood" type="text" size="40" name="filter-food">
+    <div>
+      <p class="search">Search by Name</p>
+      <input id="filterFood" type="text">
     </div>
 
     <table id="foods-table">
