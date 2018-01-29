@@ -25,23 +25,18 @@
     </tr>
   </table>
 
-  <h2 class="subtitle">Search by Name</h2>
-  <form id="food-search">
-    <input type="text">
-  </form>
-  
     <div class="foods">
       <h1 class="subtitle">Foods</h1>
         <a href="./foods.html"><button class="button">Create New</button></a>
       <p class='meal-table-header'>Add Selected To</p>
       <div class="meal-selection" role="group" aria-label="Meal Selection">
         <div class="column">
-          <button type="button" class="add-to-meal-button" id="1">Breakfast</button>
-          <button type="button" class="add-to-meal-button" id="4">Dinner</button>
+          <button type="button" class="add-to-meal-button" data-id=1>Breakfast</button>
+          <button type="button" class="add-to-meal-button" data-id=4>Dinner</button>
         </div>
         <div class="column">
-          <button type="button" class="add-to-meal-button" id="3">Lunch</button>
-          <button type="button" class="add-to-meal-button" id="2">Snack</button>
+          <button type="button" class="add-to-meal-button" data-id=3>Lunch</button>
+          <button type="button" class="add-to-meal-button" data-id=2>Snack</button>
         </div>
       </div>
 
@@ -56,6 +51,7 @@
         <th>Name</th>
         <th>Calories</th>
       </tr>
+      <tr id="foot"></tr>
     </table>
   </div>
 </div>
