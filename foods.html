@@ -3,9 +3,41 @@
 <head>
   <meta charset="utf-8">
   <title>Quantified Self - Manage Foods</title>
+  <link rel="stylesheet" type="text/css" href="./lib/styles/index.css">
 </head>
 <body>
+  <h1>Manage Foods</h1>
 
+  <form id="new-food-form">
+      <label>Create New Food</label><br>
+
+    <div id="new-food-name">
+      <label for="name">Name</label><br>
+      <input name="name" type="text"><br>
+    </div>
+
+    <div id="new-food-calories">
+      <label for="calories">Calories</label><br>
+      <input name="calories" type="number"><br>
+    </div>
+
+      <input value="submit" type="submit" placeholder="Add Food"<br>
+    </div>
+  </form>
+
+  <form id="filter-food-form">
+    <label class="subtitle">Filter by Name</label>
+    <input type="text">
+  </form>
+
+  <table id="foods-table">
+  <tr id="foods-table-headers">
+    <th>Name</th>
+    <th>Calories</th>
+    <th></th>
+  </tr>
+  <tr id="foot"></tr>
+</table>
   <script src="main.bundle.js"></script>
 </body>
 </html>

@@ -1,0 +1,15 @@
+table tr td {
+  border-width: 1px;
+  border-style: solid; }
+
+.darker {
+  background-color: #c4c4c4; }
+
+.green {
+  color: green; }
+
+.red {
+  color: red; }
+
+.disabled {
+  display: none; }
